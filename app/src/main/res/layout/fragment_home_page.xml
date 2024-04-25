@@ -1,14 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePageFragment">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <!--
+    <View
+        android:id="@+id/frame_34164"
+        android:layout_width="329dp"
+        android:layout_height="105dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="244dp"
+        android:background="@drawable/rounded_task_box"
+        android:clipToOutline="true"
+        android:elevation="8dp" />
+        -->
 
-    </RelativeLayout>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/important"
+        android:layout_width="158dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="54dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Important"
+        android:textColor="@color/turboBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/important_task_1_datetime"
+        android:layout_width="127dp"
+        android:layout_height="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="101dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="8/09/2024 - 10:00"
+        android:textColor="#E69A9A9A"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/important_task_1"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="151dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="Develop wireframes and mockups for the website's user interface (UI) and user experience (UX)."
+        android:textColor="#585A66"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/important_task_2_datetime"
+        android:layout_width="127dp"
+        android:layout_height="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="201dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="6/09/2021 - 14:00"
+        android:textColor="#E69A9A9A"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/important_task_2_title"
+        android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="221dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:lineSpacingExtra="1sp"
+        android:text="Project Planning and Research"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:translationY="-0.67sp" />
+
+    <TextView
+        android:id="@+id/import_task_2"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="252dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="Conduct market research to understand the target audience, competitors, and industry trends."
+        android:textColor="#585A66"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/Upcoming"
+        android:layout_width="158dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="399dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Upcoming"
+        android:textColor="@color/turboBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/upcoming_task_2"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="597dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="A discussion on business development strategies with the team. The app has seamlessly ..."
+        android:textColor="#585A66"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/upcoming_task_2_datetime"
+        android:layout_width="127dp"
+        android:layout_height="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="549dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="10/09.2024 - 13:00"
+        android:textColor="#E69A9A9A"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/upcoming_task_1"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="501dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="A sales presentation with a potential client. The meeting is set to take place in London..."
+        android:textColor="#585A66"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/upcoming_task_1_title"
+        android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="475dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:lineSpacingExtra="1sp"
+        android:text="Sales Presentation"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:translationY="-0.67sp" />
+
+    <TextView
+        android:id="@+id/upcoming_task_1_datetime"
+        android:layout_width="127dp"
+        android:layout_height="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="450dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="6/09/2021 - 14:00"
+        android:textColor="#E69A9A9A"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/upcoming_task_2_title"
+        android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="575dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:lineSpacingExtra="1sp"
+        android:text="Search and Filter Functionality"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:translationY="-0.67sp" />
+
+    <TextView
+        android:id="@+id/important_task_1_title"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="121dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:lineSpacingExtra="1sp"
+        android:text="UI/UX Design"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:translationY="-0.67sp" />
+
+
+    <TextView
+        android:id="@+id/important_task_3_title"
+        android:layout_width="295dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="323dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:lineSpacingExtra="1sp"
+        android:text="Customer Support Integration"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:translationY="-0.67sp" />
+
+    <TextView
+        android:id="@+id/important_task_3_datetime"
+        android:layout_width="127dp"
+        android:layout_height="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="300dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="10/09.2024 - 13:00"
+        android:textColor="#E69A9A9A"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+    <TextView
+        android:id="@+id/import_task_3"
+        android:layout_width="317dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="350dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="top"
+        android:lineSpacingExtra="2sp"
+        android:text="Collaborative session with the international team in Tokyo. The application has factored in the time ..."
+        android:textColor="#585A66"
+        android:textSize="12sp"
+        android:translationY="-1.2sp" />
+
+</RelativeLayout>

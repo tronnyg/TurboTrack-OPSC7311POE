@@ -108,12 +108,13 @@
 
     <TextView
         android:id="@+id/text_create_account"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="37dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="94dp"
         android:layout_marginTop="595dp"
+        android:clickable="true"
         android:fontFamily="@font/poppins"
         android:gravity="center_horizontal|top"
         android:text="Already have an account"
