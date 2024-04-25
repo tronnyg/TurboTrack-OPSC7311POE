@@ -6,7 +6,6 @@ plugins {
 android {
     namespace = "com.yugen.opsc7311_poe"
     compileSdk = 34
-    viewBinding.enable = true
 
     defaultConfig {
         applicationId = "com.yugen.opsc7311_poe"
@@ -39,6 +38,8 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
+        dataBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"

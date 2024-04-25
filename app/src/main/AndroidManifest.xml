@@ -13,7 +13,7 @@
         android:theme="@style/Theme.OPSC7311_POE"
         tools:targetApi="31">
         <activity
-            android:name=".HomePageActivity"
+            android:name=".HomePageFragment"
             android:exported="false" />
         <activity
             android:name=".WelcomePageActivity"
@@ -23,7 +23,8 @@
             android:exported="false" />
         <activity
             android:name=".LoginPageActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Theme.OPSC7311_POE"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,7 +1,7 @@
 package com.yugen.opsc7311_poe
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class WelcomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
