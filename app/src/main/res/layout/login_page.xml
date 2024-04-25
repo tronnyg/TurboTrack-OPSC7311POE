@@ -7,7 +7,7 @@
     tools:context=".LoginPageActivity">
 
     <TextView
-        android:id="@+id/login_here"
+        android:id="@+id/login_here_text"
         android:layout_width="160dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         tools:layout_marginRight="120dp"/>
 
     <TextView
-        android:id="@+id/welcome_bac"
+        android:id="@+id/welcome_back_text"
         android:layout_width="225dp"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
@@ -38,7 +38,7 @@
         android:textSize="18sp"/>
 
     <EditText
-        android:id="@+id/input"
+        android:id="@+id/input_email"
         android:layout_width="357dp"
         android:layout_height="64dp"
         android:layout_alignParentLeft="true"
@@ -49,6 +49,67 @@
         android:textSize="16sp"
         android:fontFamily="@font/poppins"
         android:paddingLeft="20dp"
-        android:background="@drawable/input_box"/>
+        android:background="@drawable/input_box_vector"/>
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="357dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="332dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:text="Password"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/text_forgot_password"
+        android:layout_width="167dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="215dp"
+        android:layout_marginTop="414dp"
+        android:layout_marginRight="27dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Forgot your password?"
+        android:textColor="@color/turboBlue"
+        android:textSize="14dp" />
+
+    <Button
+        android:id="@+id/button_signin"
+        android:layout_width="357dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="452dp"
+        android:background="@drawable/turbo_button_vector"
+        android:elevation="20dp"
+        android:fontFamily="@font/poppins"
+        android:text="Sign in"
+        android:textAllCaps="false"
+        android:textColor="@color/turboWhite"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_create_account"
+        android:layout_width="145dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="535dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Create new account"
+        android:textColor="@color/turboGrey"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
