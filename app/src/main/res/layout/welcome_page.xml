@@ -6,10 +6,29 @@
 
     <TextView
         android:id="@+id/lbl_TurboTrack"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="110dp"
         android:fontFamily="@font/poppins"
         android:gravity="left"
-        android:text="Turbo Track"
-        android:textColor="@color/turboBlue"/>
+        android:text="TurboTrack"
+        android:textColor="@color/turboBlue"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/lbl_Accelerate"
+        android:layout_width="307dp"
+        android:layout_height="67dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="162dp"
+        android:gravity="top"
+        android:text="Accelerate Your Productivity on the Fast Track to Success"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"/>
 </RelativeLayout>
