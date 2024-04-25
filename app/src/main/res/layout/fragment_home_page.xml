@@ -5,21 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".HomePageFragment">
 
-    <!--
-    <View
-        android:id="@+id/frame_34164"
-        android:layout_width="329dp"
-        android:layout_height="105dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="244dp"
-        android:background="@drawable/rounded_task_box"
-        android:clipToOutline="true"
-        android:elevation="8dp" />
-        -->
-
-
     <TextView
         android:id="@+id/important"
         android:layout_width="158dp"
