@@ -10,5 +10,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
         android:gravity="left"
-        android:text="Turbo Track" />
+        android:text="Turbo Track"
+        android:textColor="@color/turboBlue"/>
 </RelativeLayout>
