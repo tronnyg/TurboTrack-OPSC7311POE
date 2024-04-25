@@ -8,17 +8,16 @@
 
     <TextView
         android:id="@+id/lbl_TurboTrack"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins"
-        android:gravity="left"
         android:text="TurboTrack"
         android:textColor="@color/turboBlue"
         android:textSize="45dp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lbl_Accelerate"
@@ -28,18 +27,50 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="162dp"
-        android:gravity="top"
         android:text="Accelerate Your Productivity on the Fast Track to Success"
         android:textColor="@color/black"
         android:textSize="22sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/img_workfromhome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleX="0.7"
         android:scaleY="0.7"
         app:srcCompat="@drawable/img_work__from_home" />
+
+    <Button
+        android:id="@+id/btn_Login"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/turbo_button_vector"
+        android:fontFamily="@font/poppins"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_Register"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="240dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/turbo_button_vector"
+        android:backgroundTint="@color/turboBeige"
+        android:fontFamily="@font/poppins"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
 
 </RelativeLayout>
