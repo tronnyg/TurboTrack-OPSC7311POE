@@ -1,9 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateAccountActivity">
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/create_here"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="115dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Create Account"
+        android:textColor="@color/turboBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/welcome_bac"
+        android:layout_width="225dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="81dp"
+        android:layout_marginTop="179dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Welcome back you've been missed!"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="166dp" />
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="357dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="259dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:text="Email"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="247dp" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="357dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:text="Password"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="322dp" />
+
+    <EditText
+        android:id="@+id/input_confirmpassword"
+        android:layout_width="357dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="420dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:text="Confirm Password"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="404dp" />
+
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="357dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="509dp"
+        android:background="@drawable/turbo_button_vector"
+        android:elevation="20dp"
+        android:fontFamily="@font/poppins"
+        android:text="Sign up"
+        android:textAllCaps="false"
+        android:textColor="@color/turboWhite"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="513dp" />
+
+    <TextView
+        android:id="@+id/text_create_account"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="94dp"
+        android:layout_marginTop="595dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Already have an account"
+        android:textColor="@color/turboGrey"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+</RelativeLayout>
