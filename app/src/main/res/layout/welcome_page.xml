@@ -8,7 +8,7 @@
         android:id="@+id/lbl_TurboTrack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="110dp"
         android:fontFamily="@font/poppins"
         android:gravity="left"
