@@ -12,6 +12,9 @@ class MainActivity : ComponentActivity() {
         binding.btnLogin.setOnClickListener{
             openIntent(this,LoginPageActivity::class.java)
         }
+        binding.btnRegister.setOnClickListener{
+            openIntent(this,CreateAccountActivity::class.java)
+        }
     }
 }
 
