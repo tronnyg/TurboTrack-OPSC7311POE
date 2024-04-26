@@ -11,5 +11,8 @@ class LoginPageActivity : AppCompatActivity() {
         binding.textCreateAccount.setOnClickListener{
             openIntent(this,CreateAccountActivity::class.java)
         }
+        binding.buttonSignin.setOnClickListener{
+            openIntent(this, MainActivity::class.java)
+        }
     }
 }
