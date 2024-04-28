@@ -7,11 +7,13 @@ class User {
     lateinit var password: String
     lateinit var userId: String
 
-    constructor(username: String, password: String, userId: String, email: String)
+    constructor(username: String, password: String, userId: String, email: String) : this()
     {
         this.username = username
         this.password = password
         this.userId = userId
         this.email = email
     }
+
+    constructor()
 }
