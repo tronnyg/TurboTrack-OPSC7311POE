@@ -1,4 +1,4 @@
-package com.yugen.opsc7311_poe
+package com.yugen.opsc7311_poe.Helpers
 
 import android.app.Activity
 import android.content.Intent
