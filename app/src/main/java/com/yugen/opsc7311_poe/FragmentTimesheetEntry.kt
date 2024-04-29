@@ -1,5 +1,6 @@
 package com.yugen.opsc7311_poe
 
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,6 +41,7 @@ class FragmentTimesheetEntry : Fragment() {
 
         val btnStartTime = view.findViewById<Button>(R.id.btn_start_time)
         val btnEndTime = view.findViewById<Button>(R.id.btn_end_time)
+        val btnSelectDate = view.findViewById<Button>(R.id.btn_select_date)
 
         btnStartTime.setOnClickListener {
             showTimePicker(btnStartTime)
@@ -47,6 +49,10 @@ class FragmentTimesheetEntry : Fragment() {
 
         btnEndTime.setOnClickListener {
             showTimePicker(btnEndTime)
+        }
+
+        btnSelectDate.setOnClickListener {
+            showDatePicker(btnSelectDate)
         }
 
         return view
@@ -68,6 +74,25 @@ class FragmentTimesheetEntry : Fragment() {
         )
 
         timePickerDialog.show()
+    }
+
+    private fun showDatePicker(button: Button) {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                button.text = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
     }
 
     companion object {
