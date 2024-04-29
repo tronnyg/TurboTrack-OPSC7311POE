@@ -1,10 +1,13 @@
 package com.yugen.opsc7311_poe
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +36,38 @@ class FragmentTimesheetEntry : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
+        val view = inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
+
+        val btnStartTime = view.findViewById<Button>(R.id.btn_start_time)
+        val btnEndTime = view.findViewById<Button>(R.id.btn_end_time)
+
+        btnStartTime.setOnClickListener {
+            showTimePicker(btnStartTime)
+        }
+
+        btnEndTime.setOnClickListener {
+            showTimePicker(btnEndTime)
+        }
+
+        return view
+    }
+
+    private fun showTimePicker(button: Button) {
+        val cal = Calendar.getInstance()
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        val minute = cal.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            requireContext(),
+            { _, selectedHour, selectedMinute ->
+                button.text = String.format("%02d:%02d", selectedHour, selectedMinute)
+            },
+            hour,
+            minute,
+            true
+        )
+
+        timePickerDialog.show()
     }
 
     companion object {

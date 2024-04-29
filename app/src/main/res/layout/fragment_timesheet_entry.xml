@@ -156,34 +156,32 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/input_start_time"
-        android:layout_width="154dp"
+    <Button
+        android:id="@+id/btn_start_time"
+        android:layout_width="250dp"
         android:layout_height="41dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="502dp"
-        android:background="@drawable/input_box_vector"
+        android:background="@drawable/add_button_vector"
         android:fontFamily="@font/poppins"
-        android:paddingLeft="20dp"
-        android:hint="Start Time"
-        android:inputType="time"
+        android:text="Select Start Time"
+        android:textAllCaps="false"
         android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/input_end_time"
-        android:layout_width="152dp"
+    <Button
+        android:id="@+id/btn_end_time"
+        android:layout_width="250dp"
         android:layout_height="42dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="551dp"
-        android:background="@drawable/input_box_vector"
+        android:background="@drawable/add_button_vector"
         android:fontFamily="@font/poppins"
-        android:paddingLeft="20dp"
-        android:hint="End Time"
-        android:inputType="time"
+        android:text="Select End Time"
+        android:textAllCaps="false"
         android:textSize="16sp" />
 
     <Button
