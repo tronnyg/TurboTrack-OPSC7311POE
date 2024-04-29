@@ -1,19 +1,27 @@
 package com.yugen.opsc7311_poe
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.yugen.opsc7311_poe.databinding.LoginPageBinding
+import com.yugen.opsc7311_poe.helpers.CAMERA_REQUEST_CODE
+import com.yugen.opsc7311_poe.helpers.GALLERY_REQUEST_CODE
 import com.yugen.opsc7311_poe.helpers.openPopupMenu
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+// Declare a variable to store the selected image URI
+var selectedImageUri: Uri? = null
 /**
  * A simple [Fragment] subclass.
  * Use the [FragmentTimesheetEntry.newInstance] factory method to

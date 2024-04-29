@@ -1,5 +1,6 @@
 package com.yugen.opsc7311_poe.helpers
 
+import android.app.Activity
 import android.content.Intent
 import android.provider.MediaStore
 import android.view.MenuItem
@@ -39,5 +40,5 @@ fun openPopupMenu(activity: FragmentActivity) {
 }
 
 // Constants for request codes
-private const val GALLERY_REQUEST_CODE = 100
-private const val CAMERA_REQUEST_CODE = 101
+const val GALLERY_REQUEST_CODE = 100
+const val CAMERA_REQUEST_CODE = 101
