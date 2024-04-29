@@ -34,7 +34,7 @@ class FragmentTimesheetEntry : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.timesheet_entry_page, container, false)
+        return inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
     }
 
     companion object {

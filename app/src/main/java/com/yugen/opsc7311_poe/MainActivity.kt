@@ -17,8 +17,6 @@ class MainActivity : AppCompatActivity() {
 
             when(it.itemId){
                 R.id.home -> replaceFragment(HomePageFragment())
-                R.id.sessions -> replaceFragment(FragmentTimesheet())
-                R.id.timer  -> replaceFragment(FragmentTimesheetEntry())
                 else ->{}
             }
             true
