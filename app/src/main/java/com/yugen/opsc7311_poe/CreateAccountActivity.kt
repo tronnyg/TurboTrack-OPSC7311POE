@@ -3,6 +3,7 @@ package com.yugen.opsc7311_poe
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.yugen.opsc7311_poe.databinding.CreateAccountPageBinding
+import com.yugen.opsc7311_poe.helpers.openIntent
 
 class CreateAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -10,6 +11,7 @@ class CreateAccountActivity : AppCompatActivity() {
         val binding = CreateAccountPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.textCreateAccount.setOnClickListener{
-            openIntent(this,LoginPageActivity::class.java)}
+            openIntent(this,LoginPageActivity::class.java)
+        }
     }
 }

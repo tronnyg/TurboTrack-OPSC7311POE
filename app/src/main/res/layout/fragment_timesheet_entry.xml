@@ -1,230 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        android:background="@color/cardview_light_background">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="304dp"
-            android:layout_height="38dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="75dp"
-            android:fontFamily="@font/poppins"
-            android:lineHeight="38sp"
-            android:textStyle="bold"
-
-            android:text="Timesheet Entry Details"
-            android:textColor="#1E1E1E"
-            android:textSize="25sp" />
-
-
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/timesheet_entry_card"
-            android:layout_width="374dp"
-            android:layout_height="170dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="126dp"
-            android:background="@drawable/timesheet_entry"/>
-
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/thumbnail"
-            android:layout_width="374dp"
-            android:layout_height="66dp"
-            android:clipToOutline="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="126dp"
-            android:background="@drawable/timesheet_entry_thumbnail"
-            />
-
-
-
-        <TextView
-            android:id="@+id/timesheet_entry_card_title"
-            android:layout_width="342dp"
-            android:layout_height="24dp"
-            android:text="Timesheet entry name"
-            android:lineHeight="24sp"
-            android:fontFamily="@font/poppins"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="196dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:lineSpacingExtra="4sp"
-            android:translationY="-1.96sp"
-            android:gravity="top"
-            />
-
-        <!-- Auto layout, variables, and unit scale are not yet supported -->
-        <TextView
-            android:id="@+id/category_type"
-            android:layout_width="342dp"
-            android:layout_height="20dp"
-            android:text="Category TechTrendz"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="226dp"
-            android:textSize="14sp"
-            android:textColor="#717188"
-            android:fontFamily="@font/poppins"
-            android:lineHeight="20sp"
-            android:lineSpacingExtra="2sp"
-            android:translationY="-0.89sp"
-            android:gravity="top"
-            />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="342dp"
-            android:layout_height="20dp"
-            android:text="Description..."
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="256dp"
-            android:textSize="14sp"
-            android:textColor="#000000"
-            android:fontFamily="@font/poppins"
-            android:lineHeight="20sp"
-            android:lineSpacingExtra="2sp"
-            android:translationY="-0.89sp"
-            android:gravity="top"
-            />
-
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/timesheet_entry_attachments"
-            android:layout_width="374dp"
-            android:layout_height="170dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="306dp"
-            android:background="@drawable/timesheet_entry"/>
-
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/attachment_thumbnail"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/attachment_thumbnail"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="380dp"
-            />
-
-        <TextView
-            android:id="@+id/Attachment_title"
-            android:layout_width="342dp"
-            android:layout_height="20dp"
-            android:text="Attachments"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="335dp"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:fontFamily="@font/poppins"
-            android:lineHeight="24sp"
-            android:lineSpacingExtra="2sp"
-            android:translationY="-0.89sp"
-            android:gravity="top"
-            />
-
-        <TextView
-            android:id="@+id/attachment_name"
-            android:layout_width="250dp"
-            android:layout_height="24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="385dp"
-            android:textSize="16sp"
-            android:textColor="#CACBD4"
-            android:text="Retail-app.fig"
-            android:lineSpacingExtra="3sp"
-            android:translationY="-1.58sp"
-            android:gravity="top"
-            />
-
-        <TextView
-            android:id="@+id/attachment_date"
-            android:layout_width="250dp"
-            android:layout_height="24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="410dp"
-            android:textSize="16sp"
-            android:textColor="#717188"
-            android:text="Added May 8 at 11:30 PM"
-            android:lineSpacingExtra="3sp"
-            android:translationY="-1.58sp"
-            android:gravity="top"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/comment_icon"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="435dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/delete_icon"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="165dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="435dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_icon"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="205dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="435dp"/>
-
-
-    </FrameLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/lbl_add_timesheet"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:menu="@menu/bottom_navbar"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Add Timesheet Entry"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/lbl_task_name"
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="101dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Task Name"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/input_task_name"
+        android:layout_width="309dp"
+        android:layout_height="46dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:hint="Task name"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/lbl_description"
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="193dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Description"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/input_description"
+        android:layout_width="309dp"
+        android:layout_height="46dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="226dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:hint="Task Description"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/lbl_category"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="288dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Category"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/input_category"
+        android:layout_width="309dp"
+        android:layout_height="46dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="318dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:hint="Select Category"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/lbl_date"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="376dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Date"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/input_date"
+        android:layout_width="309dp"
+        android:layout_height="46dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="407dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:hint="Select Date"
+        android:textSize="16sp"
+        android:inputType="date"/>
+
+    <TextView
+        android:id="@+id/lbl_time"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="468dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Time"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/input_start_time"
+        android:layout_width="154dp"
+        android:layout_height="41dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="502dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:hint="Start Time"
+        android:inputType="time"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/input_end_time"
+        android:layout_width="152dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="551dp"
+        android:background="@drawable/input_box_vector"
+        android:fontFamily="@font/poppins"
+        android:paddingLeft="20dp"
+        android:hint="End Time"
+        android:inputType="time"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button_add_time_entry"
+        android:layout_width="308dp"
+        android:layout_height="36dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="665dp"
+        android:background="@drawable/turbo_button_vector"
+        android:elevation="20dp"
+        android:fontFamily="@font/poppins"
+        android:text="Add Time Entry"
+        android:textAllCaps="false"
+        android:textColor="@color/turboWhite"
+        android:textSize="17dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_add_attachment"
+        android:layout_width="307dp"
+        android:layout_height="34dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="612dp"
+        android:background="@drawable/add_button_vector"
+        android:elevation="20dp"
+        android:fontFamily="@font/poppins"
+        android:text="+ Add Attachment"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:textStyle="bold" />
+</RelativeLayout>
