@@ -7,10 +7,11 @@
 
     <TextView
         android:id="@+id/login_here_text"
-        android:layout_width="160dp"
-        android:layout_height="45dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal|top"
         android:text="Login Here"
         android:textSize="30sp"

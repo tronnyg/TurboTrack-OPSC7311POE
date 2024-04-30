@@ -1,25 +1,45 @@
 package com.yugen.opsc7311_poe
 
+
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Bundle
+import android.provider.MediaStore
+
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import com.yugen.opsc7311_poe.helpers.CAMERA_REQUEST_CODE
+import com.yugen.opsc7311_poe.helpers.GALLERY_REQUEST_CODE
+import com.yugen.opsc7311_poe.helpers.openPopupMenu
+
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import java.util.Calendar
 import com.yugen.opsc7311_poe.objects.Session
 
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+// Declare a variable to store the selected image URI
+var selectedImageUri: Uri? = null
 lateinit var taskName: String
 lateinit var taskDesc: String
 lateinit var category: String
@@ -48,6 +68,20 @@ class FragmentTimesheetEntry : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
+
+        // Find the button by its ID
+        val addAttachmentButton = view.findViewById<Button>(R.id.button_add_attachment)
+
+        // Set OnClickListener for the button
+        addAttachmentButton.setOnClickListener {
+            openPopupMenu(requireActivity())
+        }
+
+        return view
+
         val view = inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
 
         val btnStartTime = view.findViewById<Button>(R.id.btn_start_time)
@@ -111,6 +145,7 @@ class FragmentTimesheetEntry : Fragment() {
         )
 
         timePickerDialog.show()
+
     }
 
     private fun showDatePicker(button: Button) {
