@@ -2,19 +2,30 @@ package com.yugen.opsc7311_poe
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import java.util.Calendar
+import com.yugen.opsc7311_poe.objects.Session
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+lateinit var taskName: String
+lateinit var taskDesc: String
+lateinit var category: String
+lateinit var date: String
+lateinit var startTime: String
+lateinit var endTime: String
 /**
  * A simple [Fragment] subclass.
  * Use the [FragmentTimesheetEntry.newInstance] factory method to
@@ -42,6 +53,7 @@ class FragmentTimesheetEntry : Fragment() {
         val btnStartTime = view.findViewById<Button>(R.id.btn_start_time)
         val btnEndTime = view.findViewById<Button>(R.id.btn_end_time)
         val btnSelectDate = view.findViewById<Button>(R.id.btn_select_date)
+        val btnAddTimeEntry = view.findViewById<Button>(R.id.button_add_time_entry)
 
         btnStartTime.setOnClickListener {
             showTimePicker(btnStartTime)
@@ -53,6 +65,31 @@ class FragmentTimesheetEntry : Fragment() {
 
         btnSelectDate.setOnClickListener {
             showDatePicker(btnSelectDate)
+        }
+
+        btnAddTimeEntry.setOnClickListener {
+
+            taskName = (view.findViewById<EditText>(R.id.input_task_name).text.toString())
+            taskDesc = (view.findViewById<EditText>(R.id.input_description).text.toString())
+            category = (view.findViewById<EditText>(R.id.input_category).text.toString())
+            date = (view.findViewById<Button>(R.id.btn_select_date).text.toString())
+            startTime =(view.findViewById<Button>(R.id.btn_start_time).text.toString())
+            endTime = (view.findViewById<Button>(R.id.btn_end_time).text.toString())
+
+            val imageView = view.findViewById<ImageView>(R.id.attached_image)
+            val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+
+            val tempSession = Session(taskName, taskDesc, category, date, startTime, endTime,
+                bitmap)
+
+            Log.d("taskName",taskName.toString())
+            Log.d("taskDesc",taskDesc.toString())
+            Log.d("category", category.toString())
+            Log.d("date", date.toString())
+            Log.d("startTime", startTime.toString())
+            Log.d("endTime", endTime.toString())
+            Log.d("SessionName",tempSession.toString())
+
         }
 
         return view
@@ -94,6 +131,8 @@ class FragmentTimesheetEntry : Fragment() {
 
         datePickerDialog.show()
     }
+
+
 
     companion object {
         /**

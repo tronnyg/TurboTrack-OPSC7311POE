@@ -1,27 +1,28 @@
 package com.yugen.opsc7311_poe.objects
 
+import android.graphics.Bitmap
+
 
 public class Session {
     lateinit var taskName: String
     lateinit var taskDesc: String
     lateinit var category: String
     lateinit var date: String
-    var startTimeHour: Int = 0
-    var startTimeMinute: Int = 0
-    var endTimeHour: Int = 0
-    var endTimeMinute: Int = 0
+    lateinit var startTime: String
+    lateinit var endTime: String
+    lateinit var attachedImage: Bitmap
 
 
-    constructor(tName: String, tDesc: String, tCat: String, tDate: String, sTimeHour: Int, sTimeMinute: Int, eTimeHour: Int, eTimeMinute: Int) : this()
+
+    constructor(tName: String, tDesc: String, tCat: String, tDate: String, sTime: String, eTime: String, aImage: Bitmap) : this()
     {
         this.taskName = tName
         this.taskDesc = tDesc
         this.category = tCat
         this.date = tDate
-        this.startTimeHour = sTimeHour
-        this.startTimeMinute = sTimeMinute
-        this.endTimeHour = eTimeHour
-        this.endTimeMinute = eTimeMinute
+        this.startTime = sTime
+        this.endTime = eTime
+        this.attachedImage = aImage
     }
     constructor()
 }
