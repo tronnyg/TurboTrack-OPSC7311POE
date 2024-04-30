@@ -50,7 +50,7 @@
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:paddingLeft="20dp"
-        android:text="Email"
+        android:hint="Email"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="247dp" />
@@ -66,8 +66,9 @@
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:paddingLeft="20dp"
-        android:text="Password"
+        android:hint="Password"
         android:textSize="16sp"
+        android:inputType="textPassword"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="322dp" />
 
@@ -82,8 +83,9 @@
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:paddingLeft="20dp"
-        android:text="Confirm Password"
+        android:hint="Confirm Password"
         android:textSize="16sp"
+        android:inputType="textPassword"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="404dp" />
 
