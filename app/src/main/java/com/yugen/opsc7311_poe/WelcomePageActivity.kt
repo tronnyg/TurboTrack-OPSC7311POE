@@ -2,10 +2,10 @@ package com.yugen.opsc7311_poe
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.yugen.opsc7311_poe.Helpers.UserHelper
-import com.yugen.opsc7311_poe.Helpers.openIntent
-import com.yugen.opsc7311_poe.databinding.WelcomePageBinding
+import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.openIntent
+import com.yugen.opsc7311_poe.databinding.WelcomePageBinding
+
 
 class WelcomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

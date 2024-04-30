@@ -1,4 +1,4 @@
-package com.yugen.opsc7311_poe.Helpers
+package com.yugen.opsc7311_poe.helpers
 
 import com.yugen.opsc7311_poe.objects.User
 

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.CreateAccountPageBinding
-import com.yugen.opsc7311_poe.helpers.openIntent
 
 class CreateAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
