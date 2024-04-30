@@ -7,6 +7,8 @@ import com.yugen.opsc7311_poe.Helpers.UserHelper
 import com.yugen.opsc7311_poe.Helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.LoginPageBinding
 import com.yugen.opsc7311_poe.objects.User
+import com.yugen.opsc7311_poe.helpers.openIntent
+
 
 class LoginPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
