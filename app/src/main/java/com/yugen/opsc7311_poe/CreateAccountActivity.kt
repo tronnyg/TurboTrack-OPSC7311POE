@@ -3,8 +3,8 @@ package com.yugen.opsc7311_poe
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.yugen.opsc7311_poe.Helpers.UserHelper
-import com.yugen.opsc7311_poe.Helpers.openIntent
+import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.CreateAccountPageBinding
 import com.yugen.opsc7311_poe.helpers.openIntent
 
