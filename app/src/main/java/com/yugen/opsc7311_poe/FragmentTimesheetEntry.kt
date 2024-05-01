@@ -10,18 +10,13 @@ import android.provider.MediaStore
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.os.Bundle
 import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-
-import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import com.yugen.opsc7311_poe.helpers.CAMERA_REQUEST_CODE
 import com.yugen.opsc7311_poe.helpers.GALLERY_REQUEST_CODE
 import com.yugen.opsc7311_poe.helpers.openPopupMenu
@@ -80,9 +75,6 @@ class FragmentTimesheetEntry : Fragment() {
             openPopupMenu(requireActivity())
         }
 
-        return view
-
-        val view = inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
 
         val btnStartTime = view.findViewById<Button>(R.id.btn_start_time)
         val btnEndTime = view.findViewById<Button>(R.id.btn_end_time)
@@ -122,7 +114,7 @@ class FragmentTimesheetEntry : Fragment() {
             Log.d("date", date.toString())
             Log.d("startTime", startTime.toString())
             Log.d("endTime", endTime.toString())
-            Log.d("SessionName",tempSession.toString())
+            Log.d("SessionName",tempSession.taskName)
 
         }
 
