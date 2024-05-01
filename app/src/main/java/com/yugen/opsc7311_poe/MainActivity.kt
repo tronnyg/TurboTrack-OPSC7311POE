@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity() {
 
             when(it.itemId){
                 R.id.home -> replaceFragment(HomePageFragment())
+                R.id.calendar -> replaceFragment(FragmentCalendar())
                 R.id.sessions -> replaceFragment(FragmentTimesheet())
-                R.id.timer -> replaceFragment(FragmentTimesheetEntry())
-                R.id.timer  -> replaceFragment(FragmentTimesheetEntry())
-                R.id.timer -> replaceFragment(FragmentTimesheetEntry())
+                R.id.timer -> replaceFragment(FragmentTimer())
+                R.id.reports -> replaceFragment(FragmentReports())
                 else ->{}
             }
             true
