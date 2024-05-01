@@ -16,6 +16,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import com.yugen.opsc7311_poe.helpers.CAMERA_REQUEST_CODE
 import com.yugen.opsc7311_poe.helpers.GALLERY_REQUEST_CODE
@@ -24,6 +26,7 @@ import com.yugen.opsc7311_poe.helpers.openPopupMenu
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import java.util.Calendar
 import com.yugen.opsc7311_poe.objects.Session
 
@@ -66,6 +69,13 @@ class FragmentTimesheetEntry : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
+        val categories = arrayOf("Category 1", "Category 2", "Category 3", "Category 4")
+        try {
+            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
+            view.findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1).setAdapter(arrayAdapter)
+        } catch (e: Exception) {
+            Log.e("ArrayAdapter", "Error setting up ArrayAdapter: ${e.message}")
+        }
 
         // Find the button by its ID
         val addAttachmentButton = view.findViewById<Button>(R.id.button_add_attachment)
@@ -74,7 +84,6 @@ class FragmentTimesheetEntry : Fragment() {
         addAttachmentButton.setOnClickListener {
             openPopupMenu(requireActivity())
         }
-
 
         val btnStartTime = view.findViewById<Button>(R.id.btn_start_time)
         val btnEndTime = view.findViewById<Button>(R.id.btn_end_time)
