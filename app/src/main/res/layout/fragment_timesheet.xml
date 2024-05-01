@@ -85,6 +85,8 @@
             android:layout_height="600dp"
             android:layout_marginTop="240dp"
             android:dividerHeight="8dp"
+            android:scrollbars="none"
+            android:divider="#00FFFFFF"
             tools:listitem="@layout/list_item"/>
     </FrameLayout>
 
