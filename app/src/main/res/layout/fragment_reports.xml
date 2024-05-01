@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FragmentReports">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        android:background="@color/cardview_light_background">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="38sp"
+            android:text="Categories"
+            android:textColor="#007FFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_Plus"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="340dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="38sp"
+            android:text="+"
+            android:textColor="@color/turboGrey"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_Start_Date"
+            android:layout_width="140dp"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="125dp"
+            android:hint="Start Date"
+            android:background="@drawable/add_button_vector"/>
+
+        <Button
+            android:id="@+id/btn_End_Date"
+            android:layout_width="140dp"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="125dp"
+            android:hint="End Date"
+            android:background="@drawable/add_button_vector"/>
+
+        <Button
+            android:id="@+id/btn_filter_by_date"
+            android:layout_width="300dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="178dp"
+            android:textColor="@color/turboBeige"
+            android:textAllCaps="false"
+            android:text="Filter By Date"
+            android:background="@drawable/turbo_button_vector"/>
+
+        <ListView
+            android:layout_width="246dp"
+            android:layout_height="282dp" />
+    </FrameLayout>
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:menu="@menu/bottom_navbar"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

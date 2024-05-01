@@ -106,7 +106,7 @@ class FragmentTimesheetEntry : Fragment() {
 
             taskName = (view.findViewById<EditText>(R.id.input_task_name).text.toString())
             taskDesc = (view.findViewById<EditText>(R.id.input_description).text.toString())
-            category = (view.findViewById<EditText>(R.id.input_category).text.toString())
+            category = (view.findViewById<EditText>(R.id.autoCompleteTextView1).text.toString())
             date = (view.findViewById<Button>(R.id.btn_select_date).text.toString())
             startTime =(view.findViewById<Button>(R.id.btn_start_time).text.toString())
             endTime = (view.findViewById<Button>(R.id.btn_end_time).text.toString())
