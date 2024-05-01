@@ -27,6 +27,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.yugen.opsc7311_poe.helpers.UserHelper
 import java.util.Calendar
 import com.yugen.opsc7311_poe.objects.Session
 
@@ -116,15 +117,18 @@ class FragmentTimesheetEntry : Fragment() {
 
             val tempSession = Session(taskName, taskDesc, category, date, startTime, endTime,
                 bitmap)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
+            UserHelper.loggedInUser?.addSession(tempSession)
 
-            Log.d("taskName",taskName.toString())
-            Log.d("taskDesc",taskDesc.toString())
-            Log.d("category", category.toString())
-            Log.d("date", date.toString())
-            Log.d("startTime", startTime.toString())
-            Log.d("endTime", endTime.toString())
-            Log.d("SessionName",tempSession.taskName)
-
+            val sessionFromList = UserHelper.loggedInUser?.sessionList?.get(0)
         }
 
         return view

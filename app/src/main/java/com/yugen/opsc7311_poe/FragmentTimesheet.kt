@@ -2,14 +2,19 @@ package com.yugen.opsc7311_poe
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import java.util.Calendar
 import androidx.fragment.app.FragmentActivity
+import com.yugen.opsc7311_poe.helpers.SessionAdapter
+import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.objects.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,6 +50,10 @@ class FragmentTimesheet : Fragment() {
         val btnEndDate = view.findViewById<Button>(R.id.btn_End_Date)
         val btnAddEntry = view.findViewById<TextView>(R.id.txt_Plus)
         val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_by_date)
+        val listView = view.findViewById<ListView>(R.id.timesheet_list)
+        val adapter = UserHelper.loggedInUser?.let { SessionAdapter(requireContext(), it.sessionList  ) }
+        listView.adapter = adapter
+
 
         btnStartDate.setOnClickListener{
             showDatePicker(btnStartDate)
