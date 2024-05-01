@@ -17,7 +17,7 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="304dp"
+            android:layout_width="wrap_content"
             android:layout_height="38dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -25,337 +25,61 @@
             android:layout_marginTop="75dp"
             android:fontFamily="@font/poppins"
             android:lineHeight="38sp"
-            android:textStyle="bold"
             android:text="Timesheet"
             android:textColor="#007FFF"
             android:textSize="30sp"
-            />
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_Plus"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="340dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="38sp"
+            android:text="+"
+            android:textColor="@color/turboGrey"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
 
-        <Spinner
-            android:id="@+id/category_spinner1"
-            android:layout_width="105dp"
+
+
+        <Button
+            android:id="@+id/btn_Start_Date"
+            android:layout_width="140dp"
             android:layout_height="38dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="55dp"
-            android:layout_marginTop="125dp" />
+            android:layout_marginTop="125dp"
+            android:hint="Start Date"
+            android:background="@drawable/add_button_vector"/>
 
-        <Spinner
-            android:id="@+id/category_spinner2"
-            android:layout_width="105dp"
+        <Button
+            android:id="@+id/btn_End_Date"
+            android:layout_width="140dp"
             android:layout_height="38dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="165dp"
-            android:layout_marginTop="125dp" />
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="125dp"
+            android:hint="End Date"
+            android:background="@drawable/add_button_vector"/>
 
-
-
-        <View
-            android:id="@+id/rectangle_timespent"
-            android:layout_width="357dp"
-            android:layout_height="95dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="25dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="200dp"
-            android:background="@drawable/rectangle_timespent"
-            />
-
-        <TextView
-            android:id="@+id/today_s_act"
-            android:layout_width="63dp"
-            android:layout_height="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="75dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="210dp"
-            android:text="Today's Activity"
-            android:fontFamily="@font/poppins"
-            android:textSize="8.15sp"
-            android:gravity="top"
-            android:textColor= "#384D6C"
-            />
-
-        <TextView
-            android:id="@+id/week_s_act"
-            android:layout_width="63dp"
-            android:layout_height="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="175dp"
-            android:layout_marginTop="210dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:text="Week's Activity"
-            android:textColor="#384D6C"
-            android:textSize="8.15sp" />
-
-        <TextView
-            android:id="@+id/month_s_act"
-            android:layout_width="63dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="275dp"
-            android:layout_marginTop="210dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:text="Month's Activity"
-            android:textColor="#384D6C"
-            android:textSize="8.15sp" />
-
-
-        <TextView
-            android:id="@+id/today_act"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="240dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineHeight="18sp"
-            android:text="80 h 22 m"
-            android:textColor="#384D6C" />
-
-        <TextView
-            android:id="@+id/week_act"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="175dp"
-            android:layout_marginTop="240dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineHeight="18sp"
-            android:text="100 h 22 m"
-            android:textColor="#384D6C" />
-
-        <TextView
-            android:id="@+id/month_act"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="275dp"
-            android:layout_marginTop="240dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineHeight="18sp"
-            android:text="500 h 22 m"
-            android:textColor="#384D6C" />
-
-
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/frame_1"
-            android:layout_width="341dp"
-            android:layout_height="105dp"
-            android:clipToOutline="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="33dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="340dp"
-            android:background="@drawable/timesheet_frame"
-            android:elevation="8dp"
-            />
-
-
-
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/frame_2"
-            android:layout_width="341dp"
-            android:layout_height="105dp"
-            android:clipToOutline="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="33dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="452.5dp"
-            android:background="@drawable/timesheet_frame"
-            android:elevation="8dp"
-            />
-
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/frame_3"
-            android:layout_width="341dp"
-            android:layout_height="105dp"
-            android:clipToOutline="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="33dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="565dp"
-            android:background="@drawable/timesheet_frame"
-            android:elevation="8dp"
-            />
-
-        <TextView
-            android:id="@+id/entry1_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="38dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="375dp"
-            android:text="Testing and Assurance"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:lineHeight="19sp"
-            android:lineSpacingExtra="1sp"
-            android:translationY="-0.67sp"
-            android:gravity="top"
-            />
-
-
-
-        <TextView
-            android:id="@+id/entry1_datetime"
-            android:layout_width="127dp"
-            android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="355dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineSpacingExtra="2sp"
-            android:text="10/09.2024 - 13:00"
-            android:textColor="#E69A9A9A"
-            android:textSize="12sp"
-            android:translationY="-1.2sp" />
-
-        <TextView
-            android:id="@+id/entry1_desc"
-            android:layout_width="317dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="400dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineSpacingExtra="2sp"
-            android:text="Collaborative session with the international team in Tokyo. The application has factored in the time ..."
-            android:textColor="#585A66"
-            android:textSize="12sp"
-            android:translationY="-1.2sp" />
-
-        <TextView
-            android:id="@+id/entry2_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="38dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="485dp"
-            android:text="Testing and Assurance"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:lineHeight="19sp"
-            android:lineSpacingExtra="1sp"
-            android:translationY="-0.67sp"
-            android:gravity="top"
-            />
-
-
-
-        <TextView
-            android:id="@+id/entry2_datetime"
-            android:layout_width="127dp"
-            android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="465dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineSpacingExtra="2sp"
-            android:text="10/09.2024 - 13:00"
-            android:textColor="#E69A9A9A"
-            android:textSize="12sp"
-            android:translationY="-1.2sp" />
-
-        <TextView
-            android:id="@+id/entry2_desc"
-            android:layout_width="317dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="510dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineSpacingExtra="2sp"
-            android:text="Collaborative session with the international team in Tokyo. The application has factored in the time ..."
-            android:textColor="#585A66"
-            android:textSize="12sp"
-            android:translationY="-1.2sp" />
-
-
-        <TextView
-            android:id="@+id/entry3_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="38dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="595dp"
-            android:text="Testing and Assurance"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:lineHeight="19sp"
-            android:lineSpacingExtra="1sp"
-            android:translationY="-0.67sp"
-            android:gravity="top"
-            />
-
-
-
-        <TextView
-            android:id="@+id/entry3_datetime"
-            android:layout_width="127dp"
-            android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="575dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineSpacingExtra="2sp"
-            android:text="10/09.2024 - 13:00"
-            android:textColor="#E69A9A9A"
-            android:textSize="12sp"
-            android:translationY="-1.2sp" />
-
-        <TextView
-            android:id="@+id/entry3_desc"
-            android:layout_width="317dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="620dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="top"
-            android:lineSpacingExtra="2sp"
-            android:text="Collaborative session with the international team in Tokyo. The application has factored in the time ..."
-            android:textColor="#585A66"
-            android:textSize="12sp"
-            android:translationY="-1.2sp" />
-
-
-
+        <Button
+            android:id="@+id/btn_filter_by_date"
+            android:layout_width="300dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="178dp"
+            android:textColor="@color/turboBeige"
+            android:textAllCaps="false"
+            android:text="Filter By Date"
+            android:background="@drawable/turbo_button_vector"/>
     </FrameLayout>
 
 
@@ -370,4 +94,3 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:menu="@menu/bottom_navbar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

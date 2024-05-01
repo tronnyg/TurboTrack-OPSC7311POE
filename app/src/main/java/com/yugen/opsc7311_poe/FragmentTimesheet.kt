@@ -1,10 +1,15 @@
 package com.yugen.opsc7311_poe
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import java.util.Calendar
+import androidx.fragment.app.FragmentActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +39,58 @@ class FragmentTimesheet : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
+        val view = inflater.inflate(R.layout.fragment_timesheet, container, false)
+
+        val btnStartDate = view.findViewById<Button>(R.id.btn_Start_Date)
+        val btnEndDate = view.findViewById<Button>(R.id.btn_End_Date)
+        val btnAddEntry = view.findViewById<TextView>(R.id.txt_Plus)
+        val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_by_date)
+
+        btnStartDate.setOnClickListener{
+            showDatePicker(btnStartDate)
+        }
+        btnEndDate.setOnClickListener{
+            showDatePicker(btnEndDate)
+        }
+
+        btnAddEntry.setOnClickListener{
+           replaceFragment(FragmentTimesheetEntry())
+        }
+
+        btnFilterByDate.setOnClickListener{
+
+        }
+
+
+        return view
+    }
+
+    private fun showDatePicker(button: Button) {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                button.text = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
+    }
+
+    private fun replaceFragment(fragment: Fragment)
+    {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     companion object {
