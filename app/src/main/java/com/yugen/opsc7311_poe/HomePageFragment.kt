@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.content.Context
 import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.helpers.SessionsListHelper
+import com.yugen.opsc7311_poe.objects.Session
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +31,6 @@ class HomePageFragment : Fragment() {
     private lateinit var btnMinHours: EditText
     private lateinit var btnMaxHours: EditText
     private lateinit var txtHoursWorked: TextView
-    private lateinit var sharedPreferences: SharedPreferences
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -59,24 +60,19 @@ class HomePageFragment : Fragment() {
         btnMaxHours = view.findViewById(R.id.btn_max_hours)
         txtHoursWorked = view.findViewById(R.id.txt_hours_worked)
 
-        val message = "Min Hours: ${UserHelper.minHours}, Max Hours: ${UserHelper.maxHours}"
-        txtHoursWorked.text = message
-
-        //btnMinHours.setText(savedMinHours.toString())
-        //btnMaxHours.setText(savedMaxHours.toString())
+        //val message = "Min Hours: ${UserHelper.minHours}, Max Hours: ${UserHelper.maxHours}"
+        //txtHoursWorked.text = message
 
         // Set OnClickListener for the button
         btnUpdateHours.setOnClickListener {
             // Handle button click event here
             UserHelper.minHours = btnMinHours.text.toString().toInt()
             UserHelper.maxHours = btnMaxHours.text.toString().toInt()
-
-
-            val message = "Min Hours: ${UserHelper.minHours}, Max Hours: ${UserHelper.maxHours}"
-            txtHoursWorked.text = message
-            // Show the TextView
-            //txtHoursWorked.visibility = View.VISIBLE
         }
+        // Display hours worked today
+        SessionsListHelper.updateHoursWorkedToday(UserHelper.loggedInUser!!.sessionList)
+        val message = "Hours worked today: ${UserHelper.hoursWorkedToday}"
+        txtHoursWorked.text = message
     }
 
     companion object {
