@@ -118,15 +118,6 @@ class FragmentTimesheetEntry : Fragment() {
             val tempSession = Session(taskName, taskDesc, category, date, startTime, endTime,
                 bitmap)
             UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
-            UserHelper.loggedInUser?.addSession(tempSession)
 
             val sessionFromList = UserHelper.loggedInUser?.sessionList?.get(0)
         }

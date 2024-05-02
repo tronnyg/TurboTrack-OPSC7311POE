@@ -33,7 +33,6 @@
 
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/timesheet_entry_card"
             android:layout_width="374dp"
             android:layout_height="170dp"
@@ -41,25 +40,27 @@
             android:layout_marginLeft="18dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="126dp"
-            android:background="@drawable/timesheet_entry"/>
+            android:background="@drawable/timesheet_entry">
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/thumbnail"
-            android:layout_width="374dp"
-            android:layout_height="66dp"
-            android:clipToOutline="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="126dp"
-            android:background="@drawable/timesheet_entry_thumbnail"
-            />
-
+            <TextView
+                android:id="@+id/entry_date_time"
+                android:layout_width="250dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="34dp"
+                android:gravity="top"
+                android:lineSpacingExtra="3sp"
+                android:text="Added May 8 at 11:30 PM"
+                android:textColor="#717188"
+                android:textSize="16sp"
+                android:translationY="-1.58sp" />
+        </RelativeLayout>
 
 
         <TextView
-            android:id="@+id/timesheet_entry_card_title"
+            android:id="@+id/timesheet_entry_title"
             android:layout_width="342dp"
             android:layout_height="24dp"
             android:text="Timesheet entry name"
@@ -115,27 +116,40 @@
             />
 
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/timesheet_entry_attachments"
             android:layout_width="374dp"
-            android:layout_height="170dp"
+            android:layout_height="191dp"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="18dp"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="306dp"
-            android:background="@drawable/timesheet_entry"/>
+            android:background="@drawable/timesheet_entry">
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/attachment_thumbnail"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/attachment_thumbnail"
+            <TextView
+                android:id="@+id/attachment_name"
+                android:layout_width="250dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="113dp"
+                android:layout_marginTop="110dp"
+                android:gravity="top"
+                android:lineSpacingExtra="3sp"
+                android:text="Image1"
+                android:textColor="#CACBD4"
+                android:textSize="16sp"
+                android:translationY="-1.58sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/attachment"
+            android:layout_width="90dp"
+            android:layout_height="93dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="30dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="380dp"
-            />
+            android:background="@drawable/attachment_thumbnail" />
 
         <TextView
             android:id="@+id/Attachment_title"
@@ -154,65 +168,6 @@
             android:translationY="-0.89sp"
             android:gravity="top"
             />
-
-        <TextView
-            android:id="@+id/attachment_name"
-            android:layout_width="250dp"
-            android:layout_height="24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="385dp"
-            android:textSize="16sp"
-            android:textColor="#CACBD4"
-            android:text="Retail-app.fig"
-            android:lineSpacingExtra="3sp"
-            android:translationY="-1.58sp"
-            android:gravity="top"
-            />
-
-        <TextView
-            android:id="@+id/attachment_date"
-            android:layout_width="250dp"
-            android:layout_height="24dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="410dp"
-            android:textSize="16sp"
-            android:textColor="#717188"
-            android:text="Added May 8 at 11:30 PM"
-            android:lineSpacingExtra="3sp"
-            android:translationY="-1.58sp"
-            android:gravity="top"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/comment_icon"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="125dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="435dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/delete_icon"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="165dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="435dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_icon"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="205dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="435dp"/>
 
 
     </FrameLayout>

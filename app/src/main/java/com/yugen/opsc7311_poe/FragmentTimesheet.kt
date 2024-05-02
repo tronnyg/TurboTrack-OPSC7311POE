@@ -14,6 +14,7 @@ import java.util.Calendar
 import androidx.fragment.app.FragmentActivity
 import com.yugen.opsc7311_poe.helpers.SessionAdapter
 import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.objects.Session
 import com.yugen.opsc7311_poe.objects.User
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,6 +55,16 @@ class FragmentTimesheet : Fragment() {
         val adapter = UserHelper.loggedInUser?.let { SessionAdapter(requireContext(), it.sessionList  ) }
         listView.adapter = adapter
 
+        listView.setOnItemClickListener { parent, view, position, id ->
+            // Get the selected session
+            val selectedSession = adapter?.getItem(position)
+
+            // Display details of the selected session (e.g., in a new fragment or dialog)
+            // For example:
+            val detailsFragment = FragmentTimesheetDetails.newInstance()
+            detailsFragment.setSession(selectedSession)
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, detailsFragment)?.commit()
+        }
 
         btnStartDate.setOnClickListener{
             showDatePicker(btnStartDate)
