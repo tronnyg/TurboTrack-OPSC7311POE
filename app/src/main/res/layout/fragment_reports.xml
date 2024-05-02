@@ -79,11 +79,15 @@
             android:background="@drawable/turbo_button_vector"/>
 
         <ListView
-            android:layout_width="246dp"
-            android:layout_height="282dp" />
+            android:id="@+id/categories_list"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_marginTop="240dp"
+            android:dividerHeight="8dp"
+            android:scrollbars="none"
+            android:divider="#00FFFFFF"
+            tools:listitem="@layout/category_item"/>
     </FrameLayout>
-
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
