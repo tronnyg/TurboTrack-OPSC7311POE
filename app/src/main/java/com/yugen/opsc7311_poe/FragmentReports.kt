@@ -1,10 +1,12 @@
 package com.yugen.opsc7311_poe
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ListView
 import com.yugen.opsc7311_poe.helpers.CategoryAdapter
 import com.yugen.opsc7311_poe.helpers.SessionAdapter
@@ -12,6 +14,7 @@ import com.yugen.opsc7311_poe.helpers.SessionsListHelper
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.UserHelper.loggedInUser
 import com.yugen.opsc7311_poe.objects.Category
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,9 +46,46 @@ class FragmentReports : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_reports, container, false)
         val listView = view.findViewById<ListView>(R.id.categories_list)
+        val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_reports)
+        val btnStartDate = view.findViewById<Button>(R.id.categories__start_date)
+        val btnEndDate = view.findViewById<Button>(R.id.categories_end_date)
+
         val adapter = UserHelper.loggedInUser?.let { CategoryAdapter(requireContext(), it.categoryList  ) }
         listView.adapter = adapter
+
+        btnStartDate.setOnClickListener{
+            showDatePicker(btnStartDate)
+        }
+        btnEndDate.setOnClickListener{
+            showDatePicker(btnEndDate)
+        }
+
+        btnFilterByDate.setOnClickListener {
+            val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.loggedInUser!!.sessionList,btnStartDate.text.toString(),btnEndDate.text.toString())
+            val tempCategories = UserHelper.loggedInUser!!.categoryList
+            tempCategories.forEach { category ->  category.updateHours(SessionsListHelper.calculateTotalHoursInCategory(filteredSessionList, category.categoryName) ) }
+            listView.adapter = CategoryAdapter(requireContext(), tempCategories)
+        }
         return view
+    }
+
+    private fun showDatePicker(button: Button) {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                button.text = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+            },
+            year,
+            month,
+            day
+        )
+
+        datePickerDialog.show()
     }
 
     companion object {

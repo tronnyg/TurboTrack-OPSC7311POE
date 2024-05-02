@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import java.util.Calendar
 import androidx.fragment.app.FragmentActivity
 import com.yugen.opsc7311_poe.helpers.SessionAdapter
+import com.yugen.opsc7311_poe.helpers.SessionsListHelper
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.objects.Session
 import com.yugen.opsc7311_poe.objects.User
@@ -79,6 +80,8 @@ class FragmentTimesheet : Fragment() {
 
         btnFilterByDate.setOnClickListener{
 
+            val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.loggedInUser!!.sessionList,btnStartDate.text.toString(),btnEndDate.text.toString())
+            listView.adapter = SessionAdapter(requireContext(), filteredSessionList )
         }
 
 
