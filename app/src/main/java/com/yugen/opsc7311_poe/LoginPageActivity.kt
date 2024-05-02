@@ -8,6 +8,7 @@ import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.LoginPageBinding
 import com.yugen.opsc7311_poe.objects.Category
 import com.yugen.opsc7311_poe.objects.User
+import android.widget.TextView
 
 
 
@@ -25,11 +26,24 @@ class LoginPageActivity : AppCompatActivity() {
 
             UserHelper.loggedInUser = User("user1","admin","USR001","admin@gmail.com")
 
-            if (inputEmail.isEmpty() || inputPassword.isEmpty()) {
-                // Display a toast message indicating invalid email/password
-                Toast.makeText(this, "Invalid Email or Password, Please Try Again.", Toast.LENGTH_SHORT).show()
+            if (inputEmail.isEmpty()){
+                binding.inputEmail.setBackgroundResource(R.drawable.error_input_box_vector);
             }
-            else if(inputEmail == UserHelper.loggedInUser!!.email && inputPassword == UserHelper.loggedInUser!!.password)
+            else
+            {
+                binding.inputEmail.setBackgroundResource(R.drawable.input_box_vector)
+            }
+
+            if (inputPassword.isEmpty()){
+                binding.inputPassword.setBackgroundResource(R.drawable.error_input_box_vector);
+            }
+            else
+            {
+                binding.inputPassword.setBackgroundResource(R.drawable.input_box_vector)
+            }
+
+
+            if(inputEmail == UserHelper.loggedInUser!!.email && inputPassword == UserHelper.loggedInUser!!.password)
             {
                 UserHelper.loggedInUser!!.categoryList.add(Category("Personal",0))
                 UserHelper.loggedInUser!!.categoryList.add(Category("Individual",0))
@@ -40,8 +54,13 @@ class LoginPageActivity : AppCompatActivity() {
             else
             {
                 Toast.makeText(this, "Invalid Email or Password, Please Try Again.", Toast.LENGTH_SHORT).show()
+                if (inputEmail != UserHelper.loggedInUser!!.email){
+                    binding.inputEmail.setBackgroundResource(R.drawable.error_input_box_vector);
+                }
+                if (inputPassword != UserHelper.loggedInUser!!.password){
+                    binding.inputPassword.setBackgroundResource(R.drawable.error_input_box_vector);
+                }
             }
-
         }
     }
 }
