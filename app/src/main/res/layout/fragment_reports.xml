@@ -53,8 +53,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="55dp"
             android:layout_marginTop="125dp"
-            android:hint="Start Date"
-            android:background="@drawable/add_button_vector"/>
+            android:background="@drawable/add_button_vector"
+            android:hint="Start Date" />
 
         <Button
             android:id="@+id/btn_End_Date"
@@ -73,20 +73,20 @@
             android:layout_height="38dp"
             android:layout_gravity="center|top"
             android:layout_marginTop="178dp"
-            android:textColor="@color/turboBeige"
-            android:textAllCaps="false"
+            android:background="@drawable/turbo_button_vector"
             android:text="Filter By Date"
-            android:background="@drawable/turbo_button_vector"/>
+            android:textAllCaps="false"
+            android:textColor="@color/turboBeige" />
 
         <ListView
             android:id="@+id/categories_list"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="523dp"
             android:layout_marginTop="240dp"
+            android:divider="#00FFFFFF"
             android:dividerHeight="8dp"
             android:scrollbars="none"
-            android:divider="#00FFFFFF"
-            tools:listitem="@layout/category_item"/>
+            tools:listitem="@layout/category_item" />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

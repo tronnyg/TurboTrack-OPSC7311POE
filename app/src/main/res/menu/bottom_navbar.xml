@@ -10,7 +10,7 @@
     <item android:title="Timer"
         android:id="@+id/timer"
         android:icon="@drawable/timer_icon" />
-    <item android:title="Sessions"
+    <item android:title="Timesheet"
         android:id="@+id/sessions"
         android:icon="@drawable/list_icon"/>
     <item android:title="Reports"
