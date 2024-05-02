@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.content.Context
+import android.widget.RelativeLayout
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.SessionsListHelper
 import com.yugen.opsc7311_poe.objects.Session
@@ -31,6 +32,7 @@ class HomePageFragment : Fragment() {
     private lateinit var btnMinHours: EditText
     private lateinit var btnMaxHours: EditText
     private lateinit var txtHoursWorked: TextView
+    private lateinit var box: RelativeLayout
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -59,7 +61,15 @@ class HomePageFragment : Fragment() {
         btnMinHours = view.findViewById(R.id.btn_min_hours)
         btnMaxHours = view.findViewById(R.id.btn_max_hours)
         txtHoursWorked = view.findViewById(R.id.txt_hours_worked)
+        box = view.findViewById(R.id.box)
 
+        if (UserHelper.hoursWorkedToday < UserHelper.minHours)
+        {
+            box.setBackgroundResource(R.drawable.error_timesheet_frame)
+        }
+        else if (UserHelper.hoursWorkedToday > UserHelper.minHours){
+            box.setBackgroundResource(R.drawable.green_timesheet_frame)
+        }
         //val message = "Min Hours: ${UserHelper.minHours}, Max Hours: ${UserHelper.maxHours}"
         //txtHoursWorked.text = message
 
