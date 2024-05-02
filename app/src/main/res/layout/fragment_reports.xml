@@ -46,7 +46,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn_Start_Date"
+            android:id="@+id/categories__start_date"
             android:layout_width="140dp"
             android:layout_height="38dp"
             android:layout_alignParentLeft="true"
@@ -57,7 +57,7 @@
             android:hint="Start Date" />
 
         <Button
-            android:id="@+id/btn_End_Date"
+            android:id="@+id/categories_end_date"
             android:layout_width="140dp"
             android:layout_height="38dp"
             android:layout_alignParentLeft="true"
@@ -68,7 +68,7 @@
             android:background="@drawable/add_button_vector"/>
 
         <Button
-            android:id="@+id/btn_filter_by_date"
+            android:id="@+id/btn_filter_reports"
             android:layout_width="300dp"
             android:layout_height="38dp"
             android:layout_gravity="center|top"
