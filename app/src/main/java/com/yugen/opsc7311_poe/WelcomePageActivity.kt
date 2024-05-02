@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.WelcomePageBinding
+import com.yugen.opsc7311_poe.objects.Category
 
 
 class WelcomePageActivity : AppCompatActivity() {

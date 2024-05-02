@@ -27,7 +27,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.yugen.opsc7311_poe.helpers.SessionsListHelper
 import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.helpers.UserHelper.loggedInUser
 import java.util.Calendar
 import com.yugen.opsc7311_poe.objects.Session
 
@@ -70,9 +72,13 @@ class FragmentTimesheetEntry : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
-        val categories = arrayOf("Category 1", "Category 2", "Category 3", "Category 4")
+        val categories = UserHelper.loggedInUser?.categoryList ?: mutableListOf()
+
+        // Convert the list of Category objects to a list of category names
+        val categoryNames = categories.map { it.categoryName }
+
         try {
-            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
+            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categoryNames)
             view.findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1).setAdapter(arrayAdapter)
         } catch (e: Exception) {
             Log.e("ArrayAdapter", "Error setting up ArrayAdapter: ${e.message}")
@@ -120,6 +126,8 @@ class FragmentTimesheetEntry : Fragment() {
             UserHelper.loggedInUser?.addSession(tempSession)
 
             val sessionFromList = UserHelper.loggedInUser?.sessionList?.get(0)
+
+            UserHelper.loggedInUser!!.categoryList.forEach { category ->  category.updateHours(SessionsListHelper.calculateTotalHoursInCategory(UserHelper.loggedInUser!!.sessionList, category.categoryName) ) }
         }
 
         return view

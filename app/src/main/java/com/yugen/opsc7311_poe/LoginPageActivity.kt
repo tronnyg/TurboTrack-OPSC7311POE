@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.LoginPageBinding
+import com.yugen.opsc7311_poe.objects.Category
 import com.yugen.opsc7311_poe.objects.User
 
 
@@ -30,6 +31,10 @@ class LoginPageActivity : AppCompatActivity() {
             }
             else if(inputEmail == UserHelper.loggedInUser!!.email && inputPassword == UserHelper.loggedInUser!!.password)
             {
+                UserHelper.loggedInUser!!.categoryList.add(Category("Personal",0))
+                UserHelper.loggedInUser!!.categoryList.add(Category("Individual",0))
+                UserHelper.loggedInUser!!.categoryList.add(Category("Group Work",0))
+                UserHelper.loggedInUser!!.categoryList.add(Category("Other",0))
                 openIntent(this, MainActivity::class.java)
             }
             else

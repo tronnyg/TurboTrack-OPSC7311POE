@@ -5,6 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
+import com.yugen.opsc7311_poe.helpers.CategoryAdapter
+import com.yugen.opsc7311_poe.helpers.SessionAdapter
+import com.yugen.opsc7311_poe.helpers.SessionsListHelper
+import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.helpers.UserHelper.loggedInUser
+import com.yugen.opsc7311_poe.objects.Category
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +41,11 @@ class FragmentReports : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reports, container, false)
+        val view = inflater.inflate(R.layout.fragment_reports, container, false)
+        val listView = view.findViewById<ListView>(R.id.categories_list)
+        val adapter = UserHelper.loggedInUser?.let { CategoryAdapter(requireContext(), it.categoryList  ) }
+        listView.adapter = adapter
+        return view
     }
 
     companion object {

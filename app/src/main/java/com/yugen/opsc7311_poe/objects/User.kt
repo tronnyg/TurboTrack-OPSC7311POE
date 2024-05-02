@@ -7,6 +7,7 @@ class User {
     lateinit var password: String
     lateinit var userId: String
     var sessionList: MutableList<Session> = mutableListOf()
+    var categoryList: MutableList<Category> = mutableListOf()
 
     constructor(username: String, password: String, userId: String, email: String) : this()
     {
@@ -19,6 +20,11 @@ class User {
     fun addSession(session: Session)
     {
         sessionList.add(session)
+    }
+
+    fun addCategory(newCategory: Category)
+    {
+        categoryList.add(newCategory)
     }
 
     constructor()
