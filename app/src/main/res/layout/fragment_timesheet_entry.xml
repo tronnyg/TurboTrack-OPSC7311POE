@@ -132,6 +132,7 @@
         android:background="@drawable/add_button_vector"
         android:fontFamily="@font/poppins"
         android:hint="Select Date"
+        android:textColor="@color/black"
         android:textAllCaps="false"
         android:textSize="16sp" />
 
