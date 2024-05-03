@@ -44,7 +44,7 @@
     <Button
         android:id="@+id/btn_Login"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="false"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="30dp"
@@ -60,16 +60,15 @@
     <Button
         android:id="@+id/btn_Register"
         android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="240dp"
         android:layout_marginBottom="108dp"
-        android:background="@drawable/turbo_button_vector"
-        android:backgroundTint="@color/turboBeige"
+        android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:text="Register"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/turboWhite"
         android:textSize="20dp"
         android:textStyle="bold" />
 
