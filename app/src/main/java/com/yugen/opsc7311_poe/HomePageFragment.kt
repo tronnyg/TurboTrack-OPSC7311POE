@@ -14,6 +14,7 @@ import android.widget.RelativeLayout
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.SessionsListHelper
 import com.yugen.opsc7311_poe.objects.Session
+import android.widget.Toast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +34,7 @@ class HomePageFragment : Fragment() {
     private lateinit var btnMaxHours: EditText
     private lateinit var txtHoursWorked: TextView
     private lateinit var box: RelativeLayout
+    private var hoursUpdated: Boolean = false
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -70,15 +72,28 @@ class HomePageFragment : Fragment() {
         else if (UserHelper.hoursWorkedToday > UserHelper.minHours){
             box.setBackgroundResource(R.drawable.green_timesheet_frame)
         }
-        //val message = "Min Hours: ${UserHelper.minHours}, Max Hours: ${UserHelper.maxHours}"
-        //txtHoursWorked.text = message
+
+        btnMinHours.hint = "Min Hours: " + UserHelper.minHours.toString()
+        btnMaxHours.hint = "Max Hours: " + UserHelper.maxHours.toString()
 
         // Set OnClickListener for the button
         btnUpdateHours.setOnClickListener {
             // Handle button click event here
             UserHelper.minHours = btnMinHours.text.toString().toInt()
             UserHelper.maxHours = btnMaxHours.text.toString().toInt()
+            hoursUpdated = true
+
+            // Display toast message
+            val toastMessage = "Hours have been updated for today."
+            Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
+
+            btnMinHours.hint = "Min Hours: " + UserHelper.minHours.toString()
+            btnMaxHours.hint = "Max Hours: " + UserHelper.maxHours.toString()
+
+            btnMinHours.text.clear()
+            btnMaxHours.text.clear()
         }
+
         // Display hours worked today
         SessionsListHelper.updateHoursWorkedToday(UserHelper.loggedInUser!!.sessionList)
         val message = "Hours worked today: ${UserHelper.hoursWorkedToday}"
