@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        android:background="@color/cardview_light_background">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="304dp"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="38sp"
+            android:textStyle="bold"
+
+            android:text="Timesheet Entry Details"
+            android:textColor="#1E1E1E"
+            android:textSize="25sp" />
+
+
+        <RelativeLayout
+            android:id="@+id/timesheet_entry_card"
+            android:layout_width="374dp"
+            android:layout_height="170dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="126dp"
+            android:background="@drawable/timesheet_entry">
+
+            <TextView
+                android:id="@+id/entry_date_time"
+                android:layout_width="250dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="34dp"
+                android:gravity="top"
+                android:lineSpacingExtra="3sp"
+                android:text="Added May 8 at 11:30 PM"
+                android:textColor="#717188"
+                android:textSize="16sp"
+                android:translationY="-1.58sp" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/timesheet_entry_title"
+            android:layout_width="342dp"
+            android:layout_height="24dp"
+            android:text="Timesheet entry name"
+            android:lineHeight="24sp"
+            android:fontFamily="@font/poppins"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="196dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:lineSpacingExtra="4sp"
+            android:translationY="-1.96sp"
+            android:gravity="top"
+            />
+
+        <!-- Auto layout, variables, and unit scale are not yet supported -->
+        <TextView
+            android:id="@+id/category_type"
+            android:layout_width="342dp"
+            android:layout_height="20dp"
+            android:text="Category TechTrendz"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="226dp"
+            android:textSize="14sp"
+            android:textColor="#717188"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="20sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.89sp"
+            android:gravity="top"
+            />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="342dp"
+            android:layout_height="20dp"
+            android:text="Description..."
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="256dp"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="20sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.89sp"
+            android:gravity="top"
+            />
+
+        <RelativeLayout
+            android:id="@+id/timesheet_entry_attachments"
+            android:layout_width="374dp"
+            android:layout_height="191dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="306dp"
+            android:background="@drawable/timesheet_entry">
+
+            <TextView
+                android:id="@+id/attachment_name"
+                android:layout_width="250dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="113dp"
+                android:layout_marginTop="110dp"
+                android:gravity="top"
+                android:lineSpacingExtra="3sp"
+                android:text="Image1"
+                android:textColor="#CACBD4"
+                android:textSize="16sp"
+                android:translationY="-1.58sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/attachment"
+            android:layout_width="90dp"
+            android:layout_height="93dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="380dp"
+            android:background="@drawable/attachment_thumbnail" />
+
+        <TextView
+            android:id="@+id/Attachment_title"
+            android:layout_width="342dp"
+            android:layout_height="20dp"
+            android:text="Attachments"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="335dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="24sp"
+            android:lineSpacingExtra="2sp"
+            android:translationY="-0.89sp"
+            android:gravity="top"
+            />
+
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:menu="@menu/bottom_navbar"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

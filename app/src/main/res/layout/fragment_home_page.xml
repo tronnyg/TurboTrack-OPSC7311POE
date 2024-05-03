@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        android:background="@color/cardview_light_background">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins"
+            android:lineHeight="38sp"
+            android:text="Daily Goals"
+            android:textColor="#007FFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/btn_min_hours"
+            android:layout_width="140dp"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="8dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="125dp"
+            android:textColor="@color/black"
+            android:background="@drawable/input_box_vector"
+            android:hint="Min Hours"/>
+
+        <EditText
+            android:id="@+id/btn_max_hours"
+            android:layout_width="140dp"
+            android:layout_height="38dp"
+            android:paddingLeft="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/black"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="125dp"
+            android:hint="Max Hours"
+            android:background="@drawable/input_box_vector"/>
+
+        <Button
+            android:id="@+id/btn_update_hours"
+            android:layout_width="300dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="178dp"
+            android:background="@drawable/turbo_button_vector"
+            android:text="Update Hours"
+            android:textAllCaps="false"
+            android:textColor="@color/turboBeige" />
+
+        <RelativeLayout
+            android:id="@+id/box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="250dp"
+            android:background="@drawable/timesheet_frame">
+
+            <TextView
+                android:id="@+id/txt_hours_worked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Hours worked today:"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNavigationView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    app:menu="@menu/bottom_navbar"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

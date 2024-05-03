@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.OPSC7311_POE" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.TurboTrack" parent="Theme.Material3.DayNight.NoActionBar" >
+        <item name="colorPrimary">@color/turboBlue</item>
+    </style>
 </resources>

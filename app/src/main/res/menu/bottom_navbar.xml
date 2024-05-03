@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:id="@+id/home"
+        android:icon="@drawable/home_icon"/>
+    <item android:title="Calendar"
+        android:id="@+id/calendar"
+        android:icon="@drawable/calendar_icon"/>
+    <item android:title="Timer"
+        android:id="@+id/timer"
+        android:icon="@drawable/timer_icon" />
+    <item android:title="Timesheet"
+        android:id="@+id/sessions"
+        android:icon="@drawable/list_icon"/>
+    <item android:title="Reports"
+        android:id="@+id/reports"
+        android:icon="@drawable/reports_icon"/>
+</menu>
