@@ -25,6 +25,7 @@ import com.yugen.opsc7311_poe.helpers.openPopupMenu
 
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.yugen.opsc7311_poe.helpers.SessionsListHelper
@@ -128,9 +129,22 @@ class FragmentTimesheetEntry : Fragment() {
             val sessionFromList = UserHelper.loggedInUser?.sessionList?.get(0)
 
             UserHelper.loggedInUser!!.categoryList.forEach { category ->  category.updateHours(SessionsListHelper.calculateTotalHoursInCategory(UserHelper.loggedInUser!!.sessionList, category.categoryName) ) }
+            Toast.makeText(requireContext(), "Entry Successfully Captured.", Toast.LENGTH_SHORT).show()
+
+            val timesheetFragment = FragmentTimesheet.newInstance("a","a")
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, timesheetFragment)?.commit()
         }
 
         return view
+    }
+
+    private fun replaceFragment(fragment: Fragment)
+    {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     private fun showTimePicker(button: Button) {
