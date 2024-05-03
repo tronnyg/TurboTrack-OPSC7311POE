@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        replaceFragment(HomePageFragment())
         binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){

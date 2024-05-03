@@ -25,6 +25,7 @@ import com.yugen.opsc7311_poe.helpers.openPopupMenu
 
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -93,9 +94,9 @@ class FragmentTimesheetEntry : Fragment() {
             openPopupMenu(requireActivity())
         }
 
-        val btnStartTime = view.findViewById<Button>(R.id.btn_start_time)
-        val btnEndTime = view.findViewById<Button>(R.id.btn_end_time)
-        val btnSelectDate = view.findViewById<Button>(R.id.btn_select_date)
+        val btnStartTime = view.findViewById<TextView>(R.id.btn_start_time)
+        val btnEndTime = view.findViewById<TextView>(R.id.btn_end_time)
+        val btnSelectDate = view.findViewById<TextView>(R.id.btn_select_date)
         val btnAddTimeEntry = view.findViewById<Button>(R.id.button_add_time_entry)
 
         btnStartTime.setOnClickListener {
@@ -115,9 +116,9 @@ class FragmentTimesheetEntry : Fragment() {
             taskName = (view.findViewById<EditText>(R.id.input_task_name).text.toString())
             taskDesc = (view.findViewById<EditText>(R.id.input_description).text.toString())
             category = (view.findViewById<EditText>(R.id.autoCompleteTextView1).text.toString())
-            date = (view.findViewById<Button>(R.id.btn_select_date).text.toString())
-            startTime =(view.findViewById<Button>(R.id.btn_start_time).text.toString())
-            endTime = (view.findViewById<Button>(R.id.btn_end_time).text.toString())
+            date = (view.findViewById<TextView>(R.id.btn_select_date).text.toString())
+            startTime =(view.findViewById<TextView>(R.id.btn_start_time).text.toString())
+            endTime = (view.findViewById<TextView>(R.id.btn_end_time).text.toString())
 
             val imageView = view.findViewById<ImageView>(R.id.attached_image)
             val bitmap = (imageView.drawable as BitmapDrawable).bitmap
@@ -147,7 +148,7 @@ class FragmentTimesheetEntry : Fragment() {
         fragmentTransaction.commit()
     }
 
-    private fun showTimePicker(button: Button) {
+    private fun showTimePicker(button: TextView) {
         val cal = Calendar.getInstance()
         val hour = cal.get(Calendar.HOUR_OF_DAY)
         val minute = cal.get(Calendar.MINUTE)
@@ -166,7 +167,7 @@ class FragmentTimesheetEntry : Fragment() {
 
     }
 
-    private fun showDatePicker(button: Button) {
+    private fun showDatePicker(button: TextView) {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)

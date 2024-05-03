@@ -121,7 +121,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
+    <TextView
         android:id="@+id/btn_select_date"
         android:layout_width="309dp"
         android:layout_height="46dp"
@@ -129,7 +129,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="357dp"
-        android:background="@drawable/add_button_vector"
+        android:paddingLeft="16dp"
+        android:paddingTop="12dp"
+        android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:hint="Select Date"
         android:textColor="@color/black"
@@ -167,21 +169,23 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_end_time"
         android:layout_width="250dp"
         android:layout_height="42dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="481dp"
-        android:background="@drawable/add_button_vector"
+        android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:hint="Select End Time"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_start_time"
         android:layout_width="250dp"
         android:layout_height="41dp"
@@ -189,9 +193,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="83dp"
         android:layout_marginTop="436dp"
-        android:background="@drawable/add_button_vector"
+        android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:hint="Select Start Time"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="16sp" />
