@@ -6,6 +6,7 @@ class User {
     lateinit var email: String
     lateinit var password: String
     lateinit var userId: String
+    lateinit var person: Person
     var sessionList: MutableList<Session> = mutableListOf()
     var categoryList: MutableList<Category> = mutableListOf()
 
