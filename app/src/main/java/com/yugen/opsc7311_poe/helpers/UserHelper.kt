@@ -7,11 +7,7 @@ import com.yugen.opsc7311_poe.objects.Task
 import com.yugen.opsc7311_poe.objects.User
 import com.yugen.opsc7311_poe.objects.WeeklyStats
 
-private val TaskList = mutableListOf<Task>()
-private val CategoryList = mutableListOf<Category>()
-private val ActivityList = mutableListOf<Activity>()
-private val MedalsList = mutableListOf<Medals>()
-private  val WeeklyStatsList = mutableListOf<WeeklyStats>()
+
 
 object UserHelper {
 
@@ -19,4 +15,10 @@ object UserHelper {
    var minHours = 0
    var maxHours = 24
    var hoursWorkedToday = 0
+
+   val TaskList = mutableListOf<Task>()
+   val CategoryList = mutableListOf<Category>()
+   val ActivityList = mutableListOf<Activity>()
+   val Medals:Medals? = null
+   val WeeklyStats:WeeklyStats? = null
 }
