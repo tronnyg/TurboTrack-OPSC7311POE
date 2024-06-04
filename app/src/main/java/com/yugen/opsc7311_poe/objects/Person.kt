@@ -7,10 +7,21 @@ data class Person(
     var name: String,
     var surname: String,
     var password: String,
-   /* var email: String,
+    var email: String,
     var experienceLevel: String,
     val profilePicture: String
-    // CATEGORY COLLECTION*/
+    // CATEGORY COLLECTION
     // TASKS COLLECTION
-    //
+
 )
+{   constructor() : this(
+        userID = "",
+        name = "",
+        surname = "",
+        password = "",
+        email = "",
+        experienceLevel = "",
+        profilePicture = ""
+    )
+}
+

@@ -95,7 +95,7 @@ class HomePageFragment : Fragment() {
         }
 
         // Display hours worked today
-        SessionsListHelper.updateHoursWorkedToday(UserHelper.loggedInUser!!.sessionList)
+        /*SessionsListHelper.updateHoursWorkedToday(UserHelper.loggedInUser!!.sessionList)*/
         val message = "Hours worked today: ${UserHelper.hoursWorkedToday}"
         txtHoursWorked.text = message
     }

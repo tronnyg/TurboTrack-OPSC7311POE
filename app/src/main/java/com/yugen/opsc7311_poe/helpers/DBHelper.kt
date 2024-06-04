@@ -1,6 +1,7 @@
 package com.yugen.opsc7311_poe.helpers
 
 import android.app.Activity
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
@@ -20,12 +21,29 @@ class DBHelper {
 
     fun createNewUser(Person: Person, Medals: Medals) {
         val userCollectionRef = db.collection("Users")
-        db.collection("Users").document(Person.userID).set(Person)
-        val userRef = db.collection("Users").document(Person.userID)
+        val userID =  userCollectionRef.document().id
+        Person.userID = userID
+        db.collection("Users").document(userID).set(Person)
+        val userRef = db.collection("Users").document(userID)
+
         val taskCollectionRef = userRef.collection("Tasks")
         userRef.collection("Medals").document("MedalDoc").set(Medals)
         val activityCollectionRef = userRef.collection("Activity")
         val weeklyStatsCollectionRef = userRef.collection("WeeklyStats")
+    }
+
+    suspend fun getUsers(): MutableList<Person> {
+        val personCollection = mutableListOf<Person>()
+        try {
+            val personCollectionRef = db.collection("Users")
+            val personList = personCollectionRef.get().await()
+            for (person in personList) {
+                personCollection.add(person.toObject(Person::class.java))
+            }
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
+        }
+        return personCollection
     }
 
     suspend fun getTaskCollection(userID: String): MutableList<Task> {
