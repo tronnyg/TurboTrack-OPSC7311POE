@@ -11,14 +11,11 @@ import com.yugen.opsc7311_poe.objects.Person
 
 
 class WelcomePageActivity : AppCompatActivity() {
-    private lateinit var DBHelper : DBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = WelcomePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        DBHelper = DBHelper()
         binding.btnLogin.setOnClickListener{
-            DBHelper.savePerson(Person("1","Yugen","Moodley","admin"))
             openIntent(this,LoginPageActivity::class.java)
         }
         binding.btnRegister.setOnClickListener{
