@@ -1,10 +1,12 @@
 package com.yugen.opsc7311_poe
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +36,25 @@ class FragmentTimer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_timer, container, false)
+        val view = inflater.inflate(R.layout.fragment_timer, container, false)
+
+        // Find the timer_settings_button and set an OnClickListener
+        val timerSettingsButton: RelativeLayout = view.findViewById(R.id.timer_settings_button)
+        timerSettingsButton.setOnClickListener {
+            // Create an Intent to start EditTimerActivity
+           replaceFragment(FragmentTimerSettings())
+        }
+
+        return view
+    }
+
+    private fun replaceFragment(fragment: Fragment)
+    {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     companion object {
