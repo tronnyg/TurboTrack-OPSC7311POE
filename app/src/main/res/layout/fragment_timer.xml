@@ -27,9 +27,11 @@
             android:textAlignment="center"
             android:textColor="#4B2B21"
             app:layout_constraintBottom_toBottomOf="@id/BottomOfTimer"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@id/LeftofTimer"
             app:layout_constraintRight_toRightOf="@id/RightOfTimer"
-            app:layout_constraintTop_toTopOf="@id/TopOfTimer" />
+            app:layout_constraintTop_toTopOf="@id/TopOfTimer"
+            app:layout_constraintVertical_bias="0.0" />
 
         <RelativeLayout
             android:id="@+id/play_button"
@@ -104,7 +106,7 @@
 
         <ImageView
             android:id="@+id/timer_status"
-            android:layout_width="160dp"
+            android:layout_width="136dp"
             android:layout_height="0dp"
             android:background="@drawable/focus_icon"
             app:layout_constraintBottom_toBottomOf="@id/BottomTimerStatus"
@@ -112,9 +114,6 @@
             app:layout_constraintRight_toRightOf="@id/RightOfPlay"
             app:layout_constraintTop_toTopOf="@id/TopTimerStatus">
         </ImageView>
-
-
-
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/LeftofTimer"

@@ -61,7 +61,10 @@ class FragmentTimer : Fragment() {
         shortBreakTime = sharedPref?.getInt("shortBreakTime", 5) ?: 5
         longBreakTime = sharedPref?.getInt("longBreakTime", 15) ?: 15
         pomoCycleCount = sharedPref?.getInt("pomoCycleCount", 2) ?: 2
+
+        timerStatus = view.findViewById(R.id.timer_status)
         timerStatus.setImageResource(R.drawable.focus_icon)
+
         timerDisplay = view.findViewById(R.id.timerDisplay)
         timerDisplay.text = String.format("%02d\n00", focusTime)
 
@@ -69,7 +72,6 @@ class FragmentTimer : Fragment() {
         timerSettingsButton.setOnClickListener {
             replaceFragment(FragmentTimerSettings())
         }
-
         val skipButton: RelativeLayout = view.findViewById(R.id.timer_skip_button)
         skipButton.setOnClickListener {
             skipTimer()
@@ -119,6 +121,7 @@ class FragmentTimer : Fragment() {
                         if (completedFocusSessions % pomoCount == 0) {
                             if (cycleCount < pomoCycleCount - 1) {
                                 timerState = TimerState.LONG_BREAK
+                                updateTimerStatus(R.drawable.long_break_icon)
                                 startTimer(longBreakTime * 60 * 1000L)
                                 cycleCount++
                             } else {
@@ -131,17 +134,18 @@ class FragmentTimer : Fragment() {
                             }
                         } else {
                             timerState = TimerState.SHORT_BREAK
+                            updateTimerStatus(R.drawable.short_break_icon)
                             startTimer(shortBreakTime * 60 * 1000L)
                         }
                     }
                     TimerState.SHORT_BREAK -> {
                         timerState = TimerState.FOCUS
-                        timerStatus.setImageResource(R.drawable.short_break_icon)
+                        updateTimerStatus(R.drawable.focus_icon)
                         startTimer(focusTime * 60 * 1000L)
                     }
                     TimerState.LONG_BREAK -> {
                         timerState = TimerState.FOCUS
-                        timerStatus.setImageResource(R.drawable.long_break_icon)
+                        updateTimerStatus(R.drawable.focus_icon)
                         startTimer(focusTime * 60 * 1000L)
                     }
                 }
@@ -156,7 +160,7 @@ class FragmentTimer : Fragment() {
         val timeLeftFormatted = String.format("%02d\n%02d", minutes, seconds)
         timerDisplay.text = timeLeftFormatted
 
-// Change text color and background color based on timer state
+        // Change text color and background color based on timer state
         val textColor: Int
         when (timerState) {
             TimerState.FOCUS -> {
@@ -192,35 +196,37 @@ class FragmentTimer : Fragment() {
                 if (completedFocusSessions % pomoCount == 0) {
                     if (cycleCount < pomoCycleCount - 1) {
                         timerState = TimerState.LONG_BREAK
+                        updateTimerStatus(R.drawable.long_break_icon)
                         startTimer(longBreakTime * 60 * 1000L)
                         cycleCount++
                     } else {
                         Toast.makeText(context, "All cycles completed!", Toast.LENGTH_SHORT).show()
                         timerState = TimerState.FOCUS
+                        updateTimerStatus(R.drawable.focus_icon)
                         cycleCount = 0
                     }
                 } else {
                     timerState = TimerState.SHORT_BREAK
+                    updateTimerStatus(R.drawable.short_break_icon)
                     startTimer(shortBreakTime * 60 * 1000L)
                 }
             }
             TimerState.SHORT_BREAK -> {
                 timerState = TimerState.FOCUS
+                updateTimerStatus(R.drawable.focus_icon)
                 startTimer(focusTime * 60 * 1000L)
             }
             TimerState.LONG_BREAK -> {
                 timerState = TimerState.FOCUS
+                updateTimerStatus(R.drawable.focus_icon)
                 startTimer(focusTime * 60 * 1000L)
             }
         }
     }
 
-    private fun getBackgroundResource(timerState: TimerState): Int {
-        return when (timerState) {
-            TimerState.FOCUS -> R.drawable.focus_icon
-            TimerState.SHORT_BREAK -> R.drawable.short_break_icon
-            TimerState.LONG_BREAK -> R.drawable.long_break_icon
-        }
+    private fun updateTimerStatus(resourceId: Int) {
+        timerStatus.setImageResource(0)  // Clear the current image
+        timerStatus.setImageResource(resourceId)
     }
 
     companion object {
