@@ -1,16 +1,13 @@
 package com.yugen.opsc7311_poe
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
 import android.widget.Button
-import com.yugen.opsc7311_poe.helpers.openIntent
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +23,12 @@ class FragmentTimerSettings : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var focusTime = 0
+    private var pomoCount = 0
+    private var currentPomoCount = 0
+    private var shortBreakTime = 0
+    private var longBreakTime = 0
+    private var pomoCycleCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +44,20 @@ class FragmentTimerSettings : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_timer_settings, container, false)
+
+        // Get the shared preferences
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+
+        // Get the saved values from shared preferences
+        focusTime = sharedPref?.getInt("focusTime", 25) ?: 25
+        pomoCount = sharedPref?.getInt("pomoCount", 4) ?: 4
+        shortBreakTime = sharedPref?.getInt("shortBreakTime", 5) ?: 5
+        longBreakTime = sharedPref?.getInt("longBreakTime", 15) ?: 15
+        pomoCycleCount = sharedPref?.getInt("pomoCycleCount", 2) ?: 2
+
         // For Focus
         val FocusNumberDisplay = view.findViewById<TextView>(R.id.FocusNumberDisplay)
+        FocusNumberDisplay.text = focusTime.toString()
         val FocusButtonDecrease = view.findViewById<Button>(R.id.FocusButtonDecrease)
         val FocusButtonIncrease = view.findViewById<Button>(R.id.FocusButtonIncrease)
 
@@ -65,6 +80,7 @@ class FragmentTimerSettings : Fragment() {
 
         // For Pomodoro
         val PomoNumberDisplay = view.findViewById<TextView>(R.id.PomoNumberDisplay)
+        PomoNumberDisplay.text = currentPomoCount.toString()
         val PomoButtonDecrease = view.findViewById<Button>(R.id.PomoButtonDecrease)
         val PomoButtonIncrease = view.findViewById<Button>(R.id.PomoButtonIncrease)
 
@@ -87,6 +103,7 @@ class FragmentTimerSettings : Fragment() {
 
         // For Short Break
         val ShortBreakNumberDisplay = view.findViewById<TextView>(R.id.ShortBreakNumberDisplay)
+        ShortBreakNumberDisplay.text = shortBreakTime.toString()
         val ShortBreakButtonDecrease = view.findViewById<Button>(R.id.ShortBreakButtonDecrease)
         val ShortBreakButtonIncrease = view.findViewById<Button>(R.id.ShortBreakButtonIncrease)
 
@@ -109,6 +126,7 @@ class FragmentTimerSettings : Fragment() {
 
         // For Long Break
         val LongBreakNumberDisplay = view.findViewById<TextView>(R.id.LongBreakNumberDisplay)
+        LongBreakNumberDisplay.text = longBreakTime.toString()
         val LongBreakButtonDecrease = view.findViewById<Button>(R.id.LongBreakButtonDecrease)
         val LongBreakButtonIncrease = view.findViewById<Button>(R.id.LongBreakButtonIncrease)
 
@@ -131,10 +149,11 @@ class FragmentTimerSettings : Fragment() {
 
         // For PomoCycle
         val PomoCycleNumberDisplay = view.findViewById<TextView>(R.id.PomoCycleNumberDisplay)
+        PomoCycleNumberDisplay.text = pomoCycleCount.toString()
         val PomoCycleButtonDecrease = view.findViewById<Button>(R.id.PomoCycleButtonDecrease)
         val PomoCycleButtonIncrease = view.findViewById<Button>(R.id.PomoCycleButtonIncrease)
 
-        var pomoCycleCurrentValue = 4
+        var pomoCycleCurrentValue = pomoCycleCount
         PomoCycleNumberDisplay.text = pomoCycleCurrentValue.toString()
 
         PomoCycleButtonIncrease.setOnClickListener {
@@ -156,6 +175,16 @@ class FragmentTimerSettings : Fragment() {
 
         saveSettingsButton.setOnClickListener()
         {
+            val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return@setOnClickListener
+            with (sharedPref.edit()) {
+                putInt("focusTime", currentValue)
+                putInt("pomoCount", pomoCurrentValue)
+                putInt("shortBreakTime", shortBreakCurrentValue)
+                putInt("longBreakTime", longBreakCurrentValue)
+                putInt("pomoCycleCount", pomoCycleCurrentValue)
+                apply()
+            }
+
             replaceFragment(FragmentTimer())
         }
         return view
