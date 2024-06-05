@@ -42,12 +42,13 @@
             app:layout_constraintTop_toTopOf="@id/TopOfButtons">
 
             <ImageView
+                android:id="@+id/play_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:scaleX="0.9"
                 android:scaleY="0.9"
-                android:src="@drawable/pause_icon" />
+                android:src="@drawable/play_icon" />
         </RelativeLayout>
 
         <RelativeLayout

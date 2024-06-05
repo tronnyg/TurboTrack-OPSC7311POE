@@ -61,8 +61,7 @@ class FragmentTimerSettings : Fragment() {
         val FocusButtonDecrease = view.findViewById<Button>(R.id.FocusButtonDecrease)
         val FocusButtonIncrease = view.findViewById<Button>(R.id.FocusButtonIncrease)
 
-        var currentValue = 25
-        FocusNumberDisplay.text = currentValue.toString()
+        var currentValue = focusTime
 
         FocusButtonIncrease.setOnClickListener {
             if (currentValue < 60) {
@@ -170,7 +169,7 @@ class FragmentTimerSettings : Fragment() {
             }
         }
 
-        //Button
+        // Save Settings Button
         val saveSettingsButton = view.findViewById<Button>(R.id.save_settings_button)
 
         saveSettingsButton.setOnClickListener()
@@ -184,7 +183,6 @@ class FragmentTimerSettings : Fragment() {
                 putInt("pomoCycleCount", pomoCycleCurrentValue)
                 apply()
             }
-
             replaceFragment(FragmentTimer())
         }
         return view
