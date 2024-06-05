@@ -102,16 +102,16 @@
             app:layout_constraintRight_toRightOf="@id/RightOfButtons"
             app:layout_constraintTop_toTopOf="@id/TopOfSelect" />
 
-        <RelativeLayout
+        <ImageView
             android:id="@+id/timer_status"
-            android:layout_width="0dp"
+            android:layout_width="160dp"
             android:layout_height="0dp"
             android:background="@drawable/focus_icon"
             app:layout_constraintBottom_toBottomOf="@id/BottomTimerStatus"
             app:layout_constraintLeft_toLeftOf="@id/LeftOfPlay"
             app:layout_constraintRight_toRightOf="@id/RightOfPlay"
             app:layout_constraintTop_toTopOf="@id/TopTimerStatus">
-        </RelativeLayout>
+        </ImageView>
 
 
 

@@ -39,6 +39,7 @@ class FragmentTimer : Fragment() {
     private var initialFocusTime = 0
     private lateinit var playButton: RelativeLayout
     private lateinit var playButtonImage: ImageView
+    private lateinit var timerStatus: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +61,7 @@ class FragmentTimer : Fragment() {
         shortBreakTime = sharedPref?.getInt("shortBreakTime", 5) ?: 5
         longBreakTime = sharedPref?.getInt("longBreakTime", 15) ?: 15
         pomoCycleCount = sharedPref?.getInt("pomoCycleCount", 2) ?: 2
-
+        timerStatus.setImageResource(R.drawable.focus_icon)
         timerDisplay = view.findViewById(R.id.timerDisplay)
         timerDisplay.text = String.format("%02d\n00", focusTime)
 
@@ -135,10 +136,12 @@ class FragmentTimer : Fragment() {
                     }
                     TimerState.SHORT_BREAK -> {
                         timerState = TimerState.FOCUS
+                        timerStatus.setImageResource(R.drawable.short_break_icon)
                         startTimer(focusTime * 60 * 1000L)
                     }
                     TimerState.LONG_BREAK -> {
                         timerState = TimerState.FOCUS
+                        timerStatus.setImageResource(R.drawable.long_break_icon)
                         startTimer(focusTime * 60 * 1000L)
                     }
                 }
@@ -153,7 +156,7 @@ class FragmentTimer : Fragment() {
         val timeLeftFormatted = String.format("%02d\n%02d", minutes, seconds)
         timerDisplay.text = timeLeftFormatted
 
-        // Change text color and background color based on timer state
+// Change text color and background color based on timer state
         val textColor: Int
         when (timerState) {
             TimerState.FOCUS -> {
@@ -209,6 +212,14 @@ class FragmentTimer : Fragment() {
                 timerState = TimerState.FOCUS
                 startTimer(focusTime * 60 * 1000L)
             }
+        }
+    }
+
+    private fun getBackgroundResource(timerState: TimerState): Int {
+        return when (timerState) {
+            TimerState.FOCUS -> R.drawable.focus_icon
+            TimerState.SHORT_BREAK -> R.drawable.short_break_icon
+            TimerState.LONG_BREAK -> R.drawable.long_break_icon
         }
     }
 
