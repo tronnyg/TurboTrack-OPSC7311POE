@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Button
+import android.widget.Switch
+import androidx.appcompat.widget.SwitchCompat
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -166,6 +168,56 @@ class FragmentTimerSettings : Fragment() {
             if (pomoCycleCurrentValue > 0) {
                 pomoCycleCurrentValue -= 1
                 PomoCycleNumberDisplay.text = pomoCycleCurrentValue.toString()
+            }
+        }
+
+        val autoResumeTimerSwitch = view.findViewById<SwitchCompat>(R.id.auto_resume_timer_switch)
+
+        if (sharedPref != null) {
+            if (sharedPref.contains("autoResumeTimer")) {
+                // If the preference exists, set the switch to its value
+                autoResumeTimerSwitch.isChecked = sharedPref.getBoolean("autoResumeTimer", false)
+            } else {
+                // If the preference doesn't exist, set the switch to true and save it
+                autoResumeTimerSwitch.isChecked = true
+                with(sharedPref.edit()) {
+                    putBoolean("autoResumeTimer", true)
+                    apply()
+                }
+            }
+        }
+        autoResumeTimerSwitch.setOnCheckedChangeListener { _, isChecked ->
+            // Save the new value when the switch is toggled
+            if (sharedPref != null) {
+                with(sharedPref.edit()) {
+                    putBoolean("autoResumeTimer", isChecked)
+                    apply()
+                }
+            }
+        }
+
+        val soundSwitch = view.findViewById<SwitchCompat>(R.id.sound_switch)
+
+        if (sharedPref != null) {
+            if (sharedPref.contains("sound_switch")) {
+                // If the preference exists, set the switch to its value
+                soundSwitch.isChecked = sharedPref.getBoolean("sound_switch", false)
+            } else {
+                // If the preference doesn't exist, set the switch to true and save it
+                soundSwitch.isChecked = true
+                with(sharedPref.edit()) {
+                    putBoolean("sound_switch", true)
+                    apply()
+                }
+            }
+        }
+        soundSwitch.setOnCheckedChangeListener { _, isChecked ->
+            // Save the new value when the switch is toggled
+            if (sharedPref != null) {
+                with(sharedPref.edit()) {
+                    putBoolean("sound_switch", isChecked)
+                    apply()
+                }
             }
         }
 

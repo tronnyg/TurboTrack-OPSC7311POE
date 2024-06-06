@@ -1,9 +1,11 @@
 package com.yugen.opsc7311_poe
 
 import android.content.Context
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -27,7 +31,6 @@ class FragmentTimer : Fragment() {
     private var timeLeftInMillis: Long = 0
     private var isTimerRunning: Boolean = false
     private var focusTime = 0
-    private var currentPomoCount = 0
     private var pomoCount = 0
     private var shortBreakTime = 0
     private var longBreakTime = 0
@@ -54,33 +57,11 @@ class FragmentTimer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_timer, container, false)
+        initializeUIComponents(view)
+        loadPreferences()
 
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-        focusTime = sharedPref?.getInt("focusTime", 25) ?: 25
-        pomoCount = sharedPref?.getInt("pomoCount", 4) ?: 4
-        shortBreakTime = sharedPref?.getInt("shortBreakTime", 5) ?: 5
-        longBreakTime = sharedPref?.getInt("longBreakTime", 15) ?: 15
-        pomoCycleCount = sharedPref?.getInt("pomoCycleCount", 2) ?: 2
-
-        timerStatus = view.findViewById(R.id.timer_status)
-        timerStatus.setImageResource(R.drawable.focus_icon)
-
-        timerDisplay = view.findViewById(R.id.timerDisplay)
-        timerDisplay.text = String.format("%02d\n00", focusTime)
-
-        val timerSettingsButton: RelativeLayout = view.findViewById(R.id.timer_settings_button)
-        timerSettingsButton.setOnClickListener {
-            replaceFragment(FragmentTimerSettings())
-        }
-        val skipButton: RelativeLayout = view.findViewById(R.id.timer_skip_button)
-        skipButton.setOnClickListener {
-            skipTimer()
-        }
-
-        playButton = view.findViewById(R.id.play_button)
-        playButtonImage = playButton.findViewById(R.id.play_icon)
-
-        timeLeftInMillis = (focusTime * 60) * 1000L
+        timerDisplay.text = formatTime(focusTime * 60 * 1000L)
+        timeLeftInMillis = (focusTime * 60 * 1000L)
 
         playButton.setOnClickListener {
             if (isTimerRunning) {
@@ -95,15 +76,43 @@ class FragmentTimer : Fragment() {
                 playButtonImage.setImageResource(R.drawable.pause_icon)
             }
         }
+
         return view
     }
 
+    private fun initializeUIComponents(view: View) {
+        timerStatus = view.findViewById(R.id.timer_status)
+        timerStatus.setImageResource(R.drawable.focus_icon)
+        timerDisplay = view.findViewById(R.id.timerDisplay)
+        playButton = view.findViewById(R.id.play_button)
+        playButtonImage = playButton.findViewById(R.id.play_icon)
+
+        view.findViewById<RelativeLayout>(R.id.timer_settings_button).setOnClickListener {
+            replaceFragment(FragmentTimerSettings())
+        }
+
+        view.findViewById<RelativeLayout>(R.id.timer_skip_button).setOnClickListener {
+            skipTimer()
+        }
+    }
+
+    private fun loadPreferences() {
+        activity?.getPreferences(Context.MODE_PRIVATE)?.apply {
+            focusTime = getInt("focusTime", 25)
+            pomoCount = getInt("pomoCount", 4)
+            shortBreakTime = getInt("shortBreakTime", 5)
+            longBreakTime = getInt("longBreakTime", 15)
+            pomoCycleCount = getInt("pomoCycleCount", 2)
+        }
+        initialFocusTime = focusTime
+    }
+
     private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame_layout, fragment)
+            addToBackStack(null)
+            commit()
+        }
     }
 
     private fun startTimer(duration: Long) {
@@ -114,66 +123,85 @@ class FragmentTimer : Fragment() {
             }
 
             override fun onFinish() {
-                timer = null
-                when (timerState) {
-                    TimerState.FOCUS -> {
-                        completedFocusSessions++
-                        if (completedFocusSessions % pomoCount == 0) {
-                            if (cycleCount < pomoCycleCount - 1) {
-                                timerState = TimerState.LONG_BREAK
-                                updateTimerStatus(R.drawable.long_break_icon)
-                                startTimer(longBreakTime * 60 * 1000L)
-                                cycleCount++
-                            } else {
-                                Toast.makeText(context, "All cycles completed!", Toast.LENGTH_SHORT).show()
-                                timerState = TimerState.FOCUS
-                                pauseTimer()
-                                focusTime = initialFocusTime
-                                cycleCount = 0
-                                playButtonImage.setImageResource(R.drawable.play_icon)
-                            }
-                        } else {
-                            timerState = TimerState.SHORT_BREAK
-                            updateTimerStatus(R.drawable.short_break_icon)
-                            startTimer(shortBreakTime * 60 * 1000L)
-                        }
-                    }
-                    TimerState.SHORT_BREAK -> {
-                        timerState = TimerState.FOCUS
-                        updateTimerStatus(R.drawable.focus_icon)
-                        startTimer(focusTime * 60 * 1000L)
-                    }
-                    TimerState.LONG_BREAK -> {
-                        timerState = TimerState.FOCUS
-                        updateTimerStatus(R.drawable.focus_icon)
-                        startTimer(focusTime * 60 * 1000L)
-                    }
-                }
+                onTimerFinish()
             }
         }.start()
         isTimerRunning = true
     }
 
-    private fun updateCountDownText() {
-        val minutes = (timeLeftInMillis / 1000) / 60
-        val seconds = (timeLeftInMillis / 1000) % 60
-        val timeLeftFormatted = String.format("%02d\n%02d", minutes, seconds)
-        timerDisplay.text = timeLeftFormatted
-
-        // Change text color and background color based on timer state
-        val textColor: Int
+    private fun onTimerFinish() {
+        timer = null
         when (timerState) {
-            TimerState.FOCUS -> {
-                textColor = R.color.focusColor
-            }
-            TimerState.SHORT_BREAK -> {
-                textColor = R.color.shortBreakColor
-            }
-            TimerState.LONG_BREAK -> {
-                textColor = R.color.longBreakColor
-            }
+            TimerState.FOCUS -> handleFocusFinish()
+            TimerState.SHORT_BREAK -> startNextTimer(TimerState.FOCUS, focusTime)
+            TimerState.LONG_BREAK -> startNextTimer(TimerState.FOCUS, focusTime)
         }
-        timerDisplay.setTextColor(ContextCompat.getColor(requireContext(), textColor))
+    }
+
+    private fun handleFocusFinish() {
+        completedFocusSessions++
+        if (completedFocusSessions % pomoCount == 0) {
+            if (cycleCount < pomoCycleCount - 1) {
+                startNextTimer(TimerState.LONG_BREAK, longBreakTime)
+                cycleCount++
+            } else {
+                resetCycle()
+            }
+        } else {
+            startNextTimer(TimerState.SHORT_BREAK, shortBreakTime)
+        }
+    }
+
+    private fun resetCycle() {
+        timerDisplay.text = formatTime(focusTime * 60 * 1000L)
+        Toast.makeText(context, "All cycles completed!", Toast.LENGTH_SHORT).show()
+        ringtone()
+        timerState = TimerState.FOCUS
+        pauseTimer()
+        focusTime = initialFocusTime
+        cycleCount = 0
+        playButtonImage.setImageResource(R.drawable.play_icon)
+    }
+
+    private fun startNextTimer(state: TimerState, time: Int) {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val autoResumeTimer = sharedPref?.getBoolean("autoResumeTimer", true) ?: true
+
+        timerState = state
+        updateTimerStatus(getIconResource(state))
+        startTimer(time * 60 * 1000L)
+
+        if (!autoResumeTimer) {
+            // Pause the timer after a short delay
+            Handler(Looper.getMainLooper()).postDelayed({
+                pauseTimer()
+            }, 500)// 500 milliseconds delay
+            playButtonImage.setImageResource(R.drawable.play_icon)
+        }
+
+    }
+
+    private fun getIconResource(state: TimerState) = when (state) {
+        TimerState.FOCUS -> R.drawable.focus_icon
+        TimerState.SHORT_BREAK -> R.drawable.short_break_icon
+        TimerState.LONG_BREAK -> R.drawable.long_break_icon
+    }
+
+    private fun updateCountDownText() {
+        timerDisplay.text = formatTime(timeLeftInMillis)
+        timerDisplay.setTextColor(ContextCompat.getColor(requireContext(), getColorResource(timerState)))
+    }
+
+    private fun getColorResource(state: TimerState) = when (state) {
+        TimerState.FOCUS -> R.color.focusColor
+        TimerState.SHORT_BREAK -> R.color.shortBreakColor
+        TimerState.LONG_BREAK -> R.color.longBreakColor
+    }
+
+    private fun formatTime(millis: Long): String {
+        val minutes = (millis / 1000) / 60
+        val seconds = (millis / 1000) % 60
+        return String.format("%02d\n%02d", minutes, seconds)
     }
 
     private fun pauseTimer() {
@@ -187,46 +215,27 @@ class FragmentTimer : Fragment() {
     }
 
     private fun skipTimer() {
-        timer?.cancel()
-        timer = null
-        isTimerRunning = false
-        when (timerState) {
-            TimerState.FOCUS -> {
-                completedFocusSessions++
-                if (completedFocusSessions % pomoCount == 0) {
-                    if (cycleCount < pomoCycleCount - 1) {
-                        timerState = TimerState.LONG_BREAK
-                        updateTimerStatus(R.drawable.long_break_icon)
-                        startTimer(longBreakTime * 60 * 1000L)
-                        cycleCount++
-                    } else {
-                        Toast.makeText(context, "All cycles completed!", Toast.LENGTH_SHORT).show()
-                        timerState = TimerState.FOCUS
-                        updateTimerStatus(R.drawable.focus_icon)
-                        cycleCount = 0
-                    }
-                } else {
-                    timerState = TimerState.SHORT_BREAK
-                    updateTimerStatus(R.drawable.short_break_icon)
-                    startTimer(shortBreakTime * 60 * 1000L)
-                }
-            }
-            TimerState.SHORT_BREAK -> {
-                timerState = TimerState.FOCUS
-                updateTimerStatus(R.drawable.focus_icon)
-                startTimer(focusTime * 60 * 1000L)
-            }
-            TimerState.LONG_BREAK -> {
-                timerState = TimerState.FOCUS
-                updateTimerStatus(R.drawable.focus_icon)
-                startTimer(focusTime * 60 * 1000L)
-            }
-        }
+        pauseTimer()
+        onTimerFinish()
     }
 
     private fun updateTimerStatus(resourceId: Int) {
-        timerStatus.setImageResource(0)  // Clear the current image
         timerStatus.setImageResource(resourceId)
+    }
+
+    fun ringtone() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val soundSwitch = sharedPref?.getBoolean("sound_switch", true) ?: true
+
+        if (soundSwitch) {
+            try {
+                val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                val r = RingtoneManager.getRingtone(context, notification)
+                r.play()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     companion object {
