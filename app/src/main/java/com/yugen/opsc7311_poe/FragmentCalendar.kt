@@ -1,3 +1,5 @@
+import android.graphics.Color
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,7 +12,6 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.google.firebase.firestore.FirebaseFirestore
 import com.yugen.opsc7311_poe.DBHelper
 import com.yugen.opsc7311_poe.R
 import com.yugen.opsc7311_poe.helpers.SessionsListHelper
@@ -20,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.util.Date
+import java.util.Locale
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -28,11 +30,6 @@ class FragmentCalendar : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var pieChart: PieChart
-    private val db = FirebaseFirestore.getInstance()
-
-    private var maxGoal = 0
-    private var minGoal = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +71,10 @@ class FragmentCalendar : Fragment() {
 
         val pieData = PieData(pieDataSet)
         pieData.setValueTextSize(16f)
+        pieData.setValueTextColor(Color.BLACK)
 
         pieChart.data = pieData
-        pieChart.description.isEnabled = false
+        pieChart.description.isEnabled = true
         pieChart.animateY(1000)
 
         pieChart.invalidate() // refresh
@@ -96,11 +94,15 @@ class FragmentCalendar : Fragment() {
         var daysBetweenMinMaxGoals = 0
 
         //Calculate Dates
-        val currentDate = Date().time
-        val thirtyDaysAgo = currentDate - 30 * 24 * 60 * 60 * 1000 // 30
+        val currentDate = Date()
+        val thirtyDaysAgo = Date(currentDate.time - 30L * 24 * 60 * 60 * 1000) // 30 days ago
 
-         val taskCollection = SessionsListHelper.filterByDateRange(UserHelper.TaskList,thirtyDaysAgo.toString(), currentDate.toString())
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val formattedCurrentDate = format.format(currentDate)
+        val formattedThirtyDaysAgo = format.format(thirtyDaysAgo)
 
+        val taskCollection = SessionsListHelper.filterByDateRange(UserHelper.TaskList, formattedThirtyDaysAgo, formattedCurrentDate)
+        Log.d(taskCollection.toString(), "taskCollection")
         // Calculate counts based on tasks in the past 30 days
         for (task in taskCollection) {
             val duration = task.duration
@@ -114,9 +116,7 @@ class FragmentCalendar : Fragment() {
         }
 
         return Triple(daysAboveMaxGoal, daysBelowMinGoal, daysBetweenMinMaxGoals)
-
     }
-
 
 
 

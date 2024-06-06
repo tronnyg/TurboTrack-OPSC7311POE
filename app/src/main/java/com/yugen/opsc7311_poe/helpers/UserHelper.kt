@@ -16,8 +16,8 @@ object UserHelper {
    var hoursWorkedToday = 0
    var currentUserID = ""
 
-   var DailyGoalMin = 1
-   var DailyGoalMax = 3
+   var DailyGoalMin = 60
+   var DailyGoalMax = 180
 
    var TaskList = mutableListOf<Task>()
    val ActivityList = mutableListOf<Activity>()
