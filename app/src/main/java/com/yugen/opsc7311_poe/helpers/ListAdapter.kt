@@ -1,16 +1,17 @@
 package com.yugen.opsc7311_poe.helpers
 
 import android.content.Context
-import com.yugen.opsc7311_poe.objects.Session
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.yugen.opsc7311_poe.R
-import com.yugen.opsc7311_poe.objects.Category
+import com.yugen.opsc7311_poe.objects.Task
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class SessionAdapter(context: Context, private val sessions: List<Session>) : ArrayAdapter<Session>(context, R.layout.list_item, sessions) {
+class SessionAdapter(context: Context, private val tasks: List<Task>) : ArrayAdapter<Task>(context, R.layout.list_item, tasks) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view = convertView
         val viewHolder: ViewHolder
@@ -27,10 +28,11 @@ class SessionAdapter(context: Context, private val sessions: List<Session>) : Ar
             viewHolder = view.tag as ViewHolder
         }
 
-        val session = sessions[position]
-        viewHolder.entryTitleTextView.text = session.taskName
-        viewHolder.entryDescriptionTextView.text = session.taskDesc
-        viewHolder.entryDateTimeTextView.text = "${session.date} - ${session.startTime} to ${session.endTime}"
+        val task = tasks[position]
+        viewHolder.entryTitleTextView.text = task.taskName
+        viewHolder.entryDescriptionTextView.text = task.taskDesc
+        val dateFormat = SimpleDateFormat("MMMM d, yyyy 'at' z", Locale.getDefault())
+        viewHolder.entryDateTimeTextView.text = "${dateFormat.format(task.date)} - ${task.startTime} to ${task.endTime}"
 
         return view!!
     }
@@ -43,7 +45,7 @@ class SessionAdapter(context: Context, private val sessions: List<Session>) : Ar
     }
 }
 
-class CategoryAdapter(context: Context, private val categories: List<Category>) :
+/*class CategoryAdapter(context: Context, private val categories: List<Category>) :
     ArrayAdapter<Category>(context, R.layout.category_item, categories) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -64,11 +66,11 @@ class CategoryAdapter(context: Context, private val categories: List<Category>) 
         viewHolder.titleTextView.text = category.categoryName
         viewHolder.hoursTextView.text = "Total hours worked: ${category.categoryHours}"
         return view!!
-    }
+    }*/
 
     private class ViewHolder {
         lateinit var titleTextView: TextView
         lateinit var hoursTextView: TextView
 
     }
-}
+

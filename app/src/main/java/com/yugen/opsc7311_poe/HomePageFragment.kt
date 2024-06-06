@@ -4,16 +4,12 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.content.SharedPreferences
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.content.Context
 import android.widget.RelativeLayout
 import com.yugen.opsc7311_poe.helpers.UserHelper
-import com.yugen.opsc7311_poe.helpers.SessionsListHelper
-import com.yugen.opsc7311_poe.objects.Session
 import android.widget.Toast
 
 // TODO: Rename parameter arguments, choose names that match
@@ -95,7 +91,7 @@ class HomePageFragment : Fragment() {
         }
 
         // Display hours worked today
-        SessionsListHelper.updateHoursWorkedToday(UserHelper.loggedInUser!!.sessionList)
+        /*SessionsListHelper.updateHoursWorkedToday(UserHelper.loggedInUser!!.sessionList)*/
         val message = "Hours worked today: ${UserHelper.hoursWorkedToday}"
         txtHoursWorked.text = message
     }

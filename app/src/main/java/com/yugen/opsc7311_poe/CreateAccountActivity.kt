@@ -3,10 +3,12 @@ package com.yugen.opsc7311_poe
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.CreateAccountPageBinding
+import com.yugen.opsc7311_poe.helpers.DBHelper
 import com.yugen.opsc7311_poe.helpers.ValidationUtils
+import com.yugen.opsc7311_poe.objects.Medals
+import com.yugen.opsc7311_poe.objects.User
 
 class CreateAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +71,11 @@ class CreateAccountActivity : AppCompatActivity() {
                 binding.inputConfirmpassword.setBackgroundResource(R.drawable.error_input_box_vector);
                 Toast.makeText(this, "Passwords Don't Match, Please Try Again.", Toast.LENGTH_SHORT).show()
             }
+
+            val newUser = User("",binding.inputFirstName.text.toString(),binding.inputLastName.text.toString(),inputPassword,inputEmail,"","")
+            val defaultMedals = Medals(0,0,0,0,0)
+            val DBHelper = DBHelper()
+            DBHelper.createNewUser(newUser,defaultMedals)
         }
     }
 }
