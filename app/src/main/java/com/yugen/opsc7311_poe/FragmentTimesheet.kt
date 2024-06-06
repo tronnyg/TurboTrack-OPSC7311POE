@@ -2,6 +2,7 @@ package com.yugen.opsc7311_poe
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,12 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.yugen.opsc7311_poe.helpers.SessionAdapter
+import com.yugen.opsc7311_poe.helpers.UserHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,8 +53,13 @@ class FragmentTimesheet : Fragment() {
         val btnAddEntry = view.findViewById<TextView>(R.id.txt_Plus)
         val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_by_date)
         val listView = view.findViewById<ListView>(R.id.timesheet_list)
-        /*val adapter = UserHelper.loggedInUser?.let { SessionAdapter(requireContext(), it.sessionList  ) }
-        listView.adapter = adapter*/
+
+        runBlocking(Dispatchers.IO){
+            UserHelper.TaskList = DBHelper.getTaskCollection()
+            Log.d("Test", UserHelper.TaskList.toString())
+        }
+        val adapter = SessionAdapter(requireContext(), UserHelper.TaskList)
+        listView.adapter = adapter
 
         listView.setOnItemClickListener { parent, view, position, id ->
             // Get the selected session

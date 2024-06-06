@@ -23,6 +23,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.type.DateTime
 import com.yugen.opsc7311_poe.helpers.DBHelper
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import java.util.Calendar
@@ -32,6 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
+import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
@@ -50,8 +52,8 @@ lateinit var taskName: String
 lateinit var taskDesc: String
 lateinit var category: String
 lateinit var dateString: String
-lateinit var startTimeString: String
-lateinit var endTimeString: String
+lateinit var startTime: String
+lateinit var endTime: String
 val DBHelper = DBHelper()
 /**
  * A simple [Fragment] subclass.
@@ -121,24 +123,27 @@ class FragmentTimesheetEntry : Fragment() {
             taskDesc = (view.findViewById<EditText>(R.id.input_description).text.toString())
             category = (view.findViewById<EditText>(R.id.autoCompleteTextView1).text.toString())
             dateString = (view.findViewById<TextView>(R.id.btn_select_date).text.toString())
-            startTimeString =(view.findViewById<TextView>(R.id.btn_start_time).text.toString())
-            endTimeString = (view.findViewById<TextView>(R.id.btn_end_time).text.toString())
+            startTime =(view.findViewById<TextView>(R.id.btn_start_time).text.toString())
+            endTime = (view.findViewById<TextView>(R.id.btn_end_time).text.toString())
             val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-            val date: Date = format.parse(dateString) ?: Date()
-            val startTime: LocalTime = LocalTime.parse(startTimeString, timeFormatter)
-            val endTime: LocalTime = LocalTime.parse(endTimeString, timeFormatter)
-            val duration = (endTime.hour - startTime.hour) * 60 + (endTime.minute - startTime.minute)
+            try {
+                val date: Date = format.parse(dateString) ?: Date()
+                val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+                val duration = Duration.between(LocalTime.parse(startTime, timeFormatter), LocalTime.parse(endTime, timeFormatter)).toMinutes().toInt()
 
-            val imageView = view.findViewById<ImageView>(R.id.attached_image)
-            val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            val data = baos.toByteArray()
-            val base64Image: String = android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT)
+                val imageView = view.findViewById<ImageView>(R.id.attached_image)
+                val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                val base64Image: String = android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT)
 
-            val tempTask = Task(taskName, taskDesc, category,date, startTime, endTime, base64Image, duration, false);
-            UserHelper.TaskList.add(tempTask)
+                val tempTask = Task(taskName, taskDesc, category,date, startTime, endTime, base64Image, duration, false);
+                UserHelper.TaskList.add(tempTask)
+            }
+            catch (e: Exception) {
+                Log.e("Error", e.toString())
+            }
 
             CoroutineScope(Dispatchers.IO).launch {
                 DBHelper.updatePersonTask(UserHelper.TaskList, UserHelper.loggedInUser)

@@ -39,16 +39,17 @@ class DBHelper {
         return userCollection
     }
 
-    suspend fun getTaskCollection(userID: String): MutableList<Task> {
+    suspend fun getTaskCollection(): MutableList<Task> {
         val taskCollection = mutableListOf<Task>()
         try {
-            val taskCollectionRef = db.collection("Users").document(userID).collection("Tasks")
+            val userID = UserHelper.loggedInUser.userID
+            val taskCollectionRef = db.collection("Users").document(userID).collection("Task")
             val taskList = taskCollectionRef.get().await()
             for (task in taskList) {
                 taskCollection.add(task.toObject(Task::class.java))
             }
         } catch (e: Exception) {
-            println(e)
+            Log.e("Error", e.toString())
         }
         return taskCollection
     }
@@ -59,7 +60,7 @@ class DBHelper {
             medals = medalsDocRef.get().await().toObject(Medals::class.java)
         }
         catch (e: Exception) {
-            println(e)
+            Log.d("Error", e.toString())
         }
         return medals!!
     }
