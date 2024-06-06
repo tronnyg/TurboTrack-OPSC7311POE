@@ -1,32 +1,25 @@
 package com.yugen.opsc7311_poe.objects
 
-class User {
+data class User(
+    var userID: String,
+    var name: String,
+    var surname: String,
+    var password: String,
+    var email: String,
+    var experienceLevel: String,
+    val profilePicture: String
+    // CATEGORY COLLECTION
+    // TASKS COLLECTION
 
-    lateinit var username: String
-    lateinit var email: String
-    lateinit var password: String
-    lateinit var userId: String
-    lateinit var person: Person
-    var sessionList: MutableList<Session> = mutableListOf()
-    var categoryList: MutableList<Category> = mutableListOf()
-
-    constructor(username: String, password: String, userId: String, email: String) : this()
-    {
-        this.username = username
-        this.password = password
-        this.userId = userId
-        this.email = email
-    }
-
-    fun addSession(session: Session)
-    {
-        sessionList.add(session)
-    }
-
-    fun addCategory(newCategory: Category)
-    {
-        categoryList.add(newCategory)
-    }
-
-    constructor()
+)
+{   constructor() : this(
+        userID = "",
+        name = "",
+        surname = "",
+        password = "",
+        email = "",
+        experienceLevel = "",
+        profilePicture = ""
+    )
 }
+

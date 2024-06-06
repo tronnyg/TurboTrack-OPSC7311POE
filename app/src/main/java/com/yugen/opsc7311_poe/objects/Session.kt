@@ -12,8 +12,6 @@ public class Session {
     lateinit var endTime: String
     lateinit var attachedImage: Bitmap
 
-
-
     constructor(tName: String, tDesc: String, tCat: String, tDate: String, sTime: String, eTime: String, aImage: Bitmap) : this()
     {
         this.taskName = tName

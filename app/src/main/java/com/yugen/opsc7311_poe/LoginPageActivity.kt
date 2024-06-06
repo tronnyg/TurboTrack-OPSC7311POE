@@ -1,26 +1,20 @@
 package com.yugen.opsc7311_poe
 
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.LoginPageBinding
-import com.yugen.opsc7311_poe.objects.Category
-import com.yugen.opsc7311_poe.objects.User
-import android.widget.TextView
 import com.yugen.opsc7311_poe.helpers.DBHelper
-import com.yugen.opsc7311_poe.objects.Person
+import com.yugen.opsc7311_poe.objects.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class LoginPageActivity : AppCompatActivity() {
-    private var users = mutableListOf<Person>()
+    private var users = mutableListOf<User>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = LoginPageBinding.inflate(layoutInflater)
@@ -58,6 +52,7 @@ class LoginPageActivity : AppCompatActivity() {
             {
                 if(inputEmail == person.email && inputPassword == person.password)
                 {
+                    UserHelper.loggedInUser = person
                     openIntent(this, MainActivity::class.java)
                     return@setOnClickListener
                 }

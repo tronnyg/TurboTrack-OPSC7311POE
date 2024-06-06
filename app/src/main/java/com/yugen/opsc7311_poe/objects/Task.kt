@@ -1,5 +1,7 @@
 package com.yugen.opsc7311_poe.objects
 
+import android.graphics.Bitmap
+import java.time.LocalTime
 import java.util.Date
 
 data class Task(
@@ -7,8 +9,8 @@ data class Task(
     val taskDesc: String,
     val category: String,
     val date: Date,
-    val startTime: Date,
-    val endTime: Date,
+    val startTime: LocalTime,
+    val endTime: LocalTime,
     val bitmapUrl: String,
     val duration: Int,
     val completed: Boolean

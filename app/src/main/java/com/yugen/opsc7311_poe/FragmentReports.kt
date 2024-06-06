@@ -8,12 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
-import com.yugen.opsc7311_poe.helpers.CategoryAdapter
-import com.yugen.opsc7311_poe.helpers.SessionAdapter
-import com.yugen.opsc7311_poe.helpers.SessionsListHelper
-import com.yugen.opsc7311_poe.helpers.UserHelper
-import com.yugen.opsc7311_poe.helpers.UserHelper.loggedInUser
-import com.yugen.opsc7311_poe.objects.Category
 import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
@@ -50,8 +44,8 @@ class FragmentReports : Fragment() {
         val btnStartDate = view.findViewById<Button>(R.id.categories__start_date)
         val btnEndDate = view.findViewById<Button>(R.id.categories_end_date)
 
-        val adapter = UserHelper.loggedInUser?.let { CategoryAdapter(requireContext(), it.categoryList  ) }
-        listView.adapter = adapter
+       /* val adapter = UserHelper.loggedInUser?.let { CategoryAdapter(requireContext(), it.categoryList  ) }
+        listView.adapter = adapter*/
 
         btnStartDate.setOnClickListener{
             showDatePicker(btnStartDate)
@@ -61,10 +55,10 @@ class FragmentReports : Fragment() {
         }
 
         btnFilterByDate.setOnClickListener {
-            val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.loggedInUser!!.sessionList,btnStartDate.text.toString(),btnEndDate.text.toString())
+          /*  val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.loggedInUser!!.sessionList,btnStartDate.text.toString(),btnEndDate.text.toString())
             val tempCategories = UserHelper.loggedInUser!!.categoryList
             tempCategories.forEach { category ->  category.updateHours(SessionsListHelper.calculateTotalHoursInCategory(filteredSessionList, category.categoryName) ) }
-            listView.adapter = CategoryAdapter(requireContext(), tempCategories)
+            listView.adapter = CategoryAdapter(requireContext(), tempCategories)*/
         }
         return view
     }

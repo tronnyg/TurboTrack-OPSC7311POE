@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.yugen.opsc7311_poe.R
-import com.yugen.opsc7311_poe.objects.Category
 
 class SessionAdapter(context: Context, private val sessions: List<Session>) : ArrayAdapter<Session>(context, R.layout.list_item, sessions) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -42,6 +41,7 @@ class SessionAdapter(context: Context, private val sessions: List<Session>) : Ar
         // Add other views if needed
     }
 }
+/*
 
 class CategoryAdapter(context: Context, private val categories: List<Category>) :
     ArrayAdapter<Category>(context, R.layout.category_item, categories) {
@@ -72,3 +72,4 @@ class CategoryAdapter(context: Context, private val categories: List<Category>) 
 
     }
 }
+*/
