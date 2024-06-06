@@ -1,7 +1,6 @@
     package com.yugen.opsc7311_poe.helpers
 
     import android.util.Log
-    import com.yugen.opsc7311_poe.objects.Session
     import com.yugen.opsc7311_poe.objects.Task
     import java.text.SimpleDateFormat
     import java.time.LocalDate
@@ -12,7 +11,7 @@
     class SessionsListHelper {
         companion object {
 
-            fun updateHoursWorkedToday(sessions: List<Session>) {
+/*            fun updateHoursWorkedToday(sessions: List<Session>) {
                 // Get today's date
                 val today = LocalDate.now()
 
@@ -65,7 +64,7 @@
                     }
                 }
                 return totalHours
-            }
+            }*/
 
             fun filterByDateRange(tasks: MutableList<Task>, startDate: String, endDate: String):
                     MutableList<Task>

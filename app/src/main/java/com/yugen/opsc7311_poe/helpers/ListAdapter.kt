@@ -1,7 +1,6 @@
 package com.yugen.opsc7311_poe.helpers
 
 import android.content.Context
-import com.yugen.opsc7311_poe.objects.Session
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

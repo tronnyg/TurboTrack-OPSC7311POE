@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.yugen.opsc7311_poe.objects.Session
 import com.yugen.opsc7311_poe.objects.Task
 
 
