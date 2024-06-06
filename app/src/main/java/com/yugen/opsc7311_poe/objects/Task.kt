@@ -10,9 +10,9 @@ data class Task(
     val taskDesc: String,
     val category: String,
     val date: Date,
-    val startTime: String,
-    val endTime: String,
-    val bitmapUrl: String,
+    val startTime: String?,
+    val endTime: String?,
+    val bitmapUrl: String?,
     val duration: Int,
     val completed: Boolean
 )

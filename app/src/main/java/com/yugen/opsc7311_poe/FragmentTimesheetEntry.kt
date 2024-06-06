@@ -52,8 +52,9 @@ lateinit var taskName: String
 lateinit var taskDesc: String
 lateinit var category: String
 lateinit var dateString: String
-lateinit var startTime: String
-lateinit var endTime: String
+var startTime: String = ""
+var endTime: String = ""
+var duration = 0
 val DBHelper = DBHelper()
 /**
  * A simple [Fragment] subclass.
@@ -82,15 +83,18 @@ class FragmentTimesheetEntry : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_timesheet_entry, container, false)
         val categories = UserHelper.categoryList
+        val taskStatus  = listOf("In Progress", "Completed")
         // Convert the list of Category objects to a list of category names
         val categoryNames = categories.map { it }
 
-        try {
-            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categoryNames)
-            view.findViewById<AutoCompleteTextView>(R.id.autoCompleteTextView1).setAdapter(arrayAdapter)
-        } catch (e: Exception) {
-            Log.e("ArrayAdapter", "Error setting up ArrayAdapter: ${e.message}")
-        }
+        val arrayAdapterCategory = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categoryNames)
+        val arrayAdapterStatus = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, taskStatus)
+        view.findViewById<AutoCompleteTextView>(R.id.selectCategory).setAdapter(arrayAdapterCategory)
+        view.findViewById<TextView>(R.id.btn_start_time).visibility = View.GONE
+        view.findViewById<TextView>(R.id.btn_end_time).visibility = View.GONE
+        view.findViewById<TextView>(R.id.lbl_time).visibility = View.GONE
+        val statusDropdown = view.findViewById<AutoCompleteTextView>(R.id.selectStatus)
+        statusDropdown.setAdapter(arrayAdapterStatus)
 
         // Find the button by its ID
         val addAttachmentButton = view.findViewById<Button>(R.id.button_add_attachment)
@@ -117,28 +121,55 @@ class FragmentTimesheetEntry : Fragment() {
             showDatePicker(btnSelectDate)
         }
 
+        statusDropdown.setOnItemClickListener { parent, _, position, _ ->
+            val selectedItem = parent.getItemAtPosition(position) as String
+            if (selectedItem == "Completed") {
+                view.findViewById<TextView>(R.id.btn_start_time).visibility = View.VISIBLE
+                view.findViewById<TextView>(R.id.btn_end_time).visibility = View.VISIBLE
+                view.findViewById<TextView>(R.id.lbl_time).visibility = View.VISIBLE
+            } else {
+                view.findViewById<TextView>(R.id.btn_start_time).visibility = View.GONE
+                view.findViewById<TextView>(R.id.btn_end_time).visibility = View.GONE
+                view.findViewById<TextView>(R.id.lbl_time).visibility = View.GONE
+            }
+        }
+
         btnAddTimeEntry.setOnClickListener {
 
             taskName = (view.findViewById<EditText>(R.id.input_task_name).text.toString())
             taskDesc = (view.findViewById<EditText>(R.id.input_description).text.toString())
-            category = (view.findViewById<EditText>(R.id.autoCompleteTextView1).text.toString())
+            category = (view.findViewById<EditText>(R.id.selectCategory).text.toString())
             dateString = (view.findViewById<TextView>(R.id.btn_select_date).text.toString())
-            startTime =(view.findViewById<TextView>(R.id.btn_start_time).text.toString())
-            endTime = (view.findViewById<TextView>(R.id.btn_end_time).text.toString())
+
+            try {
+                startTime =(view.findViewById<TextView>(R.id.btn_start_time).text.toString())
+                endTime = (view.findViewById<TextView>(R.id.btn_end_time).text.toString())
+                val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+                duration = Duration.between(LocalTime.parse(startTime, timeFormatter), LocalTime.parse(endTime, timeFormatter)).toMinutes().toInt()
+            }
+            catch (e: Exception) { }
+
             val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             try {
                 val date: Date = format.parse(dateString) ?: Date()
-                val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-                val duration = Duration.between(LocalTime.parse(startTime, timeFormatter), LocalTime.parse(endTime, timeFormatter)).toMinutes().toInt()
+
 
                 val imageView = view.findViewById<ImageView>(R.id.attached_image)
-                val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-                val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val data = baos.toByteArray()
-                val base64Image: String = android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT)
+                val drawable = imageView.drawable
+                val bitmap: Bitmap?
+                var base64Image: String = "none"
+                if (drawable != null) {
+                    bitmap = (imageView.drawable as BitmapDrawable).bitmap
+                    val baos = ByteArrayOutputStream()
+                    bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                    val data = baos.toByteArray()
+                     base64Image = android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT)
+                }
 
-                val tempTask = Task(taskName, taskDesc, category,date, startTime, endTime, base64Image, duration, false);
+                var completed = false
+                if (statusDropdown.text.toString() == "Completed"){completed = true }
+
+                val tempTask = Task(taskName, taskDesc, category,date, startTime, endTime, base64Image, duration, completed);
                 UserHelper.TaskList.add(tempTask)
             }
             catch (e: Exception) {
