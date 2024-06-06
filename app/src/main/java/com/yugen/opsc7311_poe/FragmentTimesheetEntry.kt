@@ -153,7 +153,6 @@ class FragmentTimesheetEntry : Fragment() {
             try {
                 val date: Date = format.parse(dateString) ?: Date()
 
-
                 val imageView = view.findViewById<ImageView>(R.id.attached_image)
                 val drawable = imageView.drawable
                 val bitmap: Bitmap?

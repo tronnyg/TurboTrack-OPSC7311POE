@@ -1,6 +1,9 @@
 package com.yugen.opsc7311_poe
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.yugen.opsc7311_poe.objects.Session
-
+import com.yugen.opsc7311_poe.objects.Task
 
 
 /**
@@ -17,12 +20,20 @@ import com.yugen.opsc7311_poe.objects.Session
  * create an instance of this fragment.
  */
 class FragmentTimesheetDetails : Fragment() {
-    private var session: Session? = null
+    private var task: Task? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    fun base64ToBitmap(base64String: String): Bitmap? {
+        // Decode base64 string to byte array
+        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+
+        // Convert byte array to Bitmap
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
     }
 
     override fun onCreateView(
@@ -31,16 +42,19 @@ class FragmentTimesheetDetails : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_timesheet_details, container, false)
-        view.findViewById<TextView>(R.id.timesheet_entry_title).text = session!!.taskName
-        view.findViewById<TextView>(R.id.entry_date_time).text = "Added ${session!!.date} - ${session!!.startTime} to ${session!!.endTime}"
-        view.findViewById<TextView>(R.id.category_type).text = session!!.category
-        view.findViewById<TextView>(R.id.description).text = session!!.taskDesc
-        view.findViewById<ImageView>(R.id.attachment).setImageBitmap(session!!.attachedImage)
+        view.findViewById<TextView>(R.id.timesheet_entry_title).text = task!!.taskName
+        view.findViewById<TextView>(R.id.entry_date_time).text = "Added ${task!!.date} - ${task!!.startTime} to ${task!!.endTime}"
+        view.findViewById<TextView>(R.id.category_type).text = task!!.category
+        view.findViewById<TextView>(R.id.description).text = task!!.taskDesc
+        if(task!!.bitmapUrl != "none")
+        {
+            view.findViewById<ImageView>(R.id.attachment).setImageBitmap(base64ToBitmap(task!!.bitmapUrl!!))
+        }
         return view
     }
 
-    fun setSession(session: Session?) {
-        this.session = session
+    fun setSession(task: Task?) {
+        this.task = task
     }
 
     companion object {

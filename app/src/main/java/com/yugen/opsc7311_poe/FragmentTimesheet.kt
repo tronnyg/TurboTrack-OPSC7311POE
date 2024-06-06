@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.yugen.opsc7311_poe.helpers.SessionAdapter
+import com.yugen.opsc7311_poe.helpers.SessionsListHelper
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +42,18 @@ class FragmentTimesheet : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        runBlocking(Dispatchers.IO){
+            UserHelper.TaskList = DBHelper.getTaskCollection()
+        }
+        val listView = view?.findViewById<ListView>(R.id.timesheet_list)
+        val adapter = SessionAdapter(requireContext(), UserHelper.TaskList)
+        if (listView != null) {
+            listView.adapter = adapter
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,20 +69,19 @@ class FragmentTimesheet : Fragment() {
 
         runBlocking(Dispatchers.IO){
             UserHelper.TaskList = DBHelper.getTaskCollection()
-            Log.d("Test", UserHelper.TaskList.toString())
         }
         val adapter = SessionAdapter(requireContext(), UserHelper.TaskList)
         listView.adapter = adapter
 
         listView.setOnItemClickListener { parent, view, position, id ->
             // Get the selected session
-           /* val selectedSession = adapter?.getItem(position)
+            val selectedTask = adapter?.getItem(position)
 
             // Display details of the selected session (e.g., in a new fragment or dialog)
             // For example:
             val detailsFragment = FragmentTimesheetDetails.newInstance()
-            detailsFragment.setSession(selectedSession)
-            fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, detailsFragment)?.commit()*/
+            detailsFragment.setSession(selectedTask)
+            fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, detailsFragment)?.commit()
         }
 
         btnStartDate.setOnClickListener{
@@ -84,9 +96,8 @@ class FragmentTimesheet : Fragment() {
         }
 
         btnFilterByDate.setOnClickListener{
-/*
-            val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.loggedInUser!!.sessionList,btnStartDate.text.toString(),btnEndDate.text.toString())
-            listView.adapter = SessionAdapter(requireContext(), filteredSessionList )*/
+            val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.TaskList,btnStartDate.text.toString(),btnEndDate.text.toString())
+            listView.adapter = SessionAdapter(requireContext(), filteredSessionList )
         }
 
 

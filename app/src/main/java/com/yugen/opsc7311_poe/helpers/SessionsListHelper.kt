@@ -1,9 +1,13 @@
     package com.yugen.opsc7311_poe.helpers
 
+    import android.util.Log
     import com.yugen.opsc7311_poe.objects.Session
+    import com.yugen.opsc7311_poe.objects.Task
+    import java.text.SimpleDateFormat
     import java.time.LocalDate
     import java.time.LocalTime
     import java.time.format.DateTimeFormatter
+    import java.util.Locale
 
     class SessionsListHelper {
         companion object {
@@ -63,10 +67,16 @@
                 return totalHours
             }
 
-            fun filterByDateRange(sessions: MutableList<Session>, startDate: String, endDate: String):
-                    MutableList<Session>
+            fun filterByDateRange(tasks: MutableList<Task>, startDate: String, endDate: String):
+                    MutableList<Task>
             {
-                return sessions.filter { it.date in startDate..endDate }.toMutableList()
+                val inputFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
+                val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+
+                Log.d("Start Date", startDate)
+                Log.d("End Date", endDate)
+
+                return tasks.filter { outputFormat.format(inputFormat.parse(it.date.toString())) in startDate..endDate }.toMutableList()
             }
         }
     }
