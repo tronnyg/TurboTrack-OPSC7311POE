@@ -23,7 +23,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.objects.Task
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
@@ -53,7 +55,7 @@ class FragmentTimer : Fragment() {
     private lateinit var playButton: RelativeLayout
     private lateinit var playButtonImage: ImageView
     private lateinit var timerStatus: ImageView
-    private lateinit var selectedTask: Task
+    private lateinit var selectedTask : Task
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +92,9 @@ class FragmentTimer : Fragment() {
                 playButtonImage.setImageResource(R.drawable.pause_icon)
             }
         }
+        val filteredTasks = UserHelper.TaskList.filter { it.completed == false}
+        val Tasks  = filteredTasks.map { it.taskName }.toTypedArray()
+        val arrayAdapterStatus = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, Tasks)
 
         val selectTask = view.findViewById<Button>(R.id.select_button)
         lateinit var alertDialog: AlertDialog
@@ -192,6 +197,15 @@ class FragmentTimer : Fragment() {
 
     private fun handleFocusFinish() {
         completedFocusSessions++
+        selectedTask.duration += focusTime - (timeLeftInMillis / 1000 / 60).toInt()
+        val index = UserHelper.TaskList.indexOfFirst { it.taskName == selectedTask.taskName }
+
+        UserHelper.TaskList[index] = selectedTask
+        CoroutineScope(Dispatchers.IO).launch {
+            DBHelper.updatePersonTask(UserHelper.TaskList, UserHelper.loggedInUser)
+        }
+
+        Log.d("Task Duration", UserHelper.TaskList[index].duration.toString())
         if (completedFocusSessions % pomoCount == 0) {
             if (cycleCount < pomoCycleCount - 1) {
                 startNextTimer(TimerState.LONG_BREAK, longBreakTime)

@@ -13,7 +13,7 @@ data class Task(
     val startTime: String?,
     val endTime: String?,
     val bitmapUrl: String?,
-    val duration: Int,
+    var duration: Int,
     val completed: Boolean
 )
 {   constructor() : this(
