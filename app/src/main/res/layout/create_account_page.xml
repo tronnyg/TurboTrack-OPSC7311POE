@@ -38,21 +38,21 @@
 
     <EditText
         android:id="@+id/input_email"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
         android:paddingLeft="20dp"
         android:hint="Email"
         android:textSize="16sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/welcome_bac"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <EditText
         android:id="@+id/input_password"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
@@ -67,7 +67,7 @@
 
     <EditText
         android:id="@+id/input_confirmpassword"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
@@ -82,7 +82,7 @@
 
     <EditText
         android:id="@+id/input_firstName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
@@ -96,7 +96,7 @@
 
     <EditText
         android:id="@+id/input_LastName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input_box_vector"
         android:fontFamily="@font/poppins"
@@ -110,7 +110,7 @@
 
     <Button
         android:id="@+id/button_signup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/turbo_button_vector"
@@ -130,7 +130,7 @@
         android:id="@+id/text_create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:clickable="true"
         android:fontFamily="@font/poppins"
         android:gravity="center_horizontal|top"
@@ -139,7 +139,6 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@id/button_signup" />
 
@@ -163,4 +162,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.06" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.94" />
 </androidx.constraintlayout.widget.ConstraintLayout>
