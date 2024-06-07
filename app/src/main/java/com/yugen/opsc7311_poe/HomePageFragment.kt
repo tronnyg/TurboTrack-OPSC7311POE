@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.RelativeLayout
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import android.widget.Toast
+import com.google.firebase.firestore.auth.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,9 +29,7 @@ class HomePageFragment : Fragment() {
     private lateinit var btnUpdateHours: Button
     private lateinit var btnMinHours: EditText
     private lateinit var btnMaxHours: EditText
-    private lateinit var txtHoursWorked: TextView
-    private lateinit var box: RelativeLayout
-    private var hoursUpdated: Boolean = false
+
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -58,16 +57,6 @@ class HomePageFragment : Fragment() {
         btnUpdateHours = view.findViewById(R.id.btn_update_hours)
         btnMinHours = view.findViewById(R.id.btn_min_hours)
         btnMaxHours = view.findViewById(R.id.btn_max_hours)
-        txtHoursWorked = view.findViewById(R.id.txt_hours_worked)
-        box = view.findViewById(R.id.box)
-
-        if (UserHelper.hoursWorkedToday < UserHelper.minHours)
-        {
-            box.setBackgroundResource(R.drawable.error_timesheet_frame)
-        }
-        else if (UserHelper.hoursWorkedToday > UserHelper.minHours){
-            box.setBackgroundResource(R.drawable.green_timesheet_frame)
-        }
 
         btnMinHours.hint = "Min Hours: " + UserHelper.minHours.toString()
         btnMaxHours.hint = "Max Hours: " + UserHelper.maxHours.toString()
@@ -75,25 +64,22 @@ class HomePageFragment : Fragment() {
         // Set OnClickListener for the button
         btnUpdateHours.setOnClickListener {
             // Handle button click event here
+            val minHours = btnMinHours.text.toString()
+            val maxHours = btnMaxHours.text.toString()
             UserHelper.minHours = btnMinHours.text.toString().toInt()
             UserHelper.maxHours = btnMaxHours.text.toString().toInt()
-            hoursUpdated = true
 
             // Display toast message
-            val toastMessage = "Hours have been updated for today."
+            val toastMessage = "Goals have been Updated."
             Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
 
-            btnMinHours.hint = "Min Hours: " + UserHelper.minHours.toString()
-            btnMaxHours.hint = "Max Hours: " + UserHelper.maxHours.toString()
+            btnMinHours.hint = "Min Hours: " + minHours
+            btnMaxHours.hint = "Max Hours: " + maxHours
 
             btnMinHours.text.clear()
             btnMaxHours.text.clear()
         }
 
-        // Display hours worked today
-        /*SessionsListHelper.updateHoursWorkedToday(UserHelper.loggedInUser!!.sessionList)*/
-        val message = "Hours worked today: ${UserHelper.hoursWorkedToday}"
-        txtHoursWorked.text = message
     }
 
     companion object {

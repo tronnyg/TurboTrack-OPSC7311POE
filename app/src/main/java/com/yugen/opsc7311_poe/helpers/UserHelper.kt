@@ -11,10 +11,12 @@ import com.yugen.opsc7311_poe.objects.WeeklyStats
 object UserHelper {
 
    lateinit var loggedInUser: User
-   var minHours = 0
-   var maxHours = 24
-   var hoursWorkedToday = 0
    var currentUserID = ""
+
+   var DailyGoalMin = 60
+   var DailyGoalMax = 180
+   var minHours = DailyGoalMin/60
+   var maxHours = DailyGoalMax/60
 
    var TaskList = mutableListOf<Task>()
    val ActivityList = mutableListOf<Activity>()
