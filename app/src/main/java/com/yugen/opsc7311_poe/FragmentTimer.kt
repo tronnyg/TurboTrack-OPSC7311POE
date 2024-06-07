@@ -80,18 +80,23 @@ class FragmentTimer : Fragment() {
         timeLeftInMillis = (focusTime * 60 * 1000L)
 
         playButton.setOnClickListener {
-            if (isTimerRunning) {
-                pauseTimer()
-                playButtonImage.setImageResource(R.drawable.play_icon)
-            } else {
-                if (timer == null) {
-                    startTimer(timeLeftInMillis)
+            if (::selectedTask.isInitialized) {
+                if (isTimerRunning) {
+                    pauseTimer()
+                    playButtonImage.setImageResource(R.drawable.play_icon)
                 } else {
-                    resumeTimer()
+                    if (timer == null) {
+                        startTimer(timeLeftInMillis)
+                    } else {
+                        resumeTimer()
+                    }
+                    playButtonImage.setImageResource(R.drawable.pause_icon)
                 }
-                playButtonImage.setImageResource(R.drawable.pause_icon)
+            } else {
+                Toast.makeText(context, "Please select a task before starting the timer", Toast.LENGTH_SHORT).show()
             }
         }
+
         val filteredTasks = UserHelper.TaskList.filter { it.completed == false}
         val Tasks  = filteredTasks.map { it.taskName }.toTypedArray()
         val arrayAdapterStatus = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, Tasks)
@@ -127,6 +132,7 @@ class FragmentTimer : Fragment() {
                 if (task != null) {
                     selectedTask = task
                     Log.d("Selected Task", selectedTask.taskName)
+                    selectTask.text = selectedTask.taskName
                     alertDialog.dismiss()
                 } else {
                     Toast.makeText(context, "Please select a valid task", Toast.LENGTH_SHORT).show()
@@ -281,8 +287,12 @@ class FragmentTimer : Fragment() {
     }
 
     private fun skipTimer() {
-        pauseTimer()
-        onTimerFinish()
+        if (::selectedTask.isInitialized) {
+            pauseTimer()
+            onTimerFinish()
+        } else {
+            Toast.makeText(context, "Please select a task before skipping the timer", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateTimerStatus(resourceId: Int) {
