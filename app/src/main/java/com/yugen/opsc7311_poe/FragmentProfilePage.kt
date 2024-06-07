@@ -58,7 +58,7 @@ class FragmentProfilePage : Fragment() {
         goldMedalCnt = view.findViewById(R.id.goldMedalCnt)
         purpleMedalCnt = view.findViewById(R.id.purpleMedalCnt)
         rubyMedalCnt = view.findViewById(R.id.rubyMedalCnt)
-        runBlocking (Dispatchers.IO){
+        runBlocking(Dispatchers.IO) {
             UserHelper.TaskList = dbHelper.getTaskCollection()
         }
         runBlocking (Dispatchers.IO){

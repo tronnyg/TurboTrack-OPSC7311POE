@@ -133,21 +133,42 @@ class DBHelper {
     suspend fun calculateMonthlyXPAndUpdateMedals(userID: String): List<Int> {
         val taskCollection = UserHelper.TaskList
         Log.d("TaskCollection", taskCollection.count().toString())
+
+        // Get the current date
         val calendar = Calendar.getInstance()
+        val currentDate = calendar.time
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDateString = outputFormat.format(currentDate)
+
+        // Get the earliest date from the tasks
+        val inputFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
+        val earliestDate = taskCollection.minByOrNull { inputFormat.parse(it.date.toString()) ?: Date() }
+        val earliestDateString = earliestDate?.date?.let { outputFormat.format(inputFormat.parse(it.toString())) } ?: currentDateString
+
+        Log.d("Earliest Date", earliestDateString)
+        Log.d("Current Date", currentDateString)
+
+        // Filter tasks by date range
+        val filteredTasks = filterByDateRange(taskCollection, earliestDateString, currentDateString)
+
+        // Calculate XP for the current month
+        val monthlyXP = mutableMapOf<Int, Int>()  // Map from month index to XP
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentYear = calendar.get(Calendar.YEAR)
-        val monthlyXP = mutableMapOf<Int, Int>()  // Map from month index to XP
 
-        for (task in taskCollection) {
-            val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val formattedDate: Date = format.parse(task.date.toString()) ?: Date()
-            calendar.time = formattedDate
-            Log.d("Date", formattedDate.toString())
-            val taskMonth = calendar.get(Calendar.MONTH)
-            val taskYear = calendar.get(Calendar.YEAR)
-            if (taskYear == currentYear && taskMonth == currentMonth) {
-                val xp = task.duration * 17
-                monthlyXP[taskMonth] = (monthlyXP[taskMonth] ?: 0) + xp
+        for (task in filteredTasks) {
+            try {
+                val formattedDate: Date = inputFormat.parse(task.date.toString()) ?: Date()
+                calendar.time = formattedDate
+                Log.d("Date", formattedDate.toString())
+                val taskMonth = calendar.get(Calendar.MONTH)
+                val taskYear = calendar.get(Calendar.YEAR)
+                if (taskYear == currentYear && taskMonth == currentMonth) {
+                    val xp = task.duration * 17
+                    monthlyXP[taskMonth] = (monthlyXP[taskMonth] ?: 0) + xp
+                }
+            } catch (e: Exception) {
+                Log.e("Date Parsing Error", e.toString())
             }
         }
 
@@ -168,6 +189,18 @@ class DBHelper {
         updateMedals(userID, medals)
         return monthlyXPList
     }
+
+    private fun filterByDateRange(tasks: MutableList<Task>, startDate: String, endDate: String): MutableList<Task> {
+        val inputFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+
+        Log.d("Start Date", startDate)
+        Log.d("End Date", endDate)
+
+        return tasks.filter { outputFormat.format(inputFormat.parse(it.date.toString())) in startDate..endDate }.toMutableList()
+    }
+
+
     suspend fun updatePersonActivity(activityList: List<Activity>, user: User) {
         val taskCollection = db.document(user.userID).collection("Activity")
 
