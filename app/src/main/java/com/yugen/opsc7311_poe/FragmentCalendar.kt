@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.yugen.opsc7311_poe.DBHelper
 import com.yugen.opsc7311_poe.R
@@ -54,29 +57,34 @@ class FragmentCalendar : Fragment() {
 
         // Create pie chart entries
         val entries = ArrayList<PieEntry>()
-        entries.add(PieEntry(daysAboveMaxGoal.toFloat(), "Days Above Max Goal"))
-        entries.add(PieEntry(daysBelowMinGoal.toFloat(), "Days Below Min Goal"))
-        entries.add(PieEntry(daysBetweenMinMaxGoals.toFloat(), "Days Between Min and Max Goals"))
+        entries.add(PieEntry(daysAboveMaxGoal.toFloat(), ""))
+        entries.add(PieEntry(daysBelowMinGoal.toFloat(), ""))
+        entries.add(PieEntry(daysBetweenMinMaxGoals.toFloat(), ""))
 
-        val pieDataSet = PieDataSet(entries, "Goal Status")
+        val pieDataSet = PieDataSet(entries, "")
         // Define your custom colors
         val customColors = intArrayOf(
+            ContextCompat.getColor(requireContext(), R.color.turboDarkGreen),
             ContextCompat.getColor(requireContext(), R.color.turboDarkRed),
-            ContextCompat.getColor(requireContext(), R.color.turboDarkBlue),
-            ContextCompat.getColor(requireContext(), R.color.turboDarkGreen)
+            ContextCompat.getColor(requireContext(), R.color.turboDarkBlue)
         )
 
         // Assign custom colors to your PieDataSet
         pieDataSet.colors = customColors.toList()
 
         val pieData = PieData(pieDataSet)
+        pieData.setValueFormatter(PercentFormatter())
         pieData.setValueTextSize(16f)
         pieData.setValueTextColor(Color.BLACK)
-
         pieChart.data = pieData
-        pieChart.description.isEnabled = true
+        pieChart.holeRadius = 75f
+        pieChart.setHoleColor(ContextCompat.getColor(requireContext(), R.color.turboBeige))
+        pieChart.transparentCircleRadius = 80f
+        pieChart.setUsePercentValues(true)
         pieChart.animateY(1000)
-
+        pieChart.animateX(1000)
+        pieChart.description.isEnabled = false
+        pieChart.legend.isEnabled = false
         pieChart.invalidate() // refresh
 
         return view
@@ -87,7 +95,6 @@ class FragmentCalendar : Fragment() {
         runBlocking(Dispatchers.IO){
             UserHelper.TaskList = DBHelper.getTaskCollection()
         }
-
         // Initialize counts
         var daysAboveMaxGoal = 0
         var daysBelowMinGoal = 0
@@ -102,6 +109,9 @@ class FragmentCalendar : Fragment() {
         val formattedThirtyDaysAgo = format.format(thirtyDaysAgo)
 
         val taskCollection = SessionsListHelper.filterByDateRange(UserHelper.TaskList, formattedThirtyDaysAgo, formattedCurrentDate)
+        val amountOfTasks = taskCollection.count()
+        val missingTasks = 30-amountOfTasks
+        daysBelowMinGoal = missingTasks
         Log.d(taskCollection.toString(), "taskCollection")
         // Calculate counts based on tasks in the past 30 days
         for (task in taskCollection) {
