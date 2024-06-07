@@ -51,33 +51,28 @@ class FragmentReports : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_reports, container, false)
+        val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_reports)
+        val startDate = btnStartDate.text.toString()
+        val endDate = btnEndDate.text.toString()
 
         barChart = view.findViewById(R.id.barChart)
         btnStartDate = view.findViewById(R.id.categories__start_date)
         btnEndDate = view.findViewById(R.id.categories_end_date)
-        val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_reports)
-
         btnStartDate.setOnClickListener { showDatePicker(btnStartDate) }
         btnEndDate.setOnClickListener { showDatePicker(btnEndDate) }
 
+        /*Filter Chart Button*/
         btnFilterByDate.setOnClickListener {
-            val startDate = btnStartDate.text.toString()
-            val endDate = btnEndDate.text.toString()
             if(startDate.isEmpty() || endDate.isEmpty()) {
                 return@setOnClickListener
             }
-                else
-                {
-                runBlocking(Dispatchers.IO) {
-                    updateChartWithSelectedDateRange(startDate, endDate)
-                }
-            }
+            else {updateChartWithSelectedDateRange(startDate, endDate)}
         }
         return view
     }
@@ -101,7 +96,7 @@ class FragmentReports : Fragment() {
         datePickerDialog.show()
     }
 
-    private suspend fun updateChartWithSelectedDateRange(startDate: String, endDate: String) {
+    private fun updateChartWithSelectedDateRange(startDate: String, endDate: String) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         val start: Date = dateFormat.parse(startDate) ?: return
         val end: Date = dateFormat.parse(endDate) ?: return
@@ -183,8 +178,6 @@ class FragmentReports : Fragment() {
 
         barChart.invalidate() // Refresh the chart
     }
-
-
 
     companion object {
         /**

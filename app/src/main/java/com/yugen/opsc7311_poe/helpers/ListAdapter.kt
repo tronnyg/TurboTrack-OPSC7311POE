@@ -73,4 +73,4 @@ class SessionAdapter(context: Context, private val tasks: List<Task>) : ArrayAda
         lateinit var hoursTextView: TextView
 
     }
-
+/*==========================END OF FILE====================================================================================================================================================*/

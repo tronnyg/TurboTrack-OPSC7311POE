@@ -181,7 +181,6 @@ class FragmentTimesheetEntry : Fragment() {
             val timesheetFragment = FragmentTimesheet.newInstance("a","a")
             fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, timesheetFragment)?.commit()
         }
-
         return view
     }
 
@@ -208,9 +207,7 @@ class FragmentTimesheetEntry : Fragment() {
             minute,
             true
         )
-
         timePickerDialog.show()
-
     }
 
     private fun showDatePicker(button: TextView) {
@@ -236,8 +233,6 @@ class FragmentTimesheetEntry : Fragment() {
 
         datePickerDialog.show()
     }
-
-
 
     companion object {
         /**

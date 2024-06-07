@@ -53,14 +53,14 @@ class FragmentTimesheetDetails : Fragment() {
         view.findViewById<TextView>(R.id.description).text = task!!.taskDesc
         val taskCompleted = view.findViewById<CheckBox>(R.id.taskCompletedCheckBox)
         taskCompleted.isChecked = task!!.completed
+
         if(task!!.bitmapUrl != "none")
-        {
-            view.findViewById<ImageView>(R.id.attachment).setImageBitmap(base64ToBitmap(task!!.bitmapUrl!!))
-        }
+        { view.findViewById<ImageView>(R.id.attachment).setImageBitmap(base64ToBitmap(task!!.bitmapUrl!!)) }
+
         taskCompleted.setOnCheckedChangeListener { _, isChecked ->
             val index = UserHelper.TaskList.indexOfFirst { it.taskName == task!!.taskName }
             UserHelper.TaskList[index] = task!!.copy(completed = isChecked)
-            runBlocking {
+            CoroutineScope(Dispatchers.IO).launch {
                 DBHelper.updatePersonTask(UserHelper.TaskList, UserHelper.loggedInUser)
             }
         }

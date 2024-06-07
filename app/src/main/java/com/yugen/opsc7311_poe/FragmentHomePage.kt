@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.RelativeLayout
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import android.widget.Toast
-import com.google.firebase.firestore.auth.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,11 +17,11 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HomePageFragment.newInstance] factory method to
+ * Use the [FragmentHomePage.newInstance] factory method to
  * create an instance of this fragment.
  */
 
-class HomePageFragment : Fragment() {
+class FragmentHomePage : Fragment() {
 
     private lateinit var btnUpdateHours: Button
     private lateinit var btnMinHours: EditText
@@ -89,12 +86,12 @@ class HomePageFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment HomePageFragment.
+         * @return A new instance of fragment FragmentHomePage.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            HomePageFragment().apply {
+            FragmentHomePage().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

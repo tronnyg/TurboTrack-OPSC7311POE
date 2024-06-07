@@ -46,30 +46,31 @@ class FragmentCalendar : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        /*Inflate the layout for this fragment*/
         val view = inflater.inflate(R.layout.fragment_calendar, container, false)
 
-        // Initialize the PieChart
+        /*Initialize the PieChart*/
         pieChart = view.findViewById(R.id.chart)
 
-        // Fetch data for the past 30 days and calculate counts
+        /*Fetch data for the past 30 days and calculate counts*/
         val (daysAboveMaxGoal, daysBelowMinGoal, daysBetweenMinMaxGoals) = fetchDataForPast30Days()
 
-        // Create pie chart entries
+        /*Create pie chart entries*/
         val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(daysAboveMaxGoal.toFloat(), ""))
         entries.add(PieEntry(daysBelowMinGoal.toFloat(), ""))
         entries.add(PieEntry(daysBetweenMinMaxGoals.toFloat(), ""))
 
         val pieDataSet = PieDataSet(entries, "")
-        // Define your custom colors
+        /*Define your custom colors*/
         val customColors = intArrayOf(
             ContextCompat.getColor(requireContext(), R.color.turboDarkGreen),
             ContextCompat.getColor(requireContext(), R.color.turboDarkRed),
             ContextCompat.getColor(requireContext(), R.color.turboDarkBlue)
         )
 
-        // Assign custom colors to your PieDataSet
+        /*Assign custom colors to your PieDataSet*/
         pieDataSet.colors = customColors.toList()
 
         val pieData = PieData(pieDataSet)
@@ -90,6 +91,7 @@ class FragmentCalendar : Fragment() {
         return view
     }
 
+    /*Fetch Task Date for Last 30 Days*/
     private fun fetchDataForPast30Days(): Triple<Int, Int, Int> {
         // Fetch the task collection for the past 30 days
         runBlocking(Dispatchers.IO){
@@ -127,8 +129,6 @@ class FragmentCalendar : Fragment() {
 
         return Triple(daysAboveMaxGoal, daysBelowMinGoal, daysBetweenMinMaxGoals)
     }
-
-
 
     companion object {
         @JvmStatic

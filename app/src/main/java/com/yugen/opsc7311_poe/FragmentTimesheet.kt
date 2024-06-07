@@ -60,7 +60,6 @@ class FragmentTimesheet : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_timesheet, container, false)
-
         val btnStartDate = view.findViewById<Button>(R.id.btn_Start_Date)
         val btnEndDate = view.findViewById<Button>(R.id.btn_End_Date)
         val btnAddEntry = view.findViewById<TextView>(R.id.txt_Plus)
@@ -70,6 +69,7 @@ class FragmentTimesheet : Fragment() {
         runBlocking(Dispatchers.IO){
             UserHelper.TaskList = DBHelper.getTaskCollection()
         }
+
         val adapter = SessionAdapter(requireContext(), UserHelper.TaskList)
         listView.adapter = adapter
 
@@ -99,8 +99,6 @@ class FragmentTimesheet : Fragment() {
             val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.TaskList,btnStartDate.text.toString(),btnEndDate.text.toString())
             listView.adapter = SessionAdapter(requireContext(), filteredSessionList )
         }
-
-
         return view
     }
 
@@ -119,7 +117,6 @@ class FragmentTimesheet : Fragment() {
             month,
             day
         )
-
         datePickerDialog.show()
     }
 

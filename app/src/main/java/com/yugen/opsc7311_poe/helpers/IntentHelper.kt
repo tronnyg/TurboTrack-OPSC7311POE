@@ -12,5 +12,5 @@ fun openIntent(activity: Activity, activityToOpen: Class<*>) {
 
     // start the activity
     activity.startActivity(intent)
-
 }
+/*==========================END OF FILE====================================================================================================================================================*/

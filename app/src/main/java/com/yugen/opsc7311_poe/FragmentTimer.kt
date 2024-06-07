@@ -69,9 +69,11 @@ class FragmentTimer : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_timer, container, false)
         initializeUIComponents(view)
         loadPreferences()
+
         runBlocking(Dispatchers.IO){
             UserHelper.TaskList = DBHelper.getTaskCollection()
         }
