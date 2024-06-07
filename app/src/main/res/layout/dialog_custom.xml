@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="270dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/lbl_category"
+            android:background="@drawable/input_box_vector"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center">
+
+            <AutoCompleteTextView
+                android:id="@+id/selectTask"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:hint="Select Task" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_selectTask"
+            android:layout_width="270dp"
+            android:layout_height="45dp"
+            android:background="@drawable/turbo_button_vector"
+            android:elevation="20dp"
+            android:fontFamily="@font/poppins"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="50dp"
+            android:text="Select Task"
+            android:textAllCaps="false"
+            android:textColor="@color/turboWhite"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

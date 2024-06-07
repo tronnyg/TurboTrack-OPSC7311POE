@@ -1,20 +1,28 @@
 package com.yugen.opsc7311_poe
 
+import android.app.AlertDialog
 import android.content.Context
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.objects.Task
 
 
 private const val ARG_PARAM1 = "param1"
@@ -43,6 +51,7 @@ class FragmentTimer : Fragment() {
     private lateinit var playButton: RelativeLayout
     private lateinit var playButtonImage: ImageView
     private lateinit var timerStatus: ImageView
+    private lateinit var selectedTask: Task
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +84,31 @@ class FragmentTimer : Fragment() {
                 }
                 playButtonImage.setImageResource(R.drawable.pause_icon)
             }
+        }
+        val filteredTasks = UserHelper.TaskList.filter { it.completed == false}
+        val Tasks  = filteredTasks.map { it.taskName }.toTypedArray()
+        val arrayAdapterStatus = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, Tasks)
+
+        val selectTask = view.findViewById<Button>(R.id.select_button)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+        val statusDropdown = dialogView.findViewById<AutoCompleteTextView>(R.id.selectTask)
+        val selectTaskButton = dialogView.findViewById<Button>(R.id.button_selectTask)
+        lateinit var alertDialog: AlertDialog
+
+        selectTask.setOnClickListener {
+            statusDropdown.setAdapter(arrayAdapterStatus)
+
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .setCancelable(true)
+            alertDialog = dialogBuilder.create()
+            alertDialog.show()
+        }
+
+        selectTaskButton.setOnClickListener {
+            selectedTask = UserHelper.TaskList.find { it.taskName == statusDropdown.text.toString() }!!
+            Log.d("Selected Task", selectedTask.taskName)
+            alertDialog.dismiss()
         }
 
         return view
