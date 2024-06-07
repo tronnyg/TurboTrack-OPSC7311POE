@@ -11,6 +11,9 @@
     <color name="turboWhite">#FFF2F2</color>
     <color name="turboGrey">#494949</color>
     <color name="turboBeige">#FFFADF</color>
+    <color name="focusColor">#4B2B21</color>
+    <color name="longBreakColor">#153047</color>
+    <color name="shortBreakColor">#14401D</color>
     <color name="turboLightBlue">#E4F3FF</color>
     <color name="turboDarkRed">#FF5733</color>
     <color name="turboDarkBlue">#007BFF</color>

@@ -141,14 +141,6 @@ class FragmentTimesheetEntry : Fragment() {
             category = (view.findViewById<EditText>(R.id.selectCategory).text.toString())
             dateString = (view.findViewById<TextView>(R.id.btn_select_date).text.toString())
 
-            try {
-                startTime =(view.findViewById<TextView>(R.id.btn_start_time).text.toString())
-                endTime = (view.findViewById<TextView>(R.id.btn_end_time).text.toString())
-                val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-                duration = Duration.between(LocalTime.parse(startTime, timeFormatter), LocalTime.parse(endTime, timeFormatter)).toMinutes().toInt()
-            }
-            catch (e: Exception) { }
-
             val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             try {
                 val date: Date = format.parse(dateString) ?: Date()
@@ -166,7 +158,13 @@ class FragmentTimesheetEntry : Fragment() {
                 }
 
                 var completed = false
-                if (statusDropdown.text.toString() == "Completed"){completed = true }
+                if (statusDropdown.text.toString() == "Completed"){
+                    completed = true
+                    startTime =(view.findViewById<TextView>(R.id.btn_start_time).text.toString())
+                    endTime = (view.findViewById<TextView>(R.id.btn_end_time).text.toString())
+                    val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+                    duration = Duration.between(LocalTime.parse(startTime, timeFormatter), LocalTime.parse(endTime, timeFormatter)).toMinutes().toInt()
+                }
 
                 val tempTask = Task(taskName, taskDesc, category,date, startTime, endTime, base64Image, duration, completed);
                 UserHelper.TaskList.add(tempTask)
