@@ -130,52 +130,39 @@ class DBHelper {
             Log.d("Error", e.toString())
         }
     }
-    suspend fun calculateMonthlyXPAndUpdateMedals(userID: String): List<Int> {
+    suspend fun calculateMonthlyXPAndUpdateMedals(userID: String): Pair<List<Double>, Double> {
         val taskCollection = UserHelper.TaskList
         Log.d("TaskCollection", taskCollection.count().toString())
 
+        // Calculate total XP
+        val totalXP = taskCollection.sumByDouble { it.duration * 1.7 }
+
         // Get the current date
         val calendar = Calendar.getInstance()
-        val currentDate = calendar.time
         val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-        val currentDateString = outputFormat.format(currentDate)
 
-        // Get the earliest date from the tasks
-        val inputFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
-        val earliestDate = taskCollection.minByOrNull { inputFormat.parse(it.date.toString()) ?: Date() }
-        val earliestDateString = earliestDate?.date?.let { outputFormat.format(inputFormat.parse(it.toString())) } ?: currentDateString
+        // Calculate XP for each month and assign medals
+        val monthlyXP = mutableMapOf<String, Double>()  // Map from month-year to XP
+        val medals = getMedalsCollection(userID) ?: Medals(0, 0, 0, 0, 0)
 
-        Log.d("Earliest Date", earliestDateString)
-        Log.d("Current Date", currentDateString)
-
-        // Filter tasks by date range
-        val filteredTasks = filterByDateRange(taskCollection, earliestDateString, currentDateString)
-
-        // Calculate XP for the current month
-        val monthlyXP = mutableMapOf<Int, Int>()  // Map from month index to XP
-        val currentMonth = calendar.get(Calendar.MONTH)
-        val currentYear = calendar.get(Calendar.YEAR)
-
-        for (task in filteredTasks) {
+        for (task in taskCollection) {
             try {
-                val formattedDate: Date = inputFormat.parse(task.date.toString()) ?: Date()
+                val formattedDate: Date = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(task.date.toString()) ?: Date()
                 calendar.time = formattedDate
                 Log.d("Date", formattedDate.toString())
                 val taskMonth = calendar.get(Calendar.MONTH)
                 val taskYear = calendar.get(Calendar.YEAR)
-                if (taskYear == currentYear && taskMonth == currentMonth) {
-                    val xp = task.duration * 17
-                    monthlyXP[taskMonth] = (monthlyXP[taskMonth] ?: 0) + xp
-                }
+                val monthYearKey = "$taskMonth-$taskYear"
+                val xp = task.duration * 1.7
+                monthlyXP[monthYearKey] = (monthlyXP[monthYearKey] ?: 0.0) + xp
             } catch (e: Exception) {
                 Log.e("Date Parsing Error", e.toString())
             }
         }
 
-        val medals = getMedalsCollection(userID) ?: Medals(0, 0, 0, 0, 0)
-        val monthlyXPList = mutableListOf<Int>()
+        val monthlyXPList = mutableListOf<Double>()
 
-        for ((month, xp) in monthlyXP) {
+        for ((monthYear, xp) in monthlyXP) {
             monthlyXPList.add(xp)
             when {
                 xp >= 5000 -> medals.rubyCnt += 1
@@ -187,8 +174,9 @@ class DBHelper {
         }
 
         updateMedals(userID, medals)
-        return monthlyXPList
+        return Pair(monthlyXPList, totalXP)
     }
+
 
     private fun filterByDateRange(tasks: MutableList<Task>, startDate: String, endDate: String): MutableList<Task> {
         val inputFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)

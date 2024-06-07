@@ -29,6 +29,7 @@
 
             <!-- Name -->
             <TextView
+                android:id="@+id/accName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -47,18 +48,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
                     android:text="STATS"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ACTIVITY"
-                    android:textColor="#888888"
-                    android:textSize="18sp" />
             </LinearLayout>
 
             <!-- Level and Points -->
@@ -91,6 +85,7 @@
                     android:progressDrawable="@drawable/progress_bar" />
 
                 <TextView
+                    android:id="@+id/xpToNxtLvl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="500 Points to next level"
@@ -221,73 +216,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Weekly Stats -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_background"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="Weekly Stats"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pomodoro Cycles"
-                    android:textColor="#888888"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/PomoCycleCnt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="5"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Max Goal Achieved"
-                    android:textColor="#888888"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/maxGoalCnt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="5"
-
-                    android:textAlignment="viewEnd"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total XP Gained"
-                    android:textColor="#888888"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/totalWeekXp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
