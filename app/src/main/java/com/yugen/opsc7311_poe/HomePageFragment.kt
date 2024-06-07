@@ -29,6 +29,7 @@ class HomePageFragment : Fragment() {
     private lateinit var btnUpdateHours: Button
     private lateinit var btnMinHours: EditText
     private lateinit var btnMaxHours: EditText
+    private lateinit var btnProfile: Button
 
 
     // TODO: Rename and change types of parameters
@@ -57,6 +58,7 @@ class HomePageFragment : Fragment() {
         btnUpdateHours = view.findViewById(R.id.btn_update_hours)
         btnMinHours = view.findViewById(R.id.btn_min_hours)
         btnMaxHours = view.findViewById(R.id.btn_max_hours)
+        btnProfile = view.findViewById(R.id.btn_profile)
 
         btnMinHours.hint = "Min Hours: " + UserHelper.minHours.toString()
         btnMaxHours.hint = "Max Hours: " + UserHelper.maxHours.toString()
@@ -80,6 +82,20 @@ class HomePageFragment : Fragment() {
             btnMaxHours.text.clear()
         }
 
+        btnProfile.setOnClickListener {
+            replaceFragment(FragmentProfilePage())
+        }
+
+
+    }
+
+    private fun replaceFragment(fragment: Fragment)
+    {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     companion object {

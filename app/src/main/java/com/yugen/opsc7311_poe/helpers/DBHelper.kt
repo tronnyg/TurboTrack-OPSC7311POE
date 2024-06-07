@@ -3,12 +3,16 @@ package com.yugen.opsc7311_poe.helpers
 import android.app.Activity
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yugen.opsc7311_poe.dateString
 import com.yugen.opsc7311_poe.objects.Medals
 import com.yugen.opsc7311_poe.objects.User
 import com.yugen.opsc7311_poe.objects.Task
 import com.yugen.opsc7311_poe.objects.WeeklyStats
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class DBHelper {
     private val db = FirebaseFirestore.getInstance()
@@ -68,16 +72,15 @@ class DBHelper {
         }
         return taskCollection
     }
-    suspend fun getMedalsCollection(userID: String): Medals {
+    suspend fun getMedalsCollection(userID: String): Medals? {
         var medals: Medals? = null
         try {
             val medalsDocRef = db.collection("Users").document(userID).collection("Medals").document("MedalDoc")
             medals = medalsDocRef.get().await().toObject(Medals::class.java)
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             Log.d("Error", e.toString())
         }
-        return medals!!
+        return medals
     }
     suspend fun getWeeklyStatsCollection(userID: String): WeeklyStats {
         var weeklyStats: WeeklyStats? = null
@@ -128,14 +131,18 @@ class DBHelper {
         }
     }
     suspend fun calculateMonthlyXPAndUpdateMedals(userID: String): List<Int> {
-        val taskCollection = getTaskCollectionWithUserID(userID)
+        val taskCollection = UserHelper.TaskList
+        Log.d("TaskCollection", taskCollection.count().toString())
         val calendar = Calendar.getInstance()
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentYear = calendar.get(Calendar.YEAR)
         val monthlyXP = mutableMapOf<Int, Int>()  // Map from month index to XP
 
         for (task in taskCollection) {
-            calendar.time = task.date
+            val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val formattedDate: Date = format.parse(task.date.toString()) ?: Date()
+            calendar.time = formattedDate
+            Log.d("Date", formattedDate.toString())
             val taskMonth = calendar.get(Calendar.MONTH)
             val taskYear = calendar.get(Calendar.YEAR)
             if (taskYear == currentYear && taskMonth == currentMonth) {

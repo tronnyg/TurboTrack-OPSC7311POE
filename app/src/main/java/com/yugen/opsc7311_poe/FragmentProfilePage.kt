@@ -1,6 +1,7 @@
 package com.yugen.opsc7311_poe
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.yugen.opsc7311_poe.helpers.UserHelper
+import com.yugen.opsc7311_poe.objects.Medals
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+val dbHelper = DBHelper
 
 /**
  * A simple [Fragment] subclass.
@@ -31,6 +35,7 @@ class FragmentProfilePage : Fragment() {
     private lateinit var goldMedalCnt: TextView
     private lateinit var purpleMedalCnt: TextView
     private lateinit var rubyMedalCnt: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,20 +58,24 @@ class FragmentProfilePage : Fragment() {
         goldMedalCnt = view.findViewById(R.id.goldMedalCnt)
         purpleMedalCnt = view.findViewById(R.id.purpleMedalCnt)
         rubyMedalCnt = view.findViewById(R.id.rubyMedalCnt)
-
-        runBlocking {
+        runBlocking (Dispatchers.IO){
+            UserHelper.TaskList = dbHelper.getTaskCollection()
+        }
+        runBlocking (Dispatchers.IO){
             updateProfile()
         }
 
         return view
     }
 
-    private suspend fun updateProfile() {
-        val dbHelper = DBHelper
+    private fun updateProfile() {
         val userID = UserHelper.loggedInUser.userID
-        val monthlyXPList = dbHelper.calculateMonthlyXPAndUpdateMedals(userID)
+        lateinit var monthlyXPList: List<Int>
+        runBlocking(Dispatchers.IO){
+            monthlyXPList = dbHelper.calculateMonthlyXPAndUpdateMedals(userID)
+        }
         val totalXP = monthlyXPList.sum()
-
+        Log.d("Total XP", totalXP.toString())
         val level = totalXP / 1000
         val xpToNextLevel = 1000 - (totalXP % 1000)
 
@@ -74,7 +83,10 @@ class FragmentProfilePage : Fragment() {
         progressBarLvl.max = 1000
         progressBarLvl.progress = totalXP % 1000
 
-        val medals = dbHelper.getMedalsCollection(userID)
+        var medals: Medals?
+        runBlocking(Dispatchers.IO){
+            medals = dbHelper.getMedalsCollection(userID)
+        }
         medals?.let {
             bronzeMedalCnt.text = it.bronzeCnt.toString()
             silverMedalCnt.text = it.silverCnt.toString()

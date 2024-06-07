@@ -19,16 +19,18 @@ class LoginPageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = LoginPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.inputEmail.setText("mark@gmail.com")
+        binding.inputPassword.setText("P@ssw0rd")
         binding.textCreateAccount.setOnClickListener{
             openIntent(this,CreateAccountActivity::class.java)
         }
-
         val DBHelper = DBHelper()
         CoroutineScope(Dispatchers.IO).launch{
             users = DBHelper.getUsers().toMutableList()
         }
 
         binding.buttonSignin.setOnClickListener{
+
             val inputEmail =  binding.inputEmail.text.toString()
             val inputPassword = binding.inputPassword.text.toString()
 

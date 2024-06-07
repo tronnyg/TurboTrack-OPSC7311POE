@@ -7,3 +7,4 @@ data class Medals(
     var purpleCnt: Int,
     var rubyCnt: Int
 )
+{ constructor() : this(0, 0, 0, 0, 0)}
