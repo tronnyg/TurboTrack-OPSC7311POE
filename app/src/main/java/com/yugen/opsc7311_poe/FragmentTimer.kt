@@ -233,6 +233,11 @@ class FragmentTimer : Fragment() {
         focusTime = initialFocusTime
         cycleCount = 0
         playButtonImage.setImageResource(R.drawable.play_icon)
+        val selectTaskButton = view?.findViewById<Button>(R.id.select_button)
+        selectTaskButton?.text = "Select Task"
+        if (::selectedTask.isInitialized) {
+            selectedTask = Task() // Reset the selectedTask variable
+        }
     }
 
     private fun startNextTimer(state: TimerState, time: Int) {
