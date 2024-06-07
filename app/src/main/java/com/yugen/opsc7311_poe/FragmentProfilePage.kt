@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import com.yugen.opsc7311_poe.helpers.UserHelper
+import kotlinx.coroutines.runBlocking
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +24,13 @@ class FragmentProfilePage : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var accLevel: TextView
+    private lateinit var progressBarLvl: ProgressBar
+    private lateinit var bronzeMedalCnt: TextView
+    private lateinit var silverMedalCnt: TextView
+    private lateinit var goldMedalCnt: TextView
+    private lateinit var purpleMedalCnt: TextView
+    private lateinit var rubyMedalCnt: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +44,44 @@ class FragmentProfilePage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile_page, container, false)
+
+        accLevel = view.findViewById(R.id.accLevel)
+        progressBarLvl = view.findViewById(R.id.progressBarLvl)
+        bronzeMedalCnt = view.findViewById(R.id.bronzeMedalCnt)
+        silverMedalCnt = view.findViewById(R.id.silverMedalCnt)
+        goldMedalCnt = view.findViewById(R.id.goldMedalCnt)
+        purpleMedalCnt = view.findViewById(R.id.purpleMedalCnt)
+        rubyMedalCnt = view.findViewById(R.id.rubyMedalCnt)
+
+        runBlocking {
+            updateProfile()
+        }
+
+        return view
+    }
+
+    private suspend fun updateProfile() {
+        val dbHelper = DBHelper
+        val userID = UserHelper.loggedInUser.userID
+        val monthlyXPList = dbHelper.calculateMonthlyXPAndUpdateMedals(userID)
+        val totalXP = monthlyXPList.sum()
+
+        val level = totalXP / 1000
+        val xpToNextLevel = 1000 - (totalXP % 1000)
+
+        accLevel.text = "Level $level"
+        progressBarLvl.max = 1000
+        progressBarLvl.progress = totalXP % 1000
+
+        val medals = dbHelper.getMedalsCollection(userID)
+        medals?.let {
+            bronzeMedalCnt.text = it.bronzeCnt.toString()
+            silverMedalCnt.text = it.silverCnt.toString()
+            goldMedalCnt.text = it.goldCnt.toString()
+            purpleMedalCnt.text = it.purpleCnt.toString()
+            rubyMedalCnt.text = it.rubyCnt.toString()
+        }
     }
 
     companion object {

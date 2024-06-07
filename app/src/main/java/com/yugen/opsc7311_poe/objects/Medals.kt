@@ -1,9 +1,9 @@
 package com.yugen.opsc7311_poe.objects
 
 data class Medals(
-    val bronzeCnt: Int,
-    val silverCnt: Int,
-    val goldCnt: Int,
-    val purpleCnt: Int,
-    val rubyCnt: Int
+    var bronzeCnt: Int,
+    var silverCnt: Int,
+    var goldCnt: Int,
+    var purpleCnt: Int,
+    var rubyCnt: Int
 )

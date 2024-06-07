@@ -8,6 +8,7 @@ import com.yugen.opsc7311_poe.objects.User
 import com.yugen.opsc7311_poe.objects.Task
 import com.yugen.opsc7311_poe.objects.WeeklyStats
 import kotlinx.coroutines.tasks.await
+import java.util.Calendar
 
 class DBHelper {
     private val db = FirebaseFirestore.getInstance()
@@ -44,6 +45,20 @@ class DBHelper {
         try {
             val userID = UserHelper.loggedInUser.userID
             val taskCollectionRef = db.collection("Users").document(userID).collection("Task")
+            val taskList = taskCollectionRef.get().await()
+            for (task in taskList) {
+                taskCollection.add(task.toObject(Task::class.java))
+            }
+        } catch (e: Exception) {
+            Log.e("Error", e.toString())
+        }
+        return taskCollection
+    }
+
+    suspend fun getTaskCollectionWithUserID(userID: String): MutableList<Task> {
+        val taskCollection = mutableListOf<Task>()
+        try {
+            val taskCollectionRef = db.collection("Users").document(userID).collection("Tasks")
             val taskList = taskCollectionRef.get().await()
             for (task in taskList) {
                 taskCollection.add(task.toObject(Task::class.java))
@@ -104,31 +119,47 @@ class DBHelper {
             taskCollection.add(task)
         }
     }
-    suspend fun updatePersonMedals(medalsList: List<Medals>, user: User) {
-        val taskCollection = db.document(user.userID).collection("Medals")
-
-        // Delete existing tasks
-        val snapshot = taskCollection.get().await()
-        for (document in snapshot.documents) {
-            document.reference.delete()
-        }
-        // Add new tasks
-        for (medal in medalsList) {
-            taskCollection.add(medal)
+    suspend fun updateMedals(userID: String, medals: Medals) {
+        try {
+            val medalsDocRef = db.collection("Users").document(userID).collection("Medals").document("MedalDoc")
+            medalsDocRef.set(medals).await()
+        } catch (e: Exception) {
+            Log.d("Error", e.toString())
         }
     }
-    suspend fun updatePersonWeeklyStats(weeklyStatsList: List<WeeklyStats>, user: User) {
-        val taskCollection = db.document(user.userID).collection("WeeklyStats")
+    suspend fun calculateMonthlyXPAndUpdateMedals(userID: String): List<Int> {
+        val taskCollection = getTaskCollectionWithUserID(userID)
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH)
+        val currentYear = calendar.get(Calendar.YEAR)
+        val monthlyXP = mutableMapOf<Int, Int>()  // Map from month index to XP
 
-        // Delete existing tasks
-        val snapshot = taskCollection.get().await()
-        for (document in snapshot.documents) {
-            document.reference.delete()
+        for (task in taskCollection) {
+            calendar.time = task.date
+            val taskMonth = calendar.get(Calendar.MONTH)
+            val taskYear = calendar.get(Calendar.YEAR)
+            if (taskYear == currentYear && taskMonth == currentMonth) {
+                val xp = task.duration * 17
+                monthlyXP[taskMonth] = (monthlyXP[taskMonth] ?: 0) + xp
+            }
         }
-        // Add new tasks
-        for (weeklyStats in weeklyStatsList) {
-            taskCollection.add(weeklyStats)
+
+        val medals = getMedalsCollection(userID) ?: Medals(0, 0, 0, 0, 0)
+        val monthlyXPList = mutableListOf<Int>()
+
+        for ((month, xp) in monthlyXP) {
+            monthlyXPList.add(xp)
+            when {
+                xp >= 5000 -> medals.rubyCnt += 1
+                xp >= 4000 -> medals.purpleCnt += 1
+                xp >= 3000 -> medals.goldCnt += 1
+                xp >= 2000 -> medals.silverCnt += 1
+                xp >= 1000 -> medals.bronzeCnt += 1
+            }
         }
+
+        updateMedals(userID, medals)
+        return monthlyXPList
     }
     suspend fun updatePersonActivity(activityList: List<Activity>, user: User) {
         val taskCollection = db.document(user.userID).collection("Activity")
