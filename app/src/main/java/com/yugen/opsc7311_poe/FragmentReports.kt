@@ -1,8 +1,10 @@
 package com.yugen.opsc7311_poe
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.LimitLine
@@ -42,6 +45,7 @@ class FragmentReports : Fragment() {
     private lateinit var barChart: BarChart
     private lateinit var btnStartDate: Button
     private lateinit var btnEndDate: Button
+    lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,13 @@ class FragmentReports : Fragment() {
         }
     }
 
+    fun getDateOneWeekAgo(currentDate: Date): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = currentDate
+        calendar.add(Calendar.DAY_OF_YEAR, -7)
+        return calendar.time
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,21 +69,48 @@ class FragmentReports : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_reports, container, false)
         val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_reports)
-        val startDate = btnStartDate.text.toString()
-        val endDate = btnEndDate.text.toString()
 
         barChart = view.findViewById(R.id.barChart)
-        btnStartDate = view.findViewById(R.id.categories__start_date)
-        btnEndDate = view.findViewById(R.id.categories_end_date)
-        btnStartDate.setOnClickListener { showDatePicker(btnStartDate) }
-        btnEndDate.setOnClickListener { showDatePicker(btnEndDate) }
+        barChart.setDrawGridBackground(false)
+        barChart.setGridBackgroundColor(R.color.transparent)
+
+        var startDate = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(getDateOneWeekAgo(Date()))
+        var endDate = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Date())
+        updateChartWithSelectedDateRange(startDate, endDate)
 
         /*Filter Chart Button*/
         btnFilterByDate.setOnClickListener {
-            if(startDate.isEmpty() || endDate.isEmpty()) {
-                return@setOnClickListener
+
+            val dialogView = layoutInflater.inflate(R.layout.dialog_filter, null)
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .setCancelable(true)
+            alertDialog = dialogBuilder.create()
+            alertDialog.setCanceledOnTouchOutside(true)
+            alertDialog.show()
+            alertDialog.setOnCancelListener {
+                // Handle the state reset or return to timer page
+                Log.d("Dialog", "Dialog canceled")
             }
-            else {updateChartWithSelectedDateRange(startDate, endDate)}
+
+            btnStartDate = dialogView.findViewById(R.id.categories_start_date)
+            btnEndDate = dialogView.findViewById(R.id.categories_end_date)
+            val btnFilter = dialogView.findViewById<Button>(R.id.btn_submit_date)
+            btnStartDate.setOnClickListener { showDatePicker(btnStartDate) }
+            btnEndDate.setOnClickListener { showDatePicker(btnEndDate) }
+
+            btnFilter.setOnClickListener {
+                startDate = btnStartDate.text.toString()
+                endDate = btnEndDate.text.toString()
+                if (startDate.isEmpty() || endDate.isEmpty()) {
+                    val toastMessage = "Please enter both start and end date."
+                    Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                } else {
+                    updateChartWithSelectedDateRange(startDate, endDate)
+                    alertDialog.dismiss()
+                }
+            }
         }
         return view
     }

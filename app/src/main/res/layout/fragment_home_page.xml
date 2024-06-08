@@ -1,80 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        android:background="@color/cardview_light_background">
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/title"
+        <!-- Horizontal Guideline for top margin -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top"
             android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="75dp"
-            android:fontFamily="@font/poppins"
-            android:lineHeight="38sp"
-            android:text="Daily Goals"
-            android:textColor="#007FFF"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
 
-        <EditText
-            android:id="@+id/btn_min_hours"
-            android:layout_width="140dp"
-            android:layout_height="38dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:paddingLeft="8dp"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="125dp"
-            android:textColor="@color/black"
-            android:background="@drawable/input_box_vector"
-            android:hint="Min Hours"/>
+        <!-- LinearLayout for Settings Icon and Profile Picture -->
+        <LinearLayout
+            android:id="@+id/top_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/guideline14"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintTop_toTopOf="@+id/guideline_top">
 
-        <EditText
-            android:id="@+id/btn_max_hours"
-            android:layout_width="140dp"
-            android:layout_height="38dp"
-            android:paddingLeft="8dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:textColor="@color/black"
-            android:layout_marginLeft="220dp"
-            android:layout_marginTop="125dp"
-            android:hint="Max Hours"
-            android:background="@drawable/input_box_vector"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/btn_update_hours"
-            android:layout_width="300dp"
-            android:layout_height="38dp"
-            android:layout_gravity="center|top"
-            android:layout_marginTop="178dp"
-            android:background="@drawable/turbo_button_vector"
-            android:text="Update Hours"
-            android:textAllCaps="false"
-            android:textColor="@color/turboBeige" />
+            <!-- Profile Picture -->
+            <ImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end|center_vertical"
+                android:background="@drawable/profile_picture_placeholder" />
+        </LinearLayout>
 
-    </FrameLayout>
+        <!-- Box for Daily Goals Section -->
+        <LinearLayout
+            android:id="@+id/daily_goals_box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/top_section">
 
-<com.google.android.material.bottomnavigation.BottomNavigationView
-    android:id="@+id/bottomNavigationView"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    app:menu="@menu/bottom_navbar"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Title Text -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/poppins"
+                android:lineHeight="38sp"
+                android:text="Daily Goals"
+                android:textAlignment="center"
+                android:textColor="#007FFF"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <!-- Daily Goal Section -->
+            <LinearLayout
+                android:id="@+id/daily_goal_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/min_goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.1"
+                    android:text="4/10"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="45dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/max_goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.1"
+                    android:text="4/15"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="45dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Daily Goal Text Section -->
+            <LinearLayout
+                android:id="@+id/daily_goal_text_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/min_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.1"
+                    android:text="MIN"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/max_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:letterSpacing="0.1"
+                    android:text="MAX"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Update Hours Button -->
+            <Button
+                android:id="@+id/btn_update_hours"
+                android:layout_width="250dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/turbo_button_vector"
+                android:text="Update Goals"
+                android:textAllCaps="false"
+                android:textColor="@color/turboBeige" />
+        </LinearLayout>
+
+        <!-- Existing Guidelines -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.06" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

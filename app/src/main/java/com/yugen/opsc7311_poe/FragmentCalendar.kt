@@ -33,6 +33,7 @@ class FragmentCalendar : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var pieChart: PieChart
+    private var totalHour30Days: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,14 @@ class FragmentCalendar : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+
+    private fun getTotalDuration(taskCollection: List<Task>): Int {
+        var totalDuration = 0
+        for (task in taskCollection) {
+            totalDuration += task.duration
+        }
+        return totalDuration
     }
 
     override  fun onCreateView(
@@ -65,9 +74,9 @@ class FragmentCalendar : Fragment() {
         val pieDataSet = PieDataSet(entries, "")
         /*Define your custom colors*/
         val customColors = intArrayOf(
-            ContextCompat.getColor(requireContext(), R.color.turboDarkGreen),
+            ContextCompat.getColor(requireContext(), R.color.turboYellow),
             ContextCompat.getColor(requireContext(), R.color.turboDarkRed),
-            ContextCompat.getColor(requireContext(), R.color.turboDarkBlue)
+            ContextCompat.getColor(requireContext(), R.color.turboBlue)
         )
 
         /*Assign custom colors to your PieDataSet*/
@@ -78,12 +87,15 @@ class FragmentCalendar : Fragment() {
         pieData.setValueTextSize(16f)
         pieData.setValueTextColor(Color.BLACK)
         pieChart.data = pieData
-        pieChart.holeRadius = 75f
-        pieChart.setHoleColor(ContextCompat.getColor(requireContext(), R.color.turboBeige))
-        pieChart.transparentCircleRadius = 80f
+        pieChart.holeRadius = 60f
+        pieChart.setHoleColor(ContextCompat.getColor(requireContext(), R.color.transparent));
+        pieChart.transparentCircleRadius = 60f
         pieChart.setUsePercentValues(true)
         pieChart.animateY(1000)
         pieChart.animateX(1000)
+        pieChart.centerText = totalHour30Days.toString() + " TOTAL HOURS"
+        pieChart.setCenterTextSize(25f)
+        pieChart.setCenterTextColor(R.color.turboBlue)
         pieChart.description.isEnabled = false
         pieChart.legend.isEnabled = false
         pieChart.invalidate() // refresh
@@ -111,6 +123,7 @@ class FragmentCalendar : Fragment() {
         val formattedThirtyDaysAgo = format.format(thirtyDaysAgo)
 
         val taskCollection = SessionsListHelper.filterByDateRange(UserHelper.TaskList, formattedThirtyDaysAgo, formattedCurrentDate)
+        totalHour30Days = getTotalDuration(taskCollection) / 60
         val amountOfTasks = taskCollection.count()
         val missingTasks = 30-amountOfTasks
         daysBelowMinGoal = missingTasks

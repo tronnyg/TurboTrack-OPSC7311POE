@@ -18,7 +18,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.yugen.opsc7311_poe.helpers.UserHelper
@@ -107,7 +106,7 @@ class FragmentTimer : Fragment() {
         lateinit var alertDialog: AlertDialog
 
         selectTask.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+            val dialogView = layoutInflater.inflate(R.layout.dialog_timer, null)
             val statusDropdown = dialogView.findViewById<AutoCompleteTextView>(R.id.selectTask)
             val selectTaskButton = dialogView.findViewById<Button>(R.id.button_selectTask)
 
