@@ -29,6 +29,8 @@ class FragmentProfilePage : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var accLevel: TextView
+    private lateinit var accName: TextView
+    private lateinit var xpToNxtLvl: TextView
     private lateinit var progressBarLvl: ProgressBar
     private lateinit var bronzeMedalCnt: TextView
     private lateinit var silverMedalCnt: TextView
@@ -52,6 +54,8 @@ class FragmentProfilePage : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile_page, container, false)
 
         accLevel = view.findViewById(R.id.accLevel)
+        accName = view.findViewById(R.id.accName)
+        xpToNxtLvl = view.findViewById(R.id.xpToNxtLvl)
         progressBarLvl = view.findViewById(R.id.progressBarLvl)
         bronzeMedalCnt = view.findViewById(R.id.bronzeMedalCnt)
         silverMedalCnt = view.findViewById(R.id.silverMedalCnt)
@@ -70,31 +74,38 @@ class FragmentProfilePage : Fragment() {
 
     private fun updateProfile() {
         val userID = UserHelper.loggedInUser.userID
-        lateinit var monthlyXPList: List<Int>
-        runBlocking(Dispatchers.IO){
-            monthlyXPList = dbHelper.calculateMonthlyXPAndUpdateMedals(userID)
+        accName.text = UserHelper.loggedInUser.name
+        lateinit var monthlyXPAndTotalXP: Pair<List<Double>, Double>
+        runBlocking(Dispatchers.IO) {
+            monthlyXPAndTotalXP = dbHelper.calculateMonthlyXPAndUpdateMedals(userID)
         }
-        val totalXP = monthlyXPList.sum()
+        val totalXP = monthlyXPAndTotalXP.second
         Log.d("Total XP", totalXP.toString())
-        val level = totalXP / 1000
-        val xpToNextLevel = 1000 - (totalXP % 1000)
+        val level = totalXP / 1000.0
+        val xpToNextLevel = 1000.0 - (totalXP % 1000.0)
 
-        accLevel.text = "Level $level"
+        accLevel.text = "Level ${level.toInt()}"
+        xpToNxtLvl.text = "${xpToNextLevel.toInt()} XP to next level"
         progressBarLvl.max = 1000
-        progressBarLvl.progress = totalXP % 1000
+        progressBarLvl.progress = (totalXP % 1000.0).toInt()
 
-        var medals: Medals?
-        runBlocking(Dispatchers.IO){
-            medals = dbHelper.getMedalsCollection(userID)
-        }
-        medals?.let {
-            bronzeMedalCnt.text = it.bronzeCnt.toString()
-            silverMedalCnt.text = it.silverCnt.toString()
-            goldMedalCnt.text = it.goldCnt.toString()
-            purpleMedalCnt.text = it.purpleCnt.toString()
-            rubyMedalCnt.text = it.rubyCnt.toString()
-        }
+        val medals = monthlyXPAndTotalXP.first.map { xp ->
+            when {
+                xp >= 5000 -> "ruby"
+                xp >= 4000 -> "purple"
+                xp >= 3000 -> "gold"
+                xp >= 2000 -> "silver"
+                else -> "bronze"
+            }
+        }.groupingBy { it }.eachCount()
+
+        bronzeMedalCnt.text = (medals["bronze"] ?: 0).toString()
+        silverMedalCnt.text = (medals["silver"] ?: 0).toString()
+        goldMedalCnt.text = (medals["gold"] ?: 0).toString()
+        purpleMedalCnt.text = (medals["purple"] ?: 0).toString()
+        rubyMedalCnt.text = (medals["ruby"] ?: 0).toString()
     }
+
 
     companion object {
         /**
