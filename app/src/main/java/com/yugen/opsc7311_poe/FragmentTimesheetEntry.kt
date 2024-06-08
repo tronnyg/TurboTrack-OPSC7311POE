@@ -89,11 +89,11 @@ class FragmentTimesheetEntry : Fragment() {
 
         val arrayAdapterCategory = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categoryNames)
         val arrayAdapterStatus = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, taskStatus)
-        view.findViewById<AutoCompleteTextView>(R.id.selectCategory).setAdapter(arrayAdapterCategory)
+        view.findViewById<AutoCompleteTextView>(R.id.selectCategoryDropdown).setAdapter(arrayAdapterCategory)
         view.findViewById<TextView>(R.id.btn_start_time).visibility = View.GONE
         view.findViewById<TextView>(R.id.btn_end_time).visibility = View.GONE
         view.findViewById<TextView>(R.id.lbl_time).visibility = View.GONE
-        val statusDropdown = view.findViewById<AutoCompleteTextView>(R.id.selectStatus)
+        val statusDropdown = view.findViewById<AutoCompleteTextView>(R.id.selectStatusDropdown)
         statusDropdown.setAdapter(arrayAdapterStatus)
 
         // Find the button by its ID
@@ -138,7 +138,7 @@ class FragmentTimesheetEntry : Fragment() {
 
             taskName = (view.findViewById<EditText>(R.id.input_task_name).text.toString())
             taskDesc = (view.findViewById<EditText>(R.id.input_description).text.toString())
-            category = (view.findViewById<EditText>(R.id.selectCategory).text.toString())
+            category = (view.findViewById<EditText>(R.id.selectCategoryDropdown).text.toString())
             dateString = (view.findViewById<TextView>(R.id.btn_select_date).text.toString())
 
             val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -181,7 +181,6 @@ class FragmentTimesheetEntry : Fragment() {
             val timesheetFragment = FragmentTimesheet.newInstance("a","a")
             fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, timesheetFragment)?.commit()
         }
-
         return view
     }
 
@@ -208,9 +207,7 @@ class FragmentTimesheetEntry : Fragment() {
             minute,
             true
         )
-
         timePickerDialog.show()
-
     }
 
     private fun showDatePicker(button: TextView) {
@@ -236,8 +233,6 @@ class FragmentTimesheetEntry : Fragment() {
 
         datePickerDialog.show()
     }
-
-
 
     companion object {
         /**

@@ -8,9 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.objects.Task
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 /**
@@ -45,9 +51,18 @@ class FragmentTimesheetDetails : Fragment() {
         view.findViewById<TextView>(R.id.entry_date_time).text = "Added ${task!!.date} - ${task!!.startTime} to ${task!!.endTime}"
         view.findViewById<TextView>(R.id.category_type).text = task!!.category
         view.findViewById<TextView>(R.id.description).text = task!!.taskDesc
+        val taskCompleted = view.findViewById<CheckBox>(R.id.taskCompletedCheckBox)
+        taskCompleted.isChecked = task!!.completed
+
         if(task!!.bitmapUrl != "none")
-        {
-            view.findViewById<ImageView>(R.id.attachment).setImageBitmap(base64ToBitmap(task!!.bitmapUrl!!))
+        { view.findViewById<ImageView>(R.id.attachment).setImageBitmap(base64ToBitmap(task!!.bitmapUrl!!)) }
+
+        taskCompleted.setOnCheckedChangeListener { _, isChecked ->
+            val index = UserHelper.TaskList.indexOfFirst { it.taskName == task!!.taskName }
+            UserHelper.TaskList[index] = task!!.copy(completed = isChecked)
+            CoroutineScope(Dispatchers.IO).launch {
+                DBHelper.updatePersonTask(UserHelper.TaskList, UserHelper.loggedInUser)
+            }
         }
         return view
     }

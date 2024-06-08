@@ -33,6 +33,7 @@ class FragmentCalendar : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var pieChart: PieChart
+    private var totalHour30Days: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,34 +43,43 @@ class FragmentCalendar : Fragment() {
         }
     }
 
+    private fun getTotalDuration(taskCollection: List<Task>): Int {
+        var totalDuration = 0
+        for (task in taskCollection) {
+            totalDuration += task.duration
+        }
+        return totalDuration
+    }
+
     override  fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        /*Inflate the layout for this fragment*/
         val view = inflater.inflate(R.layout.fragment_calendar, container, false)
 
-        // Initialize the PieChart
+        /*Initialize the PieChart*/
         pieChart = view.findViewById(R.id.chart)
 
-        // Fetch data for the past 30 days and calculate counts
+        /*Fetch data for the past 30 days and calculate counts*/
         val (daysAboveMaxGoal, daysBelowMinGoal, daysBetweenMinMaxGoals) = fetchDataForPast30Days()
 
-        // Create pie chart entries
+        /*Create pie chart entries*/
         val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(daysAboveMaxGoal.toFloat(), ""))
         entries.add(PieEntry(daysBelowMinGoal.toFloat(), ""))
         entries.add(PieEntry(daysBetweenMinMaxGoals.toFloat(), ""))
 
         val pieDataSet = PieDataSet(entries, "")
-        // Define your custom colors
+        /*Define your custom colors*/
         val customColors = intArrayOf(
-            ContextCompat.getColor(requireContext(), R.color.turboDarkGreen),
+            ContextCompat.getColor(requireContext(), R.color.turboYellow),
             ContextCompat.getColor(requireContext(), R.color.turboDarkRed),
-            ContextCompat.getColor(requireContext(), R.color.turboDarkBlue)
+            ContextCompat.getColor(requireContext(), R.color.turboBlue)
         )
 
-        // Assign custom colors to your PieDataSet
+        /*Assign custom colors to your PieDataSet*/
         pieDataSet.colors = customColors.toList()
 
         val pieData = PieData(pieDataSet)
@@ -77,12 +87,15 @@ class FragmentCalendar : Fragment() {
         pieData.setValueTextSize(16f)
         pieData.setValueTextColor(Color.BLACK)
         pieChart.data = pieData
-        pieChart.holeRadius = 75f
-        pieChart.setHoleColor(ContextCompat.getColor(requireContext(), R.color.turboBeige))
-        pieChart.transparentCircleRadius = 80f
+        pieChart.holeRadius = 60f
+        pieChart.setHoleColor(ContextCompat.getColor(requireContext(), R.color.transparent));
+        pieChart.transparentCircleRadius = 60f
         pieChart.setUsePercentValues(true)
         pieChart.animateY(1000)
         pieChart.animateX(1000)
+        pieChart.centerText = totalHour30Days.toString() + " TOTAL HOURS"
+        pieChart.setCenterTextSize(25f)
+        pieChart.setCenterTextColor(R.color.turboBlue)
         pieChart.description.isEnabled = false
         pieChart.legend.isEnabled = false
         pieChart.invalidate() // refresh
@@ -90,6 +103,7 @@ class FragmentCalendar : Fragment() {
         return view
     }
 
+    /*Fetch Task Date for Last 30 Days*/
     private fun fetchDataForPast30Days(): Triple<Int, Int, Int> {
         // Fetch the task collection for the past 30 days
         runBlocking(Dispatchers.IO){
@@ -109,6 +123,7 @@ class FragmentCalendar : Fragment() {
         val formattedThirtyDaysAgo = format.format(thirtyDaysAgo)
 
         val taskCollection = SessionsListHelper.filterByDateRange(UserHelper.TaskList, formattedThirtyDaysAgo, formattedCurrentDate)
+        totalHour30Days = getTotalDuration(taskCollection) / 60
         val amountOfTasks = taskCollection.count()
         val missingTasks = 30-amountOfTasks
         daysBelowMinGoal = missingTasks
@@ -127,8 +142,6 @@ class FragmentCalendar : Fragment() {
 
         return Triple(daysAboveMaxGoal, daysBelowMinGoal, daysBetweenMinMaxGoals)
     }
-
-
 
     companion object {
         @JvmStatic

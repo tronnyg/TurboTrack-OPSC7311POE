@@ -1,5 +1,6 @@
 package com.yugen.opsc7311_poe
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.yugen.opsc7311_poe.helpers.SessionAdapter
 import com.yugen.opsc7311_poe.helpers.SessionsListHelper
@@ -33,6 +35,9 @@ class FragmentTimesheet : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var btnStartDate: Button
+    private lateinit var btnEndDate: Button
+    lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,16 +65,14 @@ class FragmentTimesheet : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_timesheet, container, false)
-
-        val btnStartDate = view.findViewById<Button>(R.id.btn_Start_Date)
-        val btnEndDate = view.findViewById<Button>(R.id.btn_End_Date)
-        val btnAddEntry = view.findViewById<TextView>(R.id.txt_Plus)
+        val btnAddEntry = view.findViewById<TextView>(R.id.btn_add_new)
         val btnFilterByDate = view.findViewById<Button>(R.id.btn_filter_by_date)
         val listView = view.findViewById<ListView>(R.id.timesheet_list)
 
         runBlocking(Dispatchers.IO){
             UserHelper.TaskList = DBHelper.getTaskCollection()
         }
+
         val adapter = SessionAdapter(requireContext(), UserHelper.TaskList)
         listView.adapter = adapter
 
@@ -84,23 +87,51 @@ class FragmentTimesheet : Fragment() {
             fragmentManager?.beginTransaction()?.replace(R.id.frame_layout, detailsFragment)?.commit()
         }
 
-        btnStartDate.setOnClickListener{
+   /*     btnStartDate.setOnClickListener{
             showDatePicker(btnStartDate)
         }
         btnEndDate.setOnClickListener{
             showDatePicker(btnEndDate)
-        }
+        }*/
 
         btnAddEntry.setOnClickListener{
            replaceFragment(FragmentTimesheetEntry())
         }
 
         btnFilterByDate.setOnClickListener{
-            val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.TaskList,btnStartDate.text.toString(),btnEndDate.text.toString())
-            listView.adapter = SessionAdapter(requireContext(), filteredSessionList )
+
+            val dialogView = layoutInflater.inflate(R.layout.dialog_filter, null)
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .setCancelable(true)
+            alertDialog = dialogBuilder.create()
+            alertDialog.setCanceledOnTouchOutside(true)
+            alertDialog.show()
+            alertDialog.setOnCancelListener {
+                // Handle the state reset or return to timer page
+                Log.d("Dialog", "Dialog canceled")
+            }
+
+            btnStartDate = dialogView.findViewById(R.id.categories_start_date)
+            btnEndDate = dialogView.findViewById(R.id.categories_end_date)
+            val btnFilter = dialogView.findViewById<Button>(R.id.btn_submit_date)
+            btnStartDate.setOnClickListener { showDatePicker(btnStartDate) }
+            btnEndDate.setOnClickListener { showDatePicker(btnEndDate) }
+
+            btnFilter.setOnClickListener {
+                val startDate = btnStartDate.text.toString()
+                val endDate = btnEndDate.text.toString()
+                if (startDate.isEmpty() || endDate.isEmpty()) {
+                    val toastMessage = "Please enter both start and end date."
+                    Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                } else {
+                    val filteredSessionList = SessionsListHelper.filterByDateRange( UserHelper.TaskList,btnStartDate.text.toString(),btnEndDate.text.toString())
+                    listView.adapter = SessionAdapter(requireContext(), filteredSessionList )
+                    alertDialog.dismiss()
+                }
+            }
         }
-
-
         return view
     }
 
@@ -119,7 +150,6 @@ class FragmentTimesheet : Fragment() {
             month,
             day
         )
-
         datePickerDialog.show()
     }
 

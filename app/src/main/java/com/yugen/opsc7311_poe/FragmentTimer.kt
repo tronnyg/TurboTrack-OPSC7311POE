@@ -18,7 +18,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.yugen.opsc7311_poe.helpers.UserHelper
@@ -69,9 +68,11 @@ class FragmentTimer : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_timer, container, false)
         initializeUIComponents(view)
         loadPreferences()
+
         runBlocking(Dispatchers.IO){
             UserHelper.TaskList = DBHelper.getTaskCollection()
         }
@@ -80,18 +81,23 @@ class FragmentTimer : Fragment() {
         timeLeftInMillis = (focusTime * 60 * 1000L)
 
         playButton.setOnClickListener {
-            if (isTimerRunning) {
-                pauseTimer()
-                playButtonImage.setImageResource(R.drawable.play_icon)
-            } else {
-                if (timer == null) {
-                    startTimer(timeLeftInMillis)
+            if (::selectedTask.isInitialized) {
+                if (isTimerRunning) {
+                    pauseTimer()
+                    playButtonImage.setImageResource(R.drawable.play_icon)
                 } else {
-                    resumeTimer()
+                    if (timer == null) {
+                        startTimer(timeLeftInMillis)
+                    } else {
+                        resumeTimer()
+                    }
+                    playButtonImage.setImageResource(R.drawable.pause_icon)
                 }
-                playButtonImage.setImageResource(R.drawable.pause_icon)
+            } else {
+                Toast.makeText(context, "Please select a task before starting the timer", Toast.LENGTH_SHORT).show()
             }
         }
+
         val filteredTasks = UserHelper.TaskList.filter { it.completed == false}
         val Tasks  = filteredTasks.map { it.taskName }.toTypedArray()
         val arrayAdapterStatus = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, Tasks)
@@ -100,7 +106,7 @@ class FragmentTimer : Fragment() {
         lateinit var alertDialog: AlertDialog
 
         selectTask.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+            val dialogView = layoutInflater.inflate(R.layout.dialog_timer, null)
             val statusDropdown = dialogView.findViewById<AutoCompleteTextView>(R.id.selectTask)
             val selectTaskButton = dialogView.findViewById<Button>(R.id.button_selectTask)
 
@@ -127,6 +133,7 @@ class FragmentTimer : Fragment() {
                 if (task != null) {
                     selectedTask = task
                     Log.d("Selected Task", selectedTask.taskName)
+                    selectTask.text = selectedTask.taskName
                     alertDialog.dismiss()
                 } else {
                     Toast.makeText(context, "Please select a valid task", Toast.LENGTH_SHORT).show()
@@ -227,6 +234,11 @@ class FragmentTimer : Fragment() {
         focusTime = initialFocusTime
         cycleCount = 0
         playButtonImage.setImageResource(R.drawable.play_icon)
+        val selectTaskButton = view?.findViewById<Button>(R.id.select_button)
+        selectTaskButton?.text = "Select Task"
+        if (::selectedTask.isInitialized) {
+            selectedTask = Task() // Reset the selectedTask variable
+        }
     }
 
     private fun startNextTimer(state: TimerState, time: Int) {
@@ -281,8 +293,12 @@ class FragmentTimer : Fragment() {
     }
 
     private fun skipTimer() {
-        pauseTimer()
-        onTimerFinish()
+        if (::selectedTask.isInitialized) {
+            pauseTimer()
+            onTimerFinish()
+        } else {
+            Toast.makeText(context, "Please select a task before skipping the timer", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateTimerStatus(resourceId: Int) {

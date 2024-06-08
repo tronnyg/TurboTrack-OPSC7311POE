@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageView
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.yugen.opsc7311_poe.databinding.MainPageBinding
@@ -21,11 +20,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(HomePageFragment())
+        replaceFragment(FragmentHomePage())
         binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){
-                R.id.home -> replaceFragment(HomePageFragment())
+                R.id.home -> replaceFragment(FragmentHomePage())
                 R.id.calendar -> replaceFragment(FragmentCalendar())
                 R.id.sessions -> replaceFragment(FragmentTimesheet())
                 R.id.timer -> replaceFragment(FragmentTimer())

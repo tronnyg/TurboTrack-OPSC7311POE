@@ -8,8 +8,6 @@ data class User(
     var email: String,
     var experienceLevel: String,
     val profilePicture: String
-    // CATEGORY COLLECTION
-    // TASKS COLLECTION
 
 )
 {   constructor() : this(
