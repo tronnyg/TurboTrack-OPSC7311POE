@@ -1,55 +1,54 @@
 package com.yugen.opsc7311_poe
 
 import android.os.Bundle
+import android.renderscript.ScriptGroup
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.yugen.opsc7311_poe.helpers.UserHelper
 import com.yugen.opsc7311_poe.helpers.openIntent
 import com.yugen.opsc7311_poe.databinding.CreateAccountPageBinding
+import com.yugen.opsc7311_poe.helpers.DBHelper
 import com.yugen.opsc7311_poe.helpers.ValidationUtils
+import com.yugen.opsc7311_poe.objects.Medals
+import com.yugen.opsc7311_poe.objects.User
 
 class CreateAccountActivity : AppCompatActivity() {
+    lateinit var binding: CreateAccountPageBinding
+    val DBHelper = DBHelper()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = CreateAccountPageBinding.inflate(layoutInflater)
+        binding = CreateAccountPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /*Button Create Account*/
         binding.textCreateAccount.setOnClickListener{
             openIntent(this,LoginPageActivity::class.java)
         }
 
+        /*Button Sign Up*/
         binding.buttonSignup.setOnClickListener {
+            /*Get Inputs from EditText*/
             val inputEmail =  binding.inputEmail.text.toString()
             val inputPassword = binding.inputPassword.text.toString()
             val inputConfirmPassword = binding.inputConfirmpassword.text.toString()
+            val inputFirstName = binding.inputFirstName.text.toString()
+            val inputLastName = binding.inputLastName.text.toString()
 
-            if (inputEmail.isEmpty()){
-                binding.inputEmail.setBackgroundResource(R.drawable.error_input_box_vector);
-            }
-            else
-            {
-                binding.inputEmail.setBackgroundResource(R.drawable.input_box_vector)
-            }
-
-            if (inputPassword.isEmpty()){
-                binding.inputPassword.setBackgroundResource(R.drawable.error_input_box_vector);
-            }
-            else
-            {
-                binding.inputPassword.setBackgroundResource(R.drawable.input_box_vector)
-            }
-            if (inputConfirmPassword.isEmpty())
-            {
-                binding.inputConfirmpassword.setBackgroundResource(R.drawable.error_input_box_vector);
-            }
-            else
-            {
-                binding.inputConfirmpassword.setBackgroundResource(R.drawable.input_box_vector);
-            }
-
+            /*Validate Empty Inputs & Sets Background*/
+            validateAndSetBackground(inputEmail, binding.inputEmail);
+            validateAndSetBackground(inputPassword, binding.inputPassword);
+            validateAndSetBackground(inputConfirmPassword, binding.inputConfirmpassword);
+            validateAndSetBackground(inputConfirmPassword, binding.inputFirstName);
+            validateAndSetBackground(inputConfirmPassword, binding.inputLastName);
 
             if(ValidationUtils.isValidEmail(inputEmail) && ValidationUtils.isValidPassword(inputPassword) && inputPassword == inputConfirmPassword)
             {
-                // add new user to firebase - will be done in part 3
+                /*Adds New User to Database*/
+                val newUser = User("",inputFirstName,inputLastName,inputPassword,inputEmail,"","")
+                val defaultMedals = Medals(0,0,0,0,0)
+                DBHelper.createNewUser(newUser,defaultMedals)
+                /*Opens Login Page*/
                 openIntent(this, LoginPageActivity::class.java)
             }
             else if (!ValidationUtils.isValidPassword(inputPassword))
@@ -69,6 +68,12 @@ class CreateAccountActivity : AppCompatActivity() {
                 binding.inputConfirmpassword.setBackgroundResource(R.drawable.error_input_box_vector);
                 Toast.makeText(this, "Passwords Don't Match, Please Try Again.", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun validateAndSetBackground(input: String, view: View){
+        if (input.isEmpty()){
+            view.setBackgroundResource(R.drawable.error_input_box_vector);
         }
     }
 }

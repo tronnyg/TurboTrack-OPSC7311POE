@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".FragmentTimerSettings">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="200dp">
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Timer"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- Focus length -->
+    <TextView
+        android:id="@+id/focus_length_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus length"
+        android:textSize="20sp"
+        android:layout_below="@id/title"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"/>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/title"
+        android:layout_marginTop="30sp"
+        android:orientation="horizontal"
+        android:background="@drawable/number_picker_background">
+        <Button
+            android:id="@+id/FocusButtonDecrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <TextView
+            android:id="@+id/FocusNumberDisplay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="25"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <Button
+            android:id="@+id/FocusButtonIncrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pomodoros_until_long_break_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Long Break Interval"
+        android:layout_below="@id/focus_length_label"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"/>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="178dp"
+        android:orientation="horizontal"
+        android:background="@drawable/number_picker_background">
+        <Button
+            android:id="@+id/PomoButtonDecrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <TextView
+            android:id="@+id/PomoNumberDisplay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <Button
+            android:id="@+id/PomoButtonIncrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+    </LinearLayout>
+
+    <!-- Short break length -->
+    <TextView
+        android:id="@+id/short_break_length_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Short break length"
+        android:textSize="20sp"
+        android:layout_below="@id/pomodoros_until_long_break_label"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"/>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="262dp"
+        android:orientation="horizontal"
+        android:background="@drawable/number_picker_background">
+        <Button
+            android:id="@+id/ShortBreakButtonDecrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <TextView
+            android:id="@+id/ShortBreakNumberDisplay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <Button
+            android:id="@+id/ShortBreakButtonIncrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+    </LinearLayout>
+
+    <!-- Long break length -->
+    <TextView
+        android:id="@+id/long_break_length_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Long break length"
+        android:textSize="20sp"
+        android:layout_below="@id/short_break_length_label"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"/>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="354dp"
+        android:orientation="horizontal"
+        android:background="@drawable/number_picker_background">
+        <Button
+            android:id="@+id/LongBreakButtonDecrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <TextView
+            android:id="@+id/LongBreakNumberDisplay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="15"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <Button
+            android:id="@+id/LongBreakButtonIncrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pomo_cycle_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of Cycles"
+        android:textSize="20sp"
+        android:layout_below="@id/long_break_length_label"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"/>
+
+    <LinearLayout
+        android:id="@+id/PomoCycle"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="440dp"
+        android:orientation="horizontal"
+        android:background="@drawable/number_picker_background">
+        <Button
+            android:id="@+id/PomoCycleButtonDecrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <TextView
+            android:id="@+id/PomoCycleNumberDisplay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+        <Button
+            android:id="@+id/PomoCycleButtonIncrease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="18sp"
+            android:textColor="@color/turboBlue"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:padding="0dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/turboBlue"
+        android:layout_below="@id/PomoCycle"
+        android:layout_marginTop="10dp"/>
+
+
+    <!-- Auto resume timer -->
+    <TextView
+        android:id="@+id/auto_resume_timer_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Auto resume timer"
+        android:textSize="20sp"
+        android:layout_below="@id/pomo_cycle_label"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/auto_resume_timer_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/auto_resume_timer_label"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            tools:checked="true" />
+
+    <!-- Sound -->
+    <TextView
+        android:id="@+id/sound_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sound"
+        android:textSize="20sp"
+        android:layout_below="@id/auto_resume_timer_label"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/sound_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/sound_label"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"/>
+
+
+
+    <Button
+        android:id="@+id/save_settings_button"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:textSize="18sp"
+        android:text="Save Settings"
+        android:background="@drawable/turbo_button_vector"
+        android:layout_below="@id/sound_switch"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+    </RelativeLayout>
+</ScrollView>

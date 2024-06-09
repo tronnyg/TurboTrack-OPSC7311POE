@@ -7,8 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="turboBlue">#007FFF</color>
+    <color name="turboBlue">#007EFD</color>
     <color name="turboWhite">#FFF2F2</color>
     <color name="turboGrey">#494949</color>
     <color name="turboBeige">#FFFADF</color>
+    <color name="focusColor">#4B2B21</color>
+    <color name="longBreakColor">#153047</color>
+    <color name="shortBreakColor">#14401D</color>
+    <color name="turboLightBlue">#E4F3FF</color>
+    <color name="turboDarkRed">#FD0100</color>
+    <color name="turboDarkBlue">#007BFF</color>
+    <color name="turboYellow">#FDD500</color>
+    <color name="turboDarkGreen">#28A745</color>
+    <color name="transparent">#00000000</color>
 </resources>

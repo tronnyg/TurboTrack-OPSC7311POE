@@ -42,3 +42,4 @@ fun openPopupMenu(activity: FragmentActivity) {
 // Constants for request codes
 const val GALLERY_REQUEST_CODE = 100
 const val CAMERA_REQUEST_CODE = 101
+/*==========================END OF FILE====================================================================================================================================================*/

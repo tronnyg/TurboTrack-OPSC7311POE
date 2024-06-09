@@ -13,7 +13,7 @@
         android:theme="@style/Theme.TurboTrack"
         tools:targetApi="31">
         <activity
-            android:name=".HomePageFragment"
+            android:name=".FragmentHomePage"
             android:exported="true"
             android:theme="@style/Theme.TurboTrack" />
         <activity

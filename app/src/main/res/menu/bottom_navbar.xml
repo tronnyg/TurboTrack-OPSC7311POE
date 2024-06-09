@@ -4,9 +4,9 @@
     <item android:title="Home"
         android:id="@+id/home"
         android:icon="@drawable/home_icon"/>
-    <item android:title="Calendar"
+    <item android:title="Summary"
         android:id="@+id/calendar"
-        android:icon="@drawable/calendar_icon"/>
+        android:icon="@drawable/piechart_icon"/>
     <item android:title="Timer"
         android:id="@+id/timer"
         android:icon="@drawable/timer_icon" />
