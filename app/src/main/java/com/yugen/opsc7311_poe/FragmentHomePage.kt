@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import com.yugen.opsc7311_poe.helpers.UserHelper
 import android.widget.Toast
@@ -64,11 +65,12 @@ class FragmentHomePage : Fragment() {
 
         // Initialize Views
         btnUpdateHours = view.findViewById(R.id.btn_update_hours)
-        /*btnMinHours = view.findViewById(R.id.btn_min_hours)
-        btnMaxHours = view.findViewById(R.id.btn_max_hours)
 
-        btnMinHours.hint = "Min Hours: " + UserHelper.minHours.toString()
-        btnMaxHours.hint = "Max Hours: " + UserHelper.maxHours.toString()*/
+        val btnProfilePage = view.findViewById<ImageView>(R.id.profile_picture)
+
+        btnProfilePage.setOnClickListener {
+            replaceFragment(FragmentProfilePage())
+        }
 
         // Set OnClickListener for the button
         btnUpdateHours.setOnClickListener {
@@ -113,6 +115,14 @@ class FragmentHomePage : Fragment() {
             }
         }
 
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frame_layout, fragment)
+            addToBackStack(null)
+            commit()
+        }
     }
 
     companion object {
